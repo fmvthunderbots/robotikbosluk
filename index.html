@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robotik Ders Programı</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 20px; background-color: #f4f6f9; color: #333; }
+        .container { max-width: 900px; margin: auto; background: #fff; padding: 25px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        
+        /* Tema Rengi: Lacivert (#1a365d) */
+        h2 { border-bottom: 3px solid #1a365d; padding-bottom: 10px; margin-top: 0; color: #0f172a; }
+        
+        /* Adım Başlıkları */
+        .step-title { font-weight: bold; margin: 20px 0 10px 0; font-size: 1.1em; color: #444; border-left: 4px solid #1a365d; padding-left: 10px; }
+        
+        /* Tıklanabilir Seçenekler (Tikleme) */
+        .grid-selector { display: flex; flex-wrap: wrap; gap: 10px; }
+        .tick-box { flex: 1 1 auto; min-width: 120px; text-align: center; padding: 12px; border: 2px solid #ddd; border-radius: 8px; cursor: pointer; font-size: 16px; font-weight: 600; background-color: #fff; transition: all 0.2s ease; user-select: none; }
+        .tick-box:hover { border-color: #1a365d; background-color: #f8f9fa; }
+        .tick-box.active { background-color: #1a365d; color: #fff; border-color: #1a365d; transform: scale(1.02); box-shadow: 0 4px 8px rgba(26,54,93,0.2); }
+        
+        /* Ders Seçenekleri */
+        .period-box { flex: 1 1 calc(33% - 10px); min-width: 150px; text-align: center; padding: 15px; border: 2px solid #ddd; border-radius: 8px; cursor: pointer; font-size: 16px; font-weight: bold; color: #333; background-color: #fff; transition: all 0.2s; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; }
+        .period-box:hover { transform: translateY(-2px); border-color: #1a365d; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .period-box.active { background-color: #1a365d; color: #fff; border-width: 2px; border-color: #1a365d; transform: scale(1.02); box-shadow: 0 4px 8px rgba(26,54,93,0.15); }
+        
+        #periodSection { display: none; margin-top: 25px; padding-top: 20px; border-top: 1px dashed #ccc; }
+        
+        .results-container { margin-top: 30px; display: none; background: #f8f9fa; padding: 20px; border-radius: 10px; border: 1px solid #dee2e6; }
+        .student-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; margin-top: 20px; }
+        
+        /* Kart Tasarımları */
+        .student-card { background: #fff; border-top: 4px solid #1a365d; padding: 18px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); transition: transform 0.2s; position: relative; }
+        .student-card:hover { transform: translateY(-5px); }
+        
+        /* Yan Ders (Çağrılabilir) Kart Tasarımı - Sadece Yeşil */
+        .student-card.available { border-top: 4px solid #28a745; background-color: #f4fff8; }
+        
+        .student-name { font-weight: bold; color: #2c3e50; display: block; font-size: 1.15em; margin-bottom: 5px; }
+        .class-badge { background: #e9ecef; padding: 4px 10px; border-radius: 20px; font-size: 0.85em; color: #495057; font-weight: bold; border: 1px solid #ced4da; }
+        .lesson-info { margin-top: 12px; font-size: 0.95em; line-height: 1.5; }
+        .lesson-label { color: #6c757d; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.5px; }
+        .lesson-name { display: block; font-weight: bold; color: #d9534f; margin-bottom: 4px; }
+        .teacher-name { display: block; color: #555; font-style: italic; }
+        
+        .special-note { font-size: 0.85em; color: #856404; background: #fff3cd; padding: 3px 8px; border-radius: 4px; font-weight: normal; }
+        .period-box.active .special-note { color: #fff; background: rgba(255,255,255,0.2); }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>⚡ Robotik Ders Programı</h2>
+
+    <div class="step-title">1. Adım: Bir Gün Seç</div>
+    <div class="grid-selector" id="dayContainer">
+        <div class="tick-box" onclick="selectDay('Pazartesi', this)">Pazartesi</div>
+        <div class="tick-box" onclick="selectDay('Salı', this)">Salı</div>
+        <div class="tick-box" onclick="selectDay('Çarşamba', this)">Çarşamba</div>
+        <div class="tick-box" onclick="selectDay('Perşembe', this)">Perşembe</div>
+        <div class="tick-box" onclick="selectDay('Cuma', this)">Cuma</div>
+    </div>
+
+    <div id="periodSection">
+        <div class="step-title" id="periodTitle">2. Adım: Bir Ders Seç</div>
+        <div class="grid-selector" id="periodContainer">
+            </div>
+    </div>
+
+    <div id="resultsArea" class="results-container">
+        <h3 style="margin: 0 0 15px 0; font-size: 1.2em; color: #333;">📍 THUNDER⚡BOTS Öğrencileri Şu An Nerede?</h3>
+        <div id="studentCards" class="student-grid"></div>
+    </div>
+</div>
+
+<script>
+    // 1. ROBOTİK ODASININ BOŞ OLDUĞU SAATLER
+    const robotikBosSaatler = [
+        { id: "Pazartesi-1", gun: "Pazartesi", ders: 1 },
+        { id: "Pazartesi-2", gun: "Pazartesi", ders: 2 },
+        { id: "Pazartesi-7", gun: "Pazartesi", ders: 7 },
+        
+        { id: "Salı-2", gun: "Salı", ders: 2 },
+        
+        { id: "Çarşamba-1", gun: "Çarşamba", ders: 1 },
+        { id: "Çarşamba-3", gun: "Çarşamba", ders: 3 },
+        
+        { id: "Cuma-5", gun: "Cuma", ders: 5, not: "12.20'ye kadar boş" },
+        { id: "Cuma-6", gun: "Cuma", ders: 6 }
+    ];
+
+    // 2. KULÜP ÖĞRENCİLERİ
+    const ogrenciler = [
+        { isim: "Ayşe Öykü YILDIRIM", sinif: "6B" },
+        { isim: "Can Karan NURTAŞ", sinif: "7A" },
+        { isim: "Batu ŞAHİN", sinif: "6D" },
+        { isim: "Selen IŞIK", sinif: "6E" },
+        { isim: "Mehmet Alp YILDIZ", sinif: "7D" },
+        { isim: "Doğa ÇETİN", sinif: "7B" }
+    ];
+
+    // 3. OKULUN GERÇEK PROGRAM VERİLERİ
+    const sinifProgramlari = {
+        "6B": {
+            "Pazartesi": { "1": { "ders": "BEDEN EĞİTİMİ", "hoca": "CANAN CAN" }, "2": { "ders": "BEDEN EĞİTİMİ", "hoca": "CANAN CAN" }, "3": { "ders": "MATEMATİK", "hoca": "BATIKAN ÖZTUNALI" }, "5": { "ders": "TÜRKÇE", "hoca": "PINAR SOFUOĞLU" }, "7": { "ders": "FEN BİLİMLERİ", "hoca": "ÇAĞRI ÇOKKAN" } },
+            "Salı": { "2": { "ders": "İNGİLİZCE (EF)", "hoca": "ENİS HÜDAVERDİ" }, "3": { "ders": "TÜRKÇE", "hoca": "PINAR SOFUOĞLU" }, "4": { "ders": "TÜRKÇE", "hoca": "PINAR SOFUOĞLU" }, "5": { "ders": "2. YABANCI DİL", "hoca": "BETÜL K. / AYŞE Y. / ESRA P." } },
+            "Çarşamba": { "1": { "ders": "FEN BİLİMLERİ", "hoca": "ÇAĞRI ÇOKKAN" }, "3": { "ders": "TÜRKÇE", "hoca": "PINAR SOFUOĞLU" } },
+            "Perşembe": { "5": { "ders": "2. YABANCI DİL", "hoca": "BETÜL K. / AYŞE Y. / ESRA P." } },
+            "Cuma": { "5": { "ders": "REHBERLİK", "hoca": "ÇAĞRI ÇOKKAN" }, "6": { "ders": "İNGİLİZCE", "hoca": "EVRİM EREN" } }
+        },
+        "6D": {
+            "Pazartesi": { "1": { "ders": "MATEMATİK", "hoca": "DERYA ATICI" }, "2": { "ders": "MATEMATİK", "hoca": "DERYA ATICI" }, "3": { "ders": "İNGİLİZCE", "hoca": "DAMLA ÖĞÜT" }, "5": { "ders": "DİN KÜLTÜRÜ", "hoca": "ALİ ALPEREN KELLECİ" }, "7": { "ders": "FEN BİLİMLERİ", "hoca": "NİLAY MUTLULAR" } },
+            "Salı": { "2": { "ders": "TÜRKÇE", "hoca": "BÜŞRA GÜNAL" }, "3": { "ders": "TÜRKÇE", "hoca": "BÜŞRA GÜNAL" }, "4": { "ders": "İNGİLİZCE", "hoca": "DAMLA ÖĞÜT" }, "5": { "ders": "İNGİLİZCE (EF)", "hoca": "ENİS HÜDAVERDİ" } },
+            "Çarşamba": { "1": { "ders": "FEN BİLİMLERİ", "hoca": "NİLAY MUTLULAR" }, "3": { "ders": "MATEMATİK", "hoca": "DERYA ATICI" } },
+            "Perşembe": { "5": { "ders": "SOSYAL BİLGİLER", "hoca": "EYLEM SARIKAYA" } },
+            "Cuma": { "5": { "ders": "GÖRSEL SANATLAR", "hoca": "SEDEF DEMİR" }, "6": { "ders": "SOSYAL BİLGİLER", "hoca": "EYLEM SARIKAYA" } }
+        },
+        "6E": {
+            "Pazartesi": { "1": { "ders": "SOSYAL BİLGİLER", "hoca": "EYLEM SARIKAYA" }, "2": { "ders": "SOSYAL BİLGİLER", "hoca": "EYLEM SARIKAYA" }, "3": { "ders": "FEN BİLİMLERİ", "hoca": "DUYGU KILIÇ" }, "5": { "ders": "TÜRKÇE", "hoca": "BÜŞRA GÜNAL" }, "7": { "ders": "MATEMATİK", "hoca": "İREM ALTINBAŞAK" } },
+            "Salı": { "2": { "ders": "İNGİLİZCE", "hoca": "DAMLA ÖGÜT" }, "3": { "ders": "FEN BİLİMLERİ", "hoca": "DUYGU KILIÇ" }, "4": { "ders": "FEN BİLİMLERİ", "hoca": "DUYGU KILIÇ" }, "5": { "ders": "TÜRKÇE", "hoca": "BÜŞRA GÜNAL" } },
+            "Çarşamba": { "1": { "ders": "ZEKA OYUNLARI", "hoca": "İREM ALTINBAŞAK" }, "3": { "ders": "KÜLTÜR VE MED.", "hoca": "BÜŞRA GÜNAL" } },
+            "Perşembe": { "5": { "ders": "ZEKA OYUNLARI", "hoca": "İREM ALTINBAŞAK" } },
+            "Cuma": { "5": { "ders": "İNGİLİZCE (EF)", "hoca": "DAMLA ÖGÜT" }, "6": { "ders": "İNGİLİZCE (EF)", "hoca": "ENİS HÜDAVERDİ" } }
+        },
+        "7A": {
+            "Pazartesi": { "1": { "ders": "İNGİLİZCE", "hoca": "DAMLA ÖĞÜT" }, "2": { "ders": "FEN BİLİMLERİ", "hoca": "NİLAY MUTLULAR" }, "3": { "ders": "SOSYAL BİLGİLER", "hoca": "SEVDA İNKAYA" }, "5": { "ders": "İNGİLİZCE (EF)", "hoca": "L. J. VELASQUEZ PEREZ" }, "7": { "ders": "TÜRKÇE", "hoca": "ÖZNUR AYDIN" } },
+            "Salı": { "2": { "ders": "MATEMATİK", "hoca": "PELİN EREN" }, "3": { "ders": "KÜLTÜR VE MED.", "hoca": "ÖZNUR AYDIN" }, "4": { "ders": "FEN BİLİMLERİ", "hoca": "NİLAY MUTLULAR" }, "5": { "ders": "FEN BİLİMLERİ", "hoca": "NİLAY MUTLULAR" } },
+            "Çarşamba": { "1": { "ders": "SOSYAL BİLGİLER", "hoca": "SEVDA İNKAYA" }, "3": { "ders": "TÜRKÇE", "hoca": "ÖZNUR AYDIN" } },
+            "Perşembe": { "5": { "ders": "MÜZİK", "hoca": "NESLİ T. / SAMET B. / ŞAMHAL M." } },
+            "Cuma": { "5": { "ders": "2. YABANCI DİL", "hoca": "BETÜL K. / AYŞE Y. / ESRA P." }, "6": { "ders": "REHBERLİK", "hoca": "NİLAY MUTLULAR" } }
+        },
+        "7B": {
+            "Pazartesi": { "1": { "ders": "SOSYAL BİLGİLER", "hoca": "SEVDA İNKAYA" }, "2": { "ders": "İNGİLİZCE (EF)", "hoca": "L. J. VELASQUEZ PEREZ" }, "3": { "ders": "MATEMATİK", "hoca": "PELİN EREN" }, "5": { "ders": "FEN BİLİMLERİ", "hoca": "NİLAY MUTLULAR" }, "7": { "ders": "MATEMATİK", "hoca": "PELİN EREN" } },
+            "Salı": { "2": { "ders": "TÜRKÇE", "hoca": "ÖZNUR AYDIN" }, "3": { "ders": "İNGİLİZCE", "hoca": "DAMLA ÖĞÜT" }, "4": { "ders": "ZEKA OYUNLARI", "hoca": "PELİN EREN" }, "5": { "ders": "MATEMATİK", "hoca": "PELİN EREN" } },
+            "Çarşamba": { "1": { "ders": "İNGİLİZCE (EF)", "hoca": "L. J. VELASQUEZ PEREZ" }, "3": { "ders": "İNGİLİZCE", "hoca": "DAMLA ÖĞÜT" } },
+            "Perşembe": { "5": { "ders": "FEN BİLİMLERİ", "hoca": "NİLAY MUTLULAR" } },
+            "Cuma": { "5": { "ders": "2. YABANCI DİL", "hoca": "BETÜL K. / AYŞE Y. / ESRA P." }, "6": { "ders": "MATEMATİK", "hoca": "PELİN EREN" } }
+        },
+        "7D": {
+            "Pazartesi": { "1": { "ders": "İNGİLİZCE (EF)", "hoca": "L. J. VELASQUEZ PEREZ" }, "2": { "ders": "İNGİLİZCE", "hoca": "HANDE ERGÜN" }, "3": { "ders": "TÜRKÇE", "hoca": "DUYGU ALTINDAĞ" }, "5": { "ders": "SOSYAL BİLGİLER", "hoca": "EYLEM SARIKAYA" }, "7": { "ders": "TEKNOLOJİ TASARIM", "hoca": "SEDEF DEMİR" } },
+            "Salı": { "2": { "ders": "TÜRKÇE", "hoca": "DUYGU ALTINDAĞ" }, "3": { "ders": "FEN BİLİMLERİ", "hoca": "YAĞMUR C. CANTÜRK" }, "4": { "ders": "FEN BİLİMLERİ", "hoca": "YAĞMUR C. CANTÜRK" }, "5": { "ders": "SOSYAL BİLGİLER", "hoca": "EYLEM SARIKAYA" } },
+            "Çarşamba": { "1": { "ders": "İNGİLİZCE (EF)", "hoca": "HANDE ERGÜN" }, "3": { "ders": "TÜRKÇE", "hoca": "DUYGU ALTINDAĞ" } },
+            "Perşembe": { "5": { "ders": "İNGİLİZCE (EF)", "hoca": "L. J. VELASQUEZ PEREZ" } },
+            "Cuma": { "5": { "ders": "MATEMATİK", "hoca": "İREM ALTINBAŞAK" }, "6": { "ders": "İNGİLİZCE", "hoca": "HANDE ERGÜN" } }
+        }
+    };
+
+    let seciliGun = "";
+    
+    // RAHATÇA ÇAĞRILABİLECEK DERSLER VE HOCALAR LİSTESİ (Anahtar Kelimeler)
+    const cagrilabilirDersler = ["BEDEN", "MÜZİK", "GÖRSEL", "BİLİŞİM", "TEKNOLOJİ", "ZEKA"];
+    const cagrilabilirHocalar = ["ENİS", "PEREZ"]; // Yeni eklenen hocalar!
+
+    // GÜN SEÇME FONKSİYONU
+    function selectDay(gunAdi, element) {
+        seciliGun = gunAdi;
+        
+        let dayBtns = document.getElementById("dayContainer").children;
+        for(let btn of dayBtns) {
+            btn.classList.remove("active");
+        }
+        element.classList.add("active");
+
+        document.getElementById("periodSection").style.display = "block";
+        document.getElementById("periodTitle").innerText = `2. Adım: Bir Ders Seç`;
+        
+        document.getElementById("resultsArea").style.display = "none";
+
+        const periodContainer = document.getElementById("periodContainer");
+        periodContainer.innerHTML = ""; 
+        
+        const gununDersleri = robotikBosSaatler.filter(d => d.gun === gunAdi);
+        
+        if(gununDersleri.length === 0) {
+            periodContainer.innerHTML = "<div style='color:#d9534f; font-weight:bold; padding:10px;'>Bugün robotik odası boş değil.</div>";
+            return;
+        }
+
+        gununDersleri.forEach(zaman => {
+            let btn = document.createElement("div");
+            
+            let ekNot = zaman.not ? `<span class="special-note">${zaman.not}</span>` : "";
+            
+            btn.className = `period-box`;
+            btn.innerHTML = `<span>${zaman.ders}. Ders</span> ${ekNot}`;
+            
+            btn.onclick = function() {
+                showStudents(zaman, this);
+            };
+            
+            periodContainer.appendChild(btn);
+        });
+    }
+
+    // DERS SEÇME VE ÖĞRENCİLERİ GÖSTERME FONKSİYONU
+    function showStudents(zaman, element) {
+        let periodBtns = document.getElementById("periodContainer").children;
+        for(let btn of periodBtns) {
+            btn.classList.remove("active");
+        }
+        element.classList.add("active");
+
+        const resultsArea = document.getElementById("resultsArea");
+        const studentCards = document.getElementById("studentCards");
+
+        studentCards.innerHTML = ""; 
+        ogrenciler.forEach(ogr => {
+            const program = sinifProgramlari[ogr.sinif][zaman.gun];
+            let nerede = program && program[zaman.ders] ? program[zaman.ders] : { ders: "Okulda Değil / Bilinmiyor", hoca: "-" };
+
+            // O anki dersin ve hocanın adını alıp büyük harfe çevir
+            const dersAdi = nerede.ders ? nerede.ders.toUpperCase() : "";
+            const hocaAdi = nerede.hoca ? nerede.hoca.toUpperCase() : "";
+            
+            // Yan derslerden biri mi VEYA hoca Enis/Perez mi diye kontrol et
+            let uygunMu = cagrilabilirDersler.some(yanDers => dersAdi.includes(yanDers)) || 
+                          cagrilabilirHocalar.some(hoca => hocaAdi.includes(hoca));
+
+            // Rozet yok, sadece eğer uygunsa kart yeşil tasarıma sahip olacak
+            let cardSinifi = uygunMu ? "student-card available" : "student-card";
+
+            studentCards.innerHTML += `
+                <div class="${cardSinifi}">
+                    <span class="student-name">${ogr.isim} <span class="class-badge">${ogr.sinif}</span></span>
+                    <div class="lesson-info">
+                        <span class="lesson-label">Şu Anki Dersi</span>
+                        <span class="lesson-name">${nerede.ders}</span>
+                        <span class="lesson-label">Öğretmen</span>
+                        <span class="teacher-name">${nerede.hoca}</span>
+                    </div>
+                </div>
+            `;
+        });
+
+        resultsArea.style.display = "block";
+        resultsArea.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+</script>
+
+</body>
+</html>
