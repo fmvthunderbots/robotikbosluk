@@ -210,7 +210,8 @@
             
             let ekstraNotHTML = "";
             
-            if (g === "Cuma" && d === 8 && ["7A", "7B", "7D"].includes(o.s)) {
+            // DÜZELTİLEN KISIM: Sadece 7D (Mehmet Alp) sınıfı için geçerli
+            if (g === "Cuma" && d === 8 && o.s === "7D") {
                 ok = true;
                 ekstraNotHTML = `<div class="special-note">✅ Beden Dersi - Robotik Odasına Alınabilir</div>`;
             }
