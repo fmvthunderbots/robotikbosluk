@@ -3,297 +3,2707 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>⚡ THUNDER BOTS Yönetim Paneli</title>
-    <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 8px; background-color: #f8fafc; color: #334155; font-size: 14px; }
-        .container { max-width: 900px; margin: auto; background: #fff; padding: 16px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
-        h2 { border-bottom: 2px solid #1e293b; padding-bottom: 8px; margin-top: 0; color: #0f172a; font-size: 1.3em; text-align: center;}
-        
-        .tab-container { display: flex; margin-bottom: 20px; border-radius: 8px; overflow: hidden; border: 2px solid #1e293b; }
-        .tab-btn { flex: 1; padding: 12px; text-align: center; background: #fff; color: #1e293b; font-weight: 700; cursor: pointer; border: none; font-size: 14px; transition: 0.2s; }
-        .tab-btn.active { background: #1e293b; color: #fff; }
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
+    <title>⚡ THUNDER BOTS 2026-2027 Yönetim ve Planlama Paneli</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Firebase SDK (Bulut Senkronizasyonu - Telefon ve PC Otomatik Eşitleme) -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 
-        .step-title { font-weight: 700; margin: 16px 0 10px 0; font-size: 1.05em; color: #334155; border-left: 4px solid #3b82f6; padding-left: 10px; }
-        .grid-selector { display: flex; flex-wrap: wrap; gap: 8px; }
-        
-        .tick-box, .period-box { flex: 1 1 calc(30% - 8px); text-align: center; padding: 10px 4px; border: 1px solid #cbd5e1; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 600; background-color: #f8fafc; transition: all 0.2s; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        .tick-box:hover, .period-box:hover { border-color: #94a3b8; background-color: #f1f5f9; }
-        .tick-box.active, .period-box.active { background-color: #3b82f6; color: #fff; border-color: #3b82f6; box-shadow: 0 2px 6px rgba(59, 130, 246, 0.4); }
-        
-        .results-container { margin-top: 24px; display: none; background: #f1f5f9; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; }
-        .student-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; margin-top: 12px; }
-        
-        .student-card { background: #fff; border-top: 4px solid #cbd5e1; padding: 12px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.04); transition: transform 0.2s; display: flex; flex-direction: column; gap: 4px;}
-        .student-card.available { border-top: 4px solid #10b981; background-color: #ecfdf5; }
-        
-        .student-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 2px; }
-        .student-name { font-weight: 700; color: #1e293b; font-size: 0.9em; line-height: 1.2;}
-        .class-badge { background: #e2e8f0; padding: 2px 6px; border-radius: 6px; font-size: 0.75em; color: #475569; font-weight: 700; }
-        .student-card.available .class-badge { background: #d1fae5; color: #065f46; }
-        
-        .lesson-info { font-size: 0.8em; color: #64748b; margin-top: 2px; line-height: 1.4;}
-        .lesson-name { font-weight: 700; color: #ef4444; display: block;}
-        .student-card.available .lesson-name { color: #10b981; }
-        .teacher-name { display: block; font-style: italic; color: #475569; }
-        
-        .day-block { background: #fff; border: 1px solid #cbd5e1; border-radius: 8px; overflow: hidden; margin-top: 12px; }
-        .day-header { background: #1e293b; color: #fff; padding: 10px 14px; font-weight: 700; font-size: 14px; }
-        .lesson-row { display: flex; padding: 10px 14px; border-bottom: 1px solid #f1f5f9; font-size: 13px; align-items: center;}
-        .lesson-row:last-child { border-bottom: none; }
-        .lesson-period { width: 60px; font-weight: 700; color: #64748b; }
-        .lesson-detail { flex: 1; display: flex; flex-direction: column;}
-        .lesson-detail strong { color: #0f172a; display: block; }
-        .lesson-detail span { font-size: 0.85em; color: #64748b; font-style: italic; }
-        
-        .special-note { color: #d97706; font-size: 0.75em; font-weight: bold; margin-top: 4px; background: #fef3c7; padding: 4px; border-radius: 4px; border: 1px solid #fde68a;}
+    <style>
+        :root {
+            /* PRESTİJLİ VE METALİK AÇIK TEMA (PLATINUM, TITANIUM & METALLIC ACCENTS) */
+            --bg-base: #f0f3f8;
+            --metal-panel-bg: rgba(255, 255, 255, 0.88);
+            --metal-border: rgba(203, 213, 225, 0.9);
+            --metal-border-light: rgba(255, 255, 255, 0.95);
+            --metal-border-hover: #94a3b8;
+            
+            --metal-rim: inset 0 1px 0 rgba(255, 255, 255, 0.95), inset 0 -1px 0 rgba(203, 213, 225, 0.35);
+            --metal-shadow: 
+                inset 0 1px 1px 0 rgba(255, 255, 255, 0.95),
+                inset 0 -1px 2px 0 rgba(148, 163, 184, 0.12),
+                0 20px 48px -8px rgba(15, 23, 42, 0.08),
+                0 1px 3px 0 rgba(15, 23, 42, 0.04);
+            
+            --primary-navy: #090d16;
+            --primary-slate: #1e293b;
+            --titanium-dark: #0f172a;
+            --accent-blue: #2563eb;
+            --accent-blue-light: #eff6ff;
+            --accent-blue-border: #bfdbfe;
+            
+            /* BBRB: ZÜMRÜT & TİTANYUM METALİK YEŞİL */
+            --bbrb-bg: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 55%, #a7f3d0 100%);
+            --bbrb-border: #6ee7b7;
+            --bbrb-text: #064e3b;
+            --bbrb-shadow: inset 0 1px 0 #ffffff, 0 2px 6px rgba(16, 185, 129, 0.18);
+            
+            /* RB: AMETİST & PLATİN METALİK MOR */
+            --rb-bg: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 55%, #e9d5ff 100%);
+            --rb-border: #d8b4fe;
+            --rb-text: #581c87;
+            --rb-shadow: inset 0 1px 0 #ffffff, 0 2px 6px rgba(168, 85, 247, 0.18);
+
+            --avail-card-bg: linear-gradient(165deg, #f0fdf4 0%, #e6faf0 50%, #dcfce7 100%);
+            --avail-card-border: #86efac;
+            --busy-card-border: rgba(226, 232, 240, 0.95);
+            
+            --text-main: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #64748b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-base);
+            background-image: 
+                radial-gradient(ellipse 80% 50% at 50% -10%, rgba(203, 213, 225, 0.45) 0%, transparent 70%),
+                radial-gradient(circle at 10% 20%, rgba(148, 163, 184, 0.18) 0%, transparent 40%),
+                radial-gradient(circle at 90% 25%, rgba(219, 234, 254, 0.3) 0%, transparent 40%),
+                radial-gradient(circle at 50% 85%, rgba(209, 250, 229, 0.22) 0%, transparent 50%),
+                linear-gradient(175deg, #f8fafc 0%, #edf2f7 50%, #e2e8f0 100%);
+            background-attachment: fixed;
+            color: var(--text-main);
+            min-height: 100vh;
+            padding: 28px 16px;
+            font-size: 14px;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* METALLIC GLASS PANEL */
+        .glass-panel {
+            background: var(--metal-panel-bg);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.95);
+            border-radius: 24px;
+            box-shadow: var(--metal-shadow);
+            padding: 30px;
+            position: relative;
+        }
+
+        .glass-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 32px;
+            right: 32px;
+            height: 1.5px;
+            background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.95) 25%, rgba(203, 213, 225, 0.85) 50%, rgba(255, 255, 255, 0.95) 75%, transparent 100%);
+            border-radius: 2px;
+            pointer-events: none;
+        }
+
+        /* HEADER */
+        .header {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 18px;
+            margin-bottom: 24px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(226, 232, 240, 0.9);
+            position: relative;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.8) 50%, transparent 100%);
+        }
+
+        .brand-box {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .brand-logo {
+            width: 52px;
+            height: 52px;
+            background: linear-gradient(140deg, #334155 0%, #1e293b 45%, #090d16 100%);
+            color: #facc15;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            box-shadow: 
+                inset 0 1px 1px rgba(255, 255, 255, 0.4),
+                inset 0 -2px 4px rgba(0, 0, 0, 0.4),
+                0 8px 20px rgba(15, 23, 42, 0.22);
+            position: relative;
+        }
+
+        .brand-text h1 {
+            font-size: 1.42rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #090d16 0%, #1e293b 45%, #334155 75%, #475569 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.025em;
+        }
+
+        .brand-text p {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+            margin-top: 2px;
+            letter-spacing: -0.01em;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .pill-badge {
+            background: linear-gradient(180deg, #ffffff 0%, #f8fafc 60%, #edf2f7 100%);
+            border: 1px solid rgba(203, 213, 225, 0.9);
+            color: var(--text-secondary);
+            padding: 7px 14px;
+            border-radius: 20px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: inset 0 1px 0 #ffffff, 0 2px 4px rgba(15, 23, 42, 0.04);
+            letter-spacing: 0.01em;
+        }
+
+        .pill-badge.cloud-status {
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            border-color: #86efac;
+            color: #15803d;
+            box-shadow: inset 0 1px 0 #ffffff, 0 2px 5px rgba(16, 185, 129, 0.14);
+        }
+        .pill-badge.cloud-status.syncing {
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            border-color: #93c5fd;
+            color: #1d4ed8;
+            box-shadow: inset 0 1px 0 #ffffff, 0 2px 5px rgba(37, 99, 235, 0.14);
+        }
+        .pill-badge.cloud-status.offline {
+            background: linear-gradient(135deg, #fefce8 0%, #fef08a 100%);
+            border-color: #fde047;
+            color: #854d0e;
+            box-shadow: inset 0 1px 0 #ffffff, 0 2px 5px rgba(234, 179, 8, 0.14);
+        }
+
+        .btn-glass {
+            background: linear-gradient(180deg, #ffffff 0%, #f8fafc 50%, #eef2f6 100%);
+            border: 1px solid #cbd5e1;
+            color: #1e293b;
+            padding: 8px 16px;
+            border-radius: 11px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 
+                inset 0 1px 0 #ffffff,
+                inset 0 -1px 0 rgba(203, 213, 225, 0.4),
+                0 2px 5px rgba(15, 23, 42, 0.04);
+            user-select: none;
+        }
+
+        .btn-glass:hover {
+            background: linear-gradient(180deg, #ffffff 0%, #f1f5f9 100%);
+            border-color: #94a3b8;
+            transform: translateY(-1px);
+            box-shadow: 
+                inset 0 1px 0 #ffffff,
+                0 4px 10px rgba(15, 23, 42, 0.08);
+        }
+
+        /* NAVIGATION TABS (METALLIC SWITCH) */
+        .tabs-wrapper {
+            background: linear-gradient(180deg, #e4e9f0 0%, #d5dde6 100%);
+            border: 1px solid #cbd5e1;
+            border-radius: 16px;
+            padding: 5px;
+            display: flex;
+            gap: 5px;
+            margin-bottom: 24px;
+            box-shadow: 
+                inset 0 2px 4px rgba(15, 23, 42, 0.06),
+                0 1px 0 #ffffff;
+        }
+
+        .nav-tab-btn {
+            flex: 1;
+            padding: 12px 18px;
+            text-align: center;
+            background: transparent;
+            color: #475569;
+            font-weight: 700;
+            cursor: pointer;
+            border: 1px solid transparent;
+            border-radius: 12px;
+            font-size: 13.5px;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .nav-tab-btn:hover {
+            color: #0f172a;
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .nav-tab-btn.active {
+            background: linear-gradient(180deg, #ffffff 0%, #f9fafb 50%, #eef2f6 100%);
+            color: #0f172a;
+            border: 1px solid #ffffff;
+            box-shadow: 
+                inset 0 1px 0 #ffffff,
+                0 4px 12px rgba(15, 23, 42, 0.09);
+        }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.25s ease; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* SECTION STEPS */
+        .step-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 20px 0 12px 0;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .step-title {
+            font-size: 0.95rem;
+            font-weight: 800;
+            color: var(--primary-navy);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            letter-spacing: -0.01em;
+        }
+
+        .step-index {
+            width: 24px;
+            height: 24px;
+            border-radius: 7px;
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: #ffffff;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 800;
+            font-family: 'JetBrains Mono', monospace;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.25), 0 2px 5px rgba(15, 23, 42, 0.2);
+        }
+
+        /* FILTER BUTTONS (METALLIC BEZEL) */
+        .period-filter-group {
+            display: inline-flex;
+            background: linear-gradient(180deg, #edf2f7 0%, #e2e8f0 100%);
+            border: 1px solid #cbd5e1;
+            border-radius: 11px;
+            padding: 4px;
+            gap: 4px;
+            box-shadow: inset 0 1px 2px rgba(15, 23, 42, 0.06), 0 1px 0 #ffffff;
+        }
+
+        .filter-btn {
+            background: transparent;
+            border: none;
+            color: #475569;
+            font-size: 0.76rem;
+            font-weight: 700;
+            padding: 6px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.18s;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .filter-btn:hover { color: #0f172a; background: rgba(255, 255, 255, 0.6); }
+        .filter-btn.active {
+            background: linear-gradient(145deg, #1e293b 0%, #0f172a 100%);
+            color: #ffffff;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 2px 6px rgba(15, 23, 42, 0.15);
+        }
+        .filter-btn.active[data-filter="bbrb"] {
+            background: var(--bbrb-bg);
+            color: var(--bbrb-text);
+            border: 1px solid var(--bbrb-border);
+            box-shadow: var(--bbrb-shadow);
+        }
+        .filter-btn.active[data-filter="all-empty"] {
+            background: var(--rb-bg);
+            color: var(--rb-text);
+            border: 1px solid var(--rb-border);
+            box-shadow: var(--rb-shadow);
+        }
+
+        /* GRID BUTTONS (PRECISION MILLED PLATES) */
+        .grid-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .plate-box {
+            background: linear-gradient(160deg, #ffffff 0%, #fbfcfd 40%, #f1f4f9 100%);
+            border: 1px solid rgba(203, 213, 225, 0.85);
+            border-radius: 14px;
+            padding: 13px 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            user-select: none;
+            box-shadow: 
+                inset 0 1px 0 #ffffff,
+                inset 0 -1px 0 rgba(203, 213, 225, 0.4),
+                0 2px 6px rgba(15, 23, 42, 0.03);
+        }
+
+        .plate-box:hover {
+            background: linear-gradient(160deg, #ffffff 0%, #f8fafc 100%);
+            border-color: #94a3b8;
+            transform: translateY(-2px);
+            box-shadow: 
+                inset 0 1px 0 #ffffff,
+                0 8px 18px rgba(15, 23, 42, 0.07);
+        }
+
+        .plate-box.active {
+            background: linear-gradient(150deg, #243042 0%, #15202e 50%, #0a0f16 100%);
+            color: #ffffff;
+            border-color: #3b4d63;
+            box-shadow: 
+                inset 0 1px 0 rgba(255, 255, 255, 0.25),
+                inset 0 0 16px rgba(0,0,0,0.35),
+                0 8px 22px rgba(15, 23, 42, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .plate-box.active .box-primary-text {
+            color: #ffffff;
+        }
+
+        .box-primary-text {
+            font-size: 0.94rem;
+            font-weight: 800;
+            color: var(--text-main);
+            letter-spacing: -0.01em;
+        }
+
+        .box-sub-text {
+            font-size: 0.73rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+        }
+
+        .plate-box.active .box-sub-text {
+            color: #cbd5e1;
+        }
+
+        /* ÖĞRENCİ SEÇİCİ (TAB 3): 8 ÖĞRENCİ MASAÜSTÜNDE TEK SATIR */
+        #hStudentContainer {
+            display: grid;
+            grid-template-columns: repeat(8, minmax(0, 1fr));
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        #hStudentContainer .plate-box {
+            padding: 10px 4px;
+            min-width: 0;
+        }
+
+        #hStudentContainer .box-primary-text {
+            font-size: 0.88rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 100%;
+        }
+
+        #hStudentContainer .box-sub-text {
+            font-size: 0.70rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 100%;
+        }
+
+        /* STATUS BADGES ON PERIOD BOXES */
+        .room-status-badge {
+            margin-top: 5px;
+            font-size: 0.7rem;
+            font-weight: 800;
+            padding: 2.5px 8px;
+            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            letter-spacing: 0.01em;
+        }
+
+        .status-bbrb {
+            background: var(--bbrb-bg);
+            color: var(--bbrb-text);
+            border: 1px solid var(--bbrb-border);
+            box-shadow: var(--bbrb-shadow);
+        }
+
+        .status-rb {
+            background: var(--rb-bg);
+            color: var(--rb-text);
+            border: 1px solid var(--rb-border);
+            box-shadow: var(--rb-shadow);
+        }
+
+        .status-closed {
+            background: linear-gradient(180deg, #f8fafc 0%, #edf2f7 100%);
+            color: #64748b;
+            border: 1px solid #cbd5e1;
+            box-shadow: inset 0 1px 0 #ffffff;
+        }
+
+        .badge-avail-counter {
+            margin-top: 5px;
+            font-size: 0.72rem;
+            font-weight: 800;
+            padding: 3px 8px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+            color: #047857;
+            border: 1px solid #a7f3d0;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            box-shadow: inset 0 1px 0 #ffffff;
+        }
+
+        .badge-avail-counter.low {
+            background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+            color: #b91c1c;
+            border-color: #fecaca;
+        }
+
+        .plate-box.active .badge-avail-counter {
+            background: #ffffff;
+            color: #0f172a;
+            border-color: #ffffff;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+        }
+
+        /* ANLIK RESULTS PANEL */
+        .results-box {
+            margin-top: 22px;
+            background: linear-gradient(170deg, rgba(255, 255, 255, 0.75) 0%, rgba(248, 250, 252, 0.8) 100%);
+            border: 1px solid rgba(226, 232, 240, 0.9);
+            border-radius: 18px;
+            padding: 20px;
+            box-shadow: inset 0 1px 0 #ffffff, 0 4px 16px rgba(15, 23, 42, 0.03);
+        }
+
+        .action-banner {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(180deg, #ffffff 0%, #f9fafb 100%);
+            border: 1px solid #cbd5e1;
+            border-radius: 14px;
+            padding: 14px 18px;
+            margin-bottom: 18px;
+            gap: 12px;
+            box-shadow: inset 0 1px 0 #ffffff, 0 2px 6px rgba(15, 23, 42, 0.03);
+        }
+
+        .banner-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .banner-highlight {
+            font-size: 0.94rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .btn-action-copy {
+            background: linear-gradient(145deg, #243042 0%, #17212e 50%, #0d131a 100%);
+            border: 1px solid #3f5168;
+            color: #ffffff;
+            padding: 9px 18px;
+            border-radius: 11px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 
+                inset 0 1px 0 rgba(255, 255, 255, 0.25),
+                0 4px 12px rgba(15, 23, 42, 0.18);
+        }
+
+        .btn-action-copy:hover {
+            background: linear-gradient(145deg, #2f4058 0%, #1e2c3e 50%, #121b24 100%);
+            border-color: #64748b;
+            transform: translateY(-1px);
+            box-shadow: 
+                inset 0 1px 0 rgba(255, 255, 255, 0.35),
+                0 6px 18px rgba(15, 23, 42, 0.24);
+        }
+
+        /* STUDENT CARDS (METALLIC BEZEL) */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 14px;
+        }
+
+        .student-glass-card {
+            background: linear-gradient(170deg, #ffffff 0%, #fcfdfe 45%, #f4f6fa 100%);
+            border: 1px solid rgba(219, 228, 238, 0.95);
+            border-radius: 16px;
+            padding: 16px 18px;
+            position: relative;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            box-shadow: 
+                inset 0 1px 0 #ffffff,
+                0 3px 8px rgba(15, 23, 42, 0.03);
+        }
+
+        .student-glass-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 
+                inset 0 1px 0 #ffffff,
+                0 10px 24px rgba(15, 23, 42, 0.06);
+            border-color: #cbd5e1;
+        }
+
+        .student-glass-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(180deg, #cbd5e1 0%, #94a3b8 100%);
+            border-radius: 16px 0 0 16px;
+        }
+
+        .student-glass-card.is-available {
+            background: var(--avail-card-bg);
+            border-color: var(--avail-card-border);
+            box-shadow: 
+                inset 0 1px 0 #ffffff,
+                0 8px 22px rgba(16, 185, 129, 0.12);
+        }
+
+        .student-glass-card.is-available::before {
+            background: linear-gradient(180deg, #34d399 0%, #059669 100%);
+        }
+
+        .student-glass-card.is-busy::before {
+            background: linear-gradient(180deg, #cbd5e1 0%, #94a3b8 100%);
+        }
+
+        .card-top-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 8px;
+        }
+
+        .card-student-name {
+            font-size: 0.96rem;
+            font-weight: 800;
+            color: var(--text-main);
+            line-height: 1.25;
+            letter-spacing: -0.015em;
+        }
+
+        .card-student-sub {
+            font-size: 0.74rem;
+            color: var(--text-muted);
+            margin-top: 3px;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+        }
+
+        .class-glass-badge {
+            background: linear-gradient(180deg, #ffffff 0%, #f1f5f9 100%);
+            border: 1px solid #cbd5e1;
+            padding: 3px 8px;
+            border-radius: 7px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            font-family: 'JetBrains Mono', monospace;
+            color: #334155;
+            white-space: nowrap;
+            box-shadow: inset 0 1px 0 #ffffff, 0 1px 2px rgba(0,0,0,0.03);
+        }
+
+        .student-glass-card.is-available .class-glass-badge {
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+            border-color: #6ee7b7;
+            color: #065f46;
+        }
+
+        .card-divider {
+            height: 1px;
+            background: rgba(226, 232, 240, 0.8);
+            margin: 2px 0;
+        }
+
+        .student-glass-card.is-available .card-divider {
+            background: rgba(167, 243, 208, 0.7);
+        }
+
+        .card-lesson-block {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .card-lesson-name {
+            font-size: 0.86rem;
+            font-weight: 700;
+            color: #e11d48;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .student-glass-card.is-available .card-lesson-name {
+            color: #047857;
+        }
+
+        .card-teacher-name {
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+
+        .card-status-pill {
+            align-self: flex-start;
+            margin-top: 4px;
+            font-size: 0.72rem;
+            font-weight: 800;
+            padding: 3.5px 9px;
+            border-radius: 7px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            box-shadow: inset 0 1px 0 #ffffff;
+        }
+
+        .pill-status-avail {
+            background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
+            color: #15803d;
+            border: 1px solid #86efac;
+            box-shadow: inset 0 1px 0 #ffffff, 0 1px 3px rgba(22, 101, 52, 0.1);
+        }
+
+        .pill-status-busy {
+            background: linear-gradient(180deg, #fee2e2 0%, #fecaca 100%);
+            color: #991b1b;
+            border: 1px solid #fca5a5;
+            box-shadow: inset 0 1px 0 #ffffff;
+        }
+
+        .pill-status-room-busy {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            color: #92400e;
+            border: 1px solid #fcd34d;
+            box-shadow: inset 0 1px 0 #ffffff;
+        }
+
+        /* MATRIX VIEW (TABLE) */
+        .matrix-table-card {
+            background: #ffffff;
+            border: 1px solid rgba(203, 213, 225, 0.9);
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 
+                inset 0 1px 0 #ffffff,
+                0 8px 24px rgba(15, 23, 42, 0.05);
+            margin-top: 16px;
+        }
+
+        .matrix-scroll {
+            overflow-x: auto;
+        }
+
+        .matrix-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            font-size: 12px;
+            text-align: center;
+        }
+
+        .matrix-table th {
+            background: linear-gradient(180deg, #f8fafc 0%, #edf2f7 100%);
+            color: #0f172a;
+            padding: 12px 8px;
+            font-weight: 800;
+            border-bottom: 2px solid #cbd5e1;
+            border-right: 1px solid #e2e8f0;
+            white-space: nowrap;
+        }
+
+        .matrix-table th small {
+            display: block;
+            font-size: 10px;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 500;
+            margin-top: 2px;
+        }
+
+        .matrix-table td {
+            padding: 9px 6px;
+            border-bottom: 1px solid #f1f5f9;
+            border-right: 1px solid #f1f5f9;
+            vertical-align: middle;
+        }
+
+        .matrix-table tr:hover td {
+            background: #f8fafc;
+        }
+
+        .matrix-cell-plate {
+            padding: 7px 5px;
+            border-radius: 9px;
+            font-size: 11px;
+            font-weight: 700;
+            line-height: 1.3;
+            transition: all 0.15s;
+        }
+
+        .matrix-cell-plate.avail {
+            background: linear-gradient(145deg, #ecfdf5 0%, #d1fae5 100%);
+            color: #047857;
+            border: 1px solid #86efac;
+            box-shadow: inset 0 1px 0 #ffffff, 0 1px 3px rgba(16, 185, 129, 0.12);
+        }
+
+        .matrix-cell-plate.busy {
+            background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+            color: var(--text-muted);
+            border: 1px solid #e2e8f0;
+        }
+
+        .matrix-cell-plate.room-busy {
+            background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+            color: #94a3b8;
+            border: 1px dashed #cbd5e1;
+        }
+
+        .matrix-cell-plate .cell-teacher {
+            display: block;
+            font-size: 9.5px;
+            color: var(--text-secondary);
+            font-weight: 400;
+            margin-top: 2px;
+        }
+
+        .matrix-total-row {
+            background: linear-gradient(180deg, #e9edf3 0%, #dbe2ec 100%);
+            font-weight: 800;
+        }
+
+        .matrix-total-row td {
+            padding: 14px 8px;
+            border-top: 2px solid #94a3b8;
+        }
+
+        /* INDIVIDUAL SCHEDULE VIEW */
+        .individual-day-card {
+            background: #ffffff;
+            border: 1px solid rgba(203, 213, 225, 0.9);
+            border-radius: 18px;
+            overflow: hidden;
+            margin-top: 16px;
+            box-shadow: 
+                inset 0 1px 0 #ffffff,
+                0 8px 24px rgba(15, 23, 42, 0.05);
+        }
+
+        .individual-header {
+            background: linear-gradient(140deg, #243042 0%, #15202e 50%, #0d131a 100%);
+            color: #ffffff;
+            padding: 14px 22px;
+            font-weight: 800;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #3b4d63;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .schedule-row {
+            display: flex;
+            align-items: center;
+            padding: 13px 20px;
+            border-bottom: 1px solid #f1f5f9;
+            gap: 16px;
+            transition: background 0.15s;
+        }
+
+        .schedule-row:last-child { border-bottom: none; }
+
+        .schedule-row.is-call {
+            background: linear-gradient(165deg, #f0fdf4 0%, #e6faf0 100%);
+        }
+
+        .schedule-row:hover {
+            background: #f8fafc;
+        }
+
+        .schedule-period {
+            min-width: 80px;
+            font-weight: 800;
+            color: #2563eb;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .schedule-period-time {
+            font-size: 10px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        .schedule-detail {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .schedule-detail strong {
+            font-size: 0.94rem;
+            color: var(--text-main);
+        }
+
+        .schedule-detail span {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+
+        /* SETTINGS MODAL & INTERACTIVE ROOM SCHEDULE EDITOR */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(15, 23, 42, 0.5);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+            padding: 16px;
+        }
+
+        .modal-overlay.open { display: flex; }
+
+        .modal-box {
+            background: linear-gradient(170deg, #ffffff 0%, #fcfdfe 45%, #f6f8fb 100%);
+            border: 1px solid rgba(255, 255, 255, 0.95);
+            max-width: 760px;
+            width: 100%;
+            border-radius: 22px;
+            box-shadow: 
+                inset 0 1px 0 #ffffff,
+                0 25px 60px -10px rgba(15, 23, 42, 0.25);
+            padding: 28px;
+            position: relative;
+            max-height: 88vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 14px;
+            margin-bottom: 20px;
+        }
+
+        .modal-header h3 {
+            font-size: 1.18rem;
+            font-weight: 800;
+            color: var(--primary-navy);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-modal-close {
+            background: linear-gradient(180deg, #ffffff 0%, #f1f5f9 100%);
+            border: 1px solid #cbd5e1;
+            color: var(--text-secondary);
+            width: 34px;
+            height: 34px;
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.15s;
+            box-shadow: inset 0 1px 0 #ffffff, 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .btn-modal-close:hover {
+            color: var(--text-main);
+            background: #e2e8f0;
+        }
+
+        .auto-save-alert {
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            border: 1px solid #93c5fd;
+            color: #1e40af;
+            border-radius: 12px;
+            padding: 12px 16px;
+            font-size: 0.82rem;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            box-shadow: inset 0 1px 0 #ffffff;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.86rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: var(--text-main);
+        }
+
+        .glass-input {
+            width: 100%;
+            background: linear-gradient(180deg, #ffffff 0%, #f9fafb 100%);
+            border: 1px solid #cbd5e1;
+            color: var(--text-main);
+            padding: 10px 14px;
+            border-radius: 11px;
+            font-size: 13.5px;
+            outline: none;
+            transition: all 0.2s;
+            font-family: inherit;
+            box-shadow: inset 0 1px 2px rgba(0,0,0,0.04);
+        }
+
+        .glass-input:focus {
+            border-color: var(--accent-blue);
+            background: #ffffff;
+            box-shadow: inset 0 1px 2px rgba(0,0,0,0.02), 0 0 0 3px rgba(37, 99, 235, 0.15);
+        }
+
+        .form-hint {
+            font-size: 0.73rem;
+            color: var(--text-muted);
+            margin-top: 5px;
+            display: block;
+            line-height: 1.4;
+        }
+
+        /* MODAL SCHEDULE MATRIX EDITOR */
+        .editor-table-wrapper {
+            overflow-x: auto;
+            border-radius: 12px;
+            border: 1px solid #cbd5e1;
+            background: #f8fafc;
+            margin-top: 8px;
+            box-shadow: inset 0 1px 3px rgba(15, 23, 42, 0.04);
+        }
+
+        .editor-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 11.5px;
+            text-align: center;
+        }
+
+        .editor-table th, .editor-table td {
+            padding: 7px 5px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .editor-table th {
+            background: linear-gradient(180deg, #f1f5f9 0%, #e2e8f0 100%);
+            color: var(--text-secondary);
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .editor-cell-btn {
+            width: 100%;
+            min-width: 44px;
+            padding: 7px 3px;
+            border-radius: 7px;
+            font-weight: 800;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            cursor: pointer;
+            border: 1px solid transparent;
+            transition: all 0.12s;
+            user-select: none;
+        }
+
+        .editor-cell-btn.state-empty {
+            background: #ffffff;
+            color: var(--text-muted);
+            border-color: #cbd5e1;
+            box-shadow: inset 0 1px 0 #ffffff;
+        }
+
+        .editor-cell-btn.state-rb {
+            background: var(--rb-bg);
+            color: var(--rb-text);
+            border-color: var(--rb-border);
+            box-shadow: var(--rb-shadow);
+        }
+
+        .editor-cell-btn.state-bbrb {
+            background: var(--bbrb-bg);
+            color: var(--bbrb-text);
+            border-color: var(--bbrb-border);
+            box-shadow: var(--bbrb-shadow);
+        }
+
+        .editor-cell-btn.state-club {
+            background: #f1f5f9;
+            color: #94a3b8;
+            border-color: #e2e8f0;
+            cursor: not-allowed;
+            font-size: 10px;
+        }
+
+        .editor-legend {
+            display: flex;
+            gap: 14px;
+            margin-top: 10px;
+            font-size: 0.74rem;
+            color: var(--text-secondary);
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        /* TOAST ALERT */
+        .toast-notification {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: linear-gradient(145deg, #1e293b 0%, #0f172a 100%);
+            color: #ffffff;
+            padding: 13px 22px;
+            border-radius: 14px;
+            font-size: 13.5px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 
+                inset 0 1px 0 rgba(255, 255, 255, 0.25),
+                0 14px 36px rgba(0, 0, 0, 0.25);
+            opacity: 0;
+            transform: translateY(12px);
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        .toast-notification.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 768px) {
+            .glass-panel { padding: 18px 14px; border-radius: 18px; }
+            .header { flex-direction: column; align-items: flex-start; }
+            .header-actions { width: 100%; justify-content: space-between; }
+            .grid-selector { grid-template-columns: repeat(2, 1fr); }
+            #hStudentContainer { grid-template-columns: repeat(4, 1fr); gap: 6px; }
+            .action-banner { flex-direction: column; align-items: flex-start; }
+            .btn-action-copy { width: 100%; justify-content: center; }
+        }
+
+        @media (max-width: 480px) {
+            #hStudentContainer { grid-template-columns: repeat(2, 1fr); }
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h2>⚡ THUNDER BOTS PLANLAMA</h2>
+    <div class="glass-panel">
+        
+        <!-- HEADER -->
+        <header class="header">
+            <div class="brand-box">
+                <div class="brand-logo">⚡</div>
+                <div class="brand-text">
+                    <h1>THUNDER BOTS PLANLAMA</h1>
+                    <p>FMV Özel Ispartakule Işık Ortaokulu · 2026-2027 Kulüp Paneli</p>
+                </div>
+            </div>
+            <div class="header-actions">
+                <span class="pill-badge cloud-status" id="cloudStatusBadge">
+                    <span id="cloudIcon">☁️</span> <span id="cloudText">Bulut Eşitlendi</span>
+                </span>
+                <span class="pill-badge status-bbrb">
+                    <span>🟢</span> BBRB: İkisi de Boş
+                </span>
+                <span class="pill-badge status-rb">
+                    <span>🟣</span> RB: Robotik Boş
+                </span>
+                <button class="btn-glass" onclick="openSettingsModal()">
+                    <span>⚙️</span> Ayarlar & Tablo
+                </button>
+            </div>
+        </header>
 
-    <div class="tab-container">
-        <button class="tab-btn active" onclick="switchTab('anlik', this)">📍 Anlık Durum</button>
-        <button class="tab-btn" onclick="switchTab('haftalik', this)">📅 Haftalık Program</button>
-    </div>
+        <!-- NAVIGATION TABS -->
+        <nav class="tabs-wrapper">
+            <button class="nav-tab-btn active" onclick="switchTab('anlik', this)">
+                <span>📍</span> Anlık Durum & Çağırma
+            </button>
+            <button class="nav-tab-btn" onclick="switchTab('matris', this)">
+                <span>📊</span> Günlük Takım Matrisi
+            </button>
+            <button class="nav-tab-btn" onclick="switchTab('haftalik', this)">
+                <span>📅</span> Öğrenci Çizelgesi
+            </button>
+        </nav>
 
-    <div id="tab-anlik" class="tab-content active">
-        <div class="step-title">1. Gün Seçin</div>
-        <div class="grid-selector" id="dayContainer">
-            <div class="tick-box" onclick="selectDay('Pazartesi', this)">Pazartesi</div>
-            <div class="tick-box" onclick="selectDay('Salı', this)">Salı</div>
-            <div class="tick-box" onclick="selectDay('Çarşamba', this)">Çarşamba</div>
-            <div class="tick-box" onclick="selectDay('Perşembe', this)">Perşembe</div>
-            <div class="tick-box" onclick="selectDay('Cuma', this)">Cuma</div>
-        </div>
-        <div id="periodSection" style="display:none;">
-            <div class="step-title">2. Robotik Odasının Boş Saatini Seçin</div>
+        <!-- ==========================================
+             TAB 1: ANLIK DURUM VE HIZLI ÇAĞIRMA
+             ========================================== -->
+        <section id="tab-anlik" class="tab-content active">
+            <div class="step-header">
+                <div class="step-title">
+                    <span class="step-index">1</span> Gün Seçin
+                </div>
+                <!-- FILTER PILLS -->
+                <div class="period-filter-group">
+                    <button class="filter-btn active" data-filter="all" onclick="setPeriodFilter('all', this)">Tüm Dersler</button>
+                    <button class="filter-btn" data-filter="bbrb" onclick="setPeriodFilter('bbrb', this)">🟢 Sadece BBRB</button>
+                    <button class="filter-btn" data-filter="all-empty" onclick="setPeriodFilter('all-empty', this)">🟣 Tüm Boş Saatler (BBRB + RB)</button>
+                </div>
+            </div>
+            
+            <div class="grid-selector" id="dayContainer">
+                <div class="plate-box active" onclick="selectDay('Pazartesi', this)">
+                    <span class="box-primary-text">Pazartesi</span>
+                </div>
+                <div class="plate-box" onclick="selectDay('Salı', this)">
+                    <span class="box-primary-text">Salı</span>
+                </div>
+                <div class="plate-box" onclick="selectDay('Çarşamba', this)">
+                    <span class="box-primary-text">Çarşamba</span>
+                </div>
+                <div class="plate-box" onclick="selectDay('Perşembe', this)">
+                    <span class="box-primary-text">Perşembe</span>
+                </div>
+                <div class="plate-box" onclick="selectDay('Cuma', this)">
+                    <span class="box-primary-text">Cuma</span>
+                </div>
+            </div>
+
+            <div class="step-header">
+                <div class="step-title">
+                    <span class="step-index">2</span> Ders Saati Seçin
+                </div>
+                <span style="font-size:0.75rem; color:var(--text-muted);" id="periodFilterNote">
+                    (Çarşamba 7 ve 8. saatler kulüp olduğu için gizlenmiştir)
+                </span>
+            </div>
+            
             <div class="grid-selector" id="periodContainer"></div>
-        </div>
-        <div id="resultsArea" class="results-container">
-            <div id="studentCards" class="student-grid"></div>
-        </div>
-    </div>
 
-    <div id="tab-haftalik" class="tab-content">
-        <div class="step-title">1. Gün Seçin</div>
-        <div class="grid-selector" id="hDayContainer">
-            <div class="tick-box" onclick="selHDay('Pazartesi', this)">Pazartesi</div>
-            <div class="tick-box" onclick="selHDay('Salı', this)">Salı</div>
-            <div class="tick-box" onclick="selHDay('Çarşamba', this)">Çarşamba</div>
-            <div class="tick-box" onclick="selHDay('Perşembe', this)">Perşembe</div>
-            <div class="tick-box" onclick="selHDay('Cuma', this)">Cuma</div>
+            <div id="resultsArea" class="results-box" style="display:none;">
+                <div class="action-banner">
+                    <div class="banner-info">
+                        <span class="banner-highlight" id="summaryText"></span>
+                    </div>
+                    <button class="btn-action-copy" onclick="copyCallingList()">
+                        <span>📋</span> Çağrı Listesini Kopyala
+                    </button>
+                </div>
+                
+                <div id="studentCards" class="cards-grid"></div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             TAB 2: GÜNLÜK TAKIM MATRİSİ (ISI HARİTASI)
+             ========================================== -->
+        <section id="tab-matris" class="tab-content">
+            <div class="step-header">
+                <div class="step-title">
+                    <span class="step-index">1</span> Gün Seçin (Tüm Takımın Günlük Isı Haritası)
+                </div>
+                <span style="font-size:0.75rem; color:var(--text-muted);">
+                    Sütun başlıklarında BBRB ve RB durumları gösterilir
+                </span>
+            </div>
+
+            <div class="grid-selector" id="matrixDayContainer">
+                <div class="plate-box active" onclick="selectMatrixDay('Pazartesi', this)">
+                    <span class="box-primary-text">Pazartesi</span>
+                </div>
+                <div class="plate-box" onclick="selectMatrixDay('Salı', this)">
+                    <span class="box-primary-text">Salı</span>
+                </div>
+                <div class="plate-box" onclick="selectMatrixDay('Çarşamba', this)">
+                    <span class="box-primary-text">Çarşamba</span>
+                </div>
+                <div class="plate-box" onclick="selectMatrixDay('Perşembe', this)">
+                    <span class="box-primary-text">Perşembe</span>
+                </div>
+                <div class="plate-box" onclick="selectMatrixDay('Cuma', this)">
+                    <span class="box-primary-text">Cuma</span>
+                </div>
+            </div>
+
+            <div class="matrix-table-card">
+                <div class="matrix-scroll">
+                    <table class="matrix-table" id="matrixTable"></table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             TAB 3: ÖĞRENCİ BİREYSEL ÇİZELGESİ
+             ========================================== -->
+        <section id="tab-haftalik" class="tab-content">
+            <div class="step-header">
+                <div class="step-title">
+                    <span class="step-index">1</span> Gün Seçin
+                </div>
+            </div>
+            <div class="grid-selector" id="hDayContainer">
+                <div class="plate-box active" onclick="selHDay('Pazartesi', this)">
+                    <span class="box-primary-text">Pazartesi</span>
+                </div>
+                <div class="plate-box" onclick="selHDay('Salı', this)">
+                    <span class="box-primary-text">Salı</span>
+                </div>
+                <div class="plate-box" onclick="selHDay('Çarşamba', this)">
+                    <span class="box-primary-text">Çarşamba</span>
+                </div>
+                <div class="plate-box" onclick="selHDay('Perşembe', this)">
+                    <span class="box-primary-text">Perşembe</span>
+                </div>
+                <div class="plate-box" onclick="selHDay('Cuma', this)">
+                    <span class="box-primary-text">Cuma</span>
+                </div>
+            </div>
+
+            <div class="step-header">
+                <div class="step-title">
+                    <span class="step-index">2</span> Öğrenci Seçin
+                </div>
+            </div>
+            <div class="grid-selector" id="hStudentContainer"></div>
+
+            <div id="hResultsArea" style="display:none;">
+                <div class="individual-day-card">
+                    <div class="individual-header" id="hTitle"></div>
+                    <div id="hScheduleList"></div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+</div>
+
+<!-- ==========================================
+     SETTINGS MODAL & INTERACTIVE SCHEDULE EDITOR
+     ========================================== -->
+<div class="modal-overlay" id="settingsModal">
+    <div class="modal-box">
+        <div class="modal-header">
+            <h3><span>⚙️</span> Kulüp & Boş Saatler Ayarları</h3>
+            <button class="btn-modal-close" onclick="closeSettingsModal()">&times;</button>
         </div>
-        <div class="step-title">2. Öğrenci Seçin</div>
-        <div class="grid-selector" id="hStudentContainer"></div>
-        <div id="hResultsArea" class="results-container">
-            <h3 id="hTitle" style="font-size:14px; margin:0; color:#1e293b; font-weight:700;"></h3>
-            <div id="hScheduleList"></div>
+        
+        <div class="auto-save-alert">
+            <span>☁️</span>
+            <span>Ayarlar otomatik olarak buluta eşitlenir. Telefonda veya PC'de yaptığınız her değişiklik anında tüm cihazlarınızda güncellenir.</span>
+        </div>
+
+        <!-- INTERACTIVE ROOM / TEACHER SCHEDULE GRID -->
+        <div class="form-group">
+            <label>📅 Boş Saatler Çizelgesi (BBRB & RB Düzenleyici):</label>
+            <small class="form-hint">Hücreye tıklayarak durumu değiştirin: [Boş / Dolu] ➔ [🟣 RB (Robotik Boş)] ➔ [🟢 BBRB (İkisi de Boş)]</small>
+            
+            <div class="editor-table-wrapper">
+                <table class="editor-table" id="editorGridTable"></table>
+            </div>
+
+            <div class="editor-legend">
+                <span>Lejant:</span>
+                <span style="color:var(--bbrb-text); font-weight:bold;">🟢 BBRB: Öğretmen & Robotik Boş</span>
+                <span style="color:var(--rb-text); font-weight:bold;">🟣 RB: Robotik Boş</span>
+                <span style="color:var(--text-muted);">-: Dolu / Normal</span>
+            </div>
+        </div>
+
+        <div class="form-group" style="margin-top:20px;">
+            <label>Uygun / Çağrılabilir Dersler (Virgülle ayırın):</label>
+            <input type="text" id="settingEligibleLessons" class="glass-input" value="BEDEN, MÜZİK, GÖRSEL, BİLİŞİM, TEKNOLOJİ" onchange="autoSyncSettings()">
+            <small class="form-hint">💡 <strong>İpucu:</strong> Dersin tam adını yazmanıza gerek yoktur. İlk kelimesini veya içinde geçen bir kelimeyi (örn. <code>BEDEN</code>, <code>MÜZİK</code>, <code>GÖRSEL</code>, <code>BİLİŞİM</code>, <code>TEKNOLOJİ</code>) yazmanız yeterlidir; sistem otomatik bulur.</small>
+        </div>
+
+        <div class="form-group">
+            <label>Uygun Olmayan / Muaf Dersler (Virgülle ayırın):</label>
+            <input type="text" id="settingBlockedLessons" class="glass-input" value="EĞİTİCİ, FAALİYET, KULÜP, ZEKA" onchange="autoSyncSettings()">
+            <small class="form-hint">Bu kelimeleri içeren hiçbir dersten öğrenci çağrılamaz (Eğitici faaliyetler ve Zeka Oyunları bu listede muaf tutulmuştur).</small>
+        </div>
+
+        <div class="form-group">
+            <label>Çağrılabilir / Esnek Öğretmenler (Virgülle ayırın):</label>
+            <input type="text" id="settingEligibleTeachers" class="glass-input" value="ENİS, PEREZ, MATTHEW" onchange="autoSyncSettings()">
+            <small class="form-hint">Bu öğretmenlerin dersleri uygun kabul edilir (Muaf dersler hariçtir).</small>
+        </div>
+
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:24px; flex-wrap:wrap; gap:10px;">
+            <button class="btn-glass" onclick="restoreDefaultSchedule()">Tabloyu Sıfırla (Görseldeki Haline Dön)</button>
+            <div style="display:flex; gap:10px;">
+                <button class="btn-glass" onclick="closeSettingsModal()">Kapat</button>
+                <button class="btn-action-copy" onclick="manualSaveSettings()">Kaydet & Buluta Gönder</button>
+            </div>
         </div>
     </div>
 </div>
 
+<!-- TOAST -->
+<div id="toast" class="toast-notification">
+    <span>✅</span> <span id="toastMsg">Bildirim</span>
+</div>
+
 <script>
-    // Robotik odasının güncellenmiş boş saatleri
-    const robotikBos = [
-        { g: "Pazartesi", d: 1 },
-        { g: "Pazartesi", d: 2 },
-        { g: "Pazartesi", d: 5 },
-        { g: "Pazartesi", d: 7 }, 
-        { g: "Salı", d: 2 },
-        { g: "Çarşamba", d: 1 }, 
-        { g: "Çarşamba", d: 3 },
-        { g: "Cuma", d: 5 }, 
-        { g: "Cuma", d: 6 },
-        { g: "Cuma", d: 8 }
-    ];
+    /* =======================================================
+       1. FIREBASE CLOUD CONFIG (TELEFON & PC EŞİTLEME)
+       ======================================================= */
+    const FIREBASE_CONFIG = {
+        apiKey: "AIzaSyA8_WFJ2ftIc6c0VKtzM9kd6K2-13E3x2s",
+        authDomain: "thunderbotscalismatakvimi.firebaseapp.com",
+        projectId: "thunderbotscalismatakvimi",
+        storageBucket: "thunderbotscalismatakvimi.firebasestorage.app",
+        messagingSenderId: "958770638632",
+        appId: "1:958770638632:web:49b988e954eccefef9aa1d",
+        measurementId: "G-NNLWV0HCSS"
+    };
 
+    let db = null;
+
+    /* TÜRKÇE HARF VE ARAMA NORMALİZASYONU */
+    function normalizeTr(str) {
+        if (!str) return "";
+        return str.toLocaleLowerCase('tr-TR')
+                  .replace(/i̇/g, 'i')
+                  .replace(/ı/g, 'i')
+                  .replace(/ğ/g, 'g')
+                  .replace(/ü/g, 'u')
+                  .replace(/ş/g, 's')
+                  .replace(/ö/g, 'o')
+                  .replace(/ç/g, 'c')
+                  .trim();
+    }
+
+    /* =======================================================
+       2. 2026-2027 KULÜP ÖĞRENCİLERİ (GÜNCEL LİSTE)
+       ======================================================= */
     const ogrs = [
-        { id: "ayse", n: "Ayşe Öykü YILDIRIM", s: "6B" },
-        { id: "batu", n: "Batu ŞAHİN", s: "6D" },
-        { id: "selen", n: "Selen IŞIK", s: "6E" },
-        { id: "can", n: "Can Karan NURTAŞ", s: "7A" },
-        { id: "doga", n: "Doğa ÇETİN", s: "7B" },
-        { id: "alp", n: "Mehmet Alp YILDIZ", s: "7D" }
+        { id: "batu",  n: "BATU ŞAHİN",         s: "7B", no: "327", grade: "7. 7/B" },
+        { id: "derin", n: "DERİN YALÇINKAYA",   s: "7C", no: "174", grade: "7. 7/C" },
+        { id: "doruk", n: "DORUK ÇETİN",        s: "6B", no: "324", grade: "6. 6/B" },
+        { id: "ece",   n: "ECE ÜSTÜNDAĞ",       s: "6C", no: "332", grade: "6. 6/C" },
+        { id: "inan",  n: "İNAN ALDEMİR",       s: "6E", no: "384", grade: "6. 6/E" },
+        { id: "oyku",  n: "ÖYKÜ YILDIRIM",      s: "7A", no: "322", grade: "7. 7/A" },
+        { id: "selen", n: "SELEN IŞIK",         s: "7E", no: "359", grade: "7. 7/E" },
+        { id: "tuna",  n: "TUNA DEMİRER",       s: "6B", no: "459", grade: "6. 6/B" }
     ];
 
-    const progs = {
-        "6B": {
-            "Pazartesi": { 1: { ders: "BEDEN EĞİTİMİ", hoca: "Canan Can" }, 2: { ders: "BEDEN EĞİTİMİ", hoca: "Canan Can" }, 3: { ders: "İNGİLİZCE (EF)", hoca: "Evrim Eren" }, 4: { ders: "MATEMATİK", hoca: "Batıkan Öztunalı" }, 5: { ders: "TÜRKÇE", hoca: "Pınar Sofuoğlu" }, 6: { ders: "TÜRKÇE", hoca: "Pınar Sofuoğlu" }, 7: { ders: "FEN BİLİMLERİ", hoca: "Çağrı Çokkan" }, 8: { ders: "DİN KÜLTÜRÜ", hoca: "Ali Alperen Kelleci" } },
-            "Salı": { 1: { ders: "SOSYAL BİLGİLER", hoca: "Sevda İnkaya" }, 2: { ders: "İNGİLİZCE (EF)", hoca: "Enis Hüdaverdi" }, 3: { ders: "TÜRKÇE", hoca: "Pınar Sofuoğlu" }, 4: { ders: "TÜRKÇE", hoca: "Pınar Sofuoğlu" }, 5: { ders: "2. YABANCI DİL", hoca: "Betül/Ayşe/Esra" }, 6: { ders: "BİLİŞİM TEK.", hoca: "Samet Baştarcan" }, 7: { ders: "MATEMATİK", hoca: "Batıkan Öztunalı" }, 8: { ders: "İNGİLİZCE (EF)", hoca: "Evrim Eren" }, 9: { ders: "FEN BİLİMLERİ", hoca: "Çağrı Çokkan" } },
-            "Çarşamba": { 1: { ders: "FEN BİLİMLERİ", hoca: "Çağrı Çokkan" }, 2: { ders: "MÜZİK", hoca: "Nesli T./Samet B." }, 3: { ders: "TÜRKÇE", hoca: "Pınar Sofuoğlu" }, 4: { ders: "MATEMATİK", hoca: "Batıkan Öztunalı" }, 5: { ders: "SOSYAL BİLGİLER", hoca: "Sevda İnkaya" }, 6: { ders: "GÖRSEL SANATLAR", hoca: "Sedef Demir" }, 7: { ders: "EĞİTİCİ FAALİYET", hoca: "-" }, 8: { ders: "EĞİTİCİ FAALİYET", hoca: "-" } },
-            "Perşembe": { 1: { ders: "İNGİLİZCE", hoca: "Evrim Eren" }, 2: { ders: "İNGİLİZCE", hoca: "Evrim Eren" }, 3: { ders: "MATEMATİK", hoca: "Batıkan Öztunalı" }, 4: { ders: "MATEMATİK", hoca: "Batıkan Öztunalı" }, 5: { ders: "2. YABANCI DİL", hoca: "Betül/Ayşe/Esra" }, 6: { ders: "KÜLTÜR VE MED.", hoca: "Pınar Sofuoğlu" }, 7: { ders: "KÜLTÜR VE MED.", hoca: "Pınar Sofuoğlu" }, 8: { ders: "FEN BİLİMLERİ", hoca: "Çağrı Çokkan" }, 9: { ders: "İNGİLİZCE (EF)", hoca: "Enis Hüdaverdi" } },
-            "Cuma": { 1: { ders: "ZEKA OYUNLARI", hoca: "Batıkan Öztunalı" }, 2: { ders: "ZEKA OYUNLARI", hoca: "Batıkan Öztunalı" }, 3: { ders: "BİLİŞİM TEK.", hoca: "Samet Baştarcan" }, 4: { ders: "DİN KÜLTÜRÜ", hoca: "Ali Alperen Kelleci" }, 5: { ders: "REHBERLİK", hoca: "Çağrı Çokkan" }, 6: { ders: "İNGİLİZCE", hoca: "Evrim Eren" }, 7: { ders: "TÜRKÇE", hoca: "Pınar Sofuoğlu" }, 8: { ders: "SOSYAL BİLGİLER", hoca: "Sevda İnkaya" } }
+    /* =======================================================
+       3. DERS SAATLERİ (ZİL PROGRAMI)
+       ======================================================= */
+    const lessonTimes = {
+        "Haftaici": {
+            1: "08:30 - 09:10",
+            2: "09:20 - 10:00",
+            3: "10:10 - 10:50",
+            4: "11:00 - 11:40",
+            5: "11:50 - 12:30",
+            6: "13:10 - 13:50",
+            7: "14:00 - 14:40",
+            8: "14:50 - 15:30",
+            9: "15:25 - 16:05"
         },
-        "6D": {
-            "Pazartesi": { 1: { ders: "MATEMATİK", hoca: "Derya Atıcı" }, 2: { ders: "MATEMATİK", hoca: "Derya Atıcı" }, 3: { ders: "İNGİLİZCE (EF)", hoca: "Damla Öğüt" }, 4: { ders: "SOSYAL BİLGİLER", hoca: "Eylem Sarıkaya" }, 5: { ders: "DİN KÜLTÜRÜ", hoca: "Ali Alperen Kelleci" }, 6: { ders: "TÜRKÇE", hoca: "Büşra Günal" }, 7: { ders: "FEN BİLİMLERİ", hoca: "Nilay Mutlular" }, 8: { ders: "FEN BİLİMLERİ", hoca: "Nilay Mutlular" } },
-            "Salı": { 1: { ders: "FEN BİLİMLERİ", hoca: "Nilay Mutlular" }, 2: { ders: "TÜRKÇE", hoca: "Büşra Günal" }, 3: { ders: "TÜRKÇE", hoca: "Büşra Günal" }, 4: { ders: "İNGİLİZCE", hoca: "Damla Öğüt" }, 5: { ders: "İNGİLİZCE (EF)", hoca: "Enis Hüdaverdi" }, 6: { ders: "TÜRKÇE", hoca: "Büşra Günal" }, 7: { ders: "BEDEN EĞİTİMİ", hoca: "Sonay Kefeli" }, 8: { ders: "BEDEN EĞİTİMİ", hoca: "Sonay Kefeli" }, 9: { ders: "BİLİŞİM TEK.", hoca: "Aleyna Tarar" } },
-            "Çarşamba": { 1: { ders: "FEN BİLİMLERİ", hoca: "Nilay Mutlular" }, 2: { ders: "İNGİLİZCE (EF)", hoca: "Damla Öğüt" }, 3: { ders: "MATEMATİK", hoca: "Derya Atıcı" }, 4: { ders: "MÜZİK", hoca: "Nesli T./Samet B." }, 5: { ders: "TÜRKÇE", hoca: "Büşra Günal" }, 6: { ders: "DİN KÜLTÜRÜ", hoca: "Ali Alperen Kelleci" }, 7: { ders: "EĞİTİCİ FAALİYET", hoca: "-" }, 8: { ders: "EĞİTİCİ FAALİYET", hoca: "-" } },
-            "Perşembe": { 1: { ders: "REHBERLİK", hoca: "Nilay Mutlular" }, 2: { ders: "İNGİLİZCE", hoca: "Damla Öğüt" }, 3: { ders: "TÜRKÇE", hoca: "Büşra Günal" }, 4: { ders: "İNGİLİZCE (EF)", hoca: "Enis Hüdaverdi" }, 5: { ders: "SOSYAL BİLGİLER", hoca: "Eylem Sarıkaya" }, 6: { ders: "MATEMATİK", hoca: "Derya Atıcı" }, 7: { ders: "MATEMATİK", hoca: "Derya Atıcı" }, 8: { ders: "2. YABANCI DİL", hoca: "Betül/Ayşe/Esra" }, 9: { ders: "2. YABANCI DİL", hoca: "Betül/Ayşe/Esra" } },
-            "Cuma": { 1: { ders: "ZEKA OYUNLARI", hoca: "Derya Atıcı" }, 2: { ders: "ZEKA OYUNLARI", hoca: "Derya Atıcı" }, 3: { ders: "İNGİLİZCE", hoca: "Damla Öğüt" }, 4: { ders: "BİLİŞİM TEK.", hoca: "Aleyna Tarar" }, 5: { ders: "GÖRSEL SANATLAR", hoca: "Sedef Demir" }, 6: { ders: "SOSYAL BİLGİLER", hoca: "Eylem Sarıkaya" }, 7: { ders: "KÜLTÜR VE MED.", hoca: "Büşra Günal" }, 8: { ders: "KÜLTÜR VE MED.", hoca: "Büşra Günal" } }
-        },
-        "6E": {
-            "Pazartesi": { 1: { ders: "SOSYAL BİLGİLER", hoca: "Eylem Sarıkaya" }, 2: { ders: "SOSYAL BİLGİLER", hoca: "Eylem Sarıkaya" }, 3: { ders: "2. YABANCI DİL", hoca: "Betül/Ayşe/Esra" }, 4: { ders: "2. YABANCI DİL", hoca: "Betül/Ayşe/Esra" }, 5: { ders: "TÜRKÇE", hoca: "Büşra Günal" }, 6: { ders: "BİLİŞİM TEK.", hoca: "Aleyna Tarar" }, 7: { ders: "MATEMATİK", hoca: "İrem Altınbaşak" }, 8: { ders: "MATEMATİK", hoca: "İrem Altınbaşak" } },
-            "Salı": { 1: { ders: "İNGİLİZCE", hoca: "Damla Öğüt" }, 2: { ders: "İNGİLİZCE", hoca: "Damla Öğüt" }, 3: { ders: "FEN BİLİMLERİ", hoca: "Duygu Kılıç" }, 4: { ders: "FEN BİLİMLERİ", hoca: "Duygu Kılıç" }, 5: { ders: "TÜRKÇE", hoca: "Büşra Günal" }, 6: { ders: "MATEMATİK", hoca: "İrem Altınbaşak" }, 7: { ders: "BEDEN EĞİTİMİ", hoca: "Canan Can" }, 8: { ders: "BEDEN EĞİTİMİ", hoca: "Canan Can" }, 9: { ders: "İNGİLİZCE (EF)", hoca: "Enis Hüdaverdi" } },
-            "Çarşamba": { 1: { ders: "ZEKA OYUNLARI", hoca: "İrem Altınbaşak" }, 2: { ders: "KÜLTÜR VE MED.", hoca: "Büşra Günal" }, 3: { ders: "KÜLTÜR VE MED.", hoca: "Büşra Günal" }, 4: { ders: "FEN BİLİMLERİ", hoca: "Duygu Kılıç" }, 5: { ders: "MÜZİK", hoca: "Nesli T./Samet B." }, 6: { ders: "İNGİLİZCE", hoca: "Damla Öğüt" }, 7: { ders: "EĞİTİCİ FAALİYET", hoca: "-" }, 8: { ders: "EĞİTİCİ FAALİYET", hoca: "-" } },
-            "Perşembe": { 1: { ders: "TÜRKÇE", hoca: "Büşra Günal" }, 2: { ders: "TÜRKÇE", hoca: "Büşra Günal" }, 3: { ders: "FEN BİLİMLERİ", hoca: "Duygu Kılıç" }, 4: { ders: "MATEMATİK", hoca: "İrem Altınbaşak" }, 5: { ders: "ZEKA OYUNLARI", hoca: "İrem Altınbaşak" }, 6: { ders: "DİN KÜLTÜRÜ", hoca: "Ali Alperen Kelleci" }, 7: { ders: "REHBERLİK", hoca: "Duygu Kılıç" }, 8: { ders: "BİLİŞİM TEK.", hoca: "Aleyna Tarar" }, 9: { ders: "İNGİLİZCE (EF)", hoca: "Damla Öğüt" } },
-            "Cuma": { 1: { ders: "TÜRKÇE", hoca: "Büşra Günal" }, 2: { ders: "TÜRKÇE", hoca: "Büşra Günal" }, 3: { ders: "DİN KÜLTÜRÜ", hoca: "Ali Alperen Kelleci" }, 4: { ders: "MATEMATİK", hoca: "İrem Altınbaşak" }, 5: { ders: "İNGİLİZCE (EF)", hoca: "Damla Öğüt" }, 6: { ders: "İNGİLİZCE (EF)", hoca: "Enis Hüdaverdi" }, 7: { ders: "GÖRSEL SANATLAR", hoca: "Sedef Demir" }, 8: { ders: "SOSYAL BİLGİLER", hoca: "Eylem Sarıkaya" } }
-        },
-        "7A": {
-            "Pazartesi": { 1: { ders: "İNGİLİZCE", hoca: "Damla Öğüt" }, 2: { ders: "FEN BİLİMLERİ", hoca: "Nilay Mutlular" }, 3: { ders: "BEDEN EĞİTİMİ", hoca: "Safa Harmankaya" }, 4: { ders: "BEDEN EĞİTİMİ", hoca: "Safa Harmankaya" }, 5: { ders: "İNGİLİZCE (EF)", hoca: "L. J. Perez" }, 6: { ders: "TÜRKÇE", hoca: "Öznur Aydın" }, 7: { ders: "TÜRKÇE", hoca: "Öznur Aydın" }, 8: { ders: "MATEMATİK", hoca: "Pelin Eren" } },
-            "Salı": { 1: { ders: "ZEKA OYUNLARI", hoca: "Pelin Eren" }, 2: { ders: "MATEMATİK", hoca: "Pelin Eren" }, 3: { ders: "KÜLTÜR VE MED.", hoca: "Öznur Aydın" }, 4: { ders: "FEN BİLİMLERİ", hoca: "Nilay Mutlular" }, 5: { ders: "FEN BİLİMLERİ", hoca: "Nilay Mutlular" }, 6: { ders: "İNGİLİZCE", hoca: "Damla Öğüt" }, 7: { ders: "İNGİLİZCE", hoca: "Damla Öğüt" }, 8: { ders: "GÖRSEL SANATLAR", hoca: "Sedef Demir" }, 9: { ders: "DİN KÜLTÜRÜ", hoca: "Ali Alperen Kelleci" } },
-            "Çarşamba": { 1: { ders: "SOSYAL BİLGİLER", hoca: "Sevda İnkaya" }, 2: { ders: "TÜRKÇE", hoca: "Öznur Aydın" }, 3: { ders: "TÜRKÇE", hoca: "Öznur Aydın" }, 4: { ders: "FEN BİLİMLERİ", hoca: "Nilay Mutlular" }, 5: { ders: "ZEKA OYUNLARI", hoca: "Pelin Eren" }, 6: { ders: "MATEMATİK", hoca: "Pelin Eren" }, 7: { ders: "EĞİTİCİ FAALİYET", hoca: "-" }, 8: { ders: "EĞİTİCİ FAALİYET", hoca: "-" } },
-            "Perşembe": { 1: { ders: "TEKNOLOJİ TASARIM", hoca: "Fatma Babur" }, 2: { ders: "TEKNOLOJİ TASARIM", hoca: "Fatma Babur" }, 3: { ders: "DİN KÜLTÜRÜ", hoca: "Ali Alperen Kelleci" }, 4: { ders: "MATEMATİK", hoca: "Pelin Eren" }, 5: { ders: "MÜZİK", hoca: "Nesli T./Samet B." }, 6: { ders: "FEN BİLİMLERİ (EF)", hoca: "Nilay Mutlular" }, 7: { ders: "KÜLTÜR VE MED.", hoca: "Öznur Aydın" }, 8: { ders: "İNGİLİZCE (EF)", hoca: "Damla Öğüt" }, 9: { ders: "İNGİLİZCE (EF)", hoca: "L. J. Perez" } },
-            "Cuma": { 1: { ders: "TÜRKÇE", hoca: "Öznur Aydın" }, 2: { ders: "SOSYAL BİLGİLER", hoca: "Sevda İnkaya" }, 3: { ders: "SOSYAL BİLGİLER", hoca: "Sevda İnkaya" }, 4: { ders: "2. YABANCI DİL", hoca: "Betül/Ayşe/Esra" }, 5: { ders: "2. YABANCI DİL", hoca: "Betül/Ayşe/Esra" }, 6: { ders: "REHBERLİK", hoca: "Nilay Mutlular" }, 7: { ders: "MATEMATİK", hoca: "Pelin Eren" }, 8: { ders: "İNGİLİZCE", hoca: "Damla Öğüt" } }
-        },
-        "7B": {
-            "Pazartesi": { 1: { ders: "SOSYAL BİLGİLER", hoca: "Sevda İnkaya" }, 2: { ders: "İNGİLİZCE (EF)", hoca: "L. J. Perez" }, 3: { ders: "BEDEN EĞİTİMİ", hoca: "Görkem Sertcan" }, 4: { ders: "BEDEN EĞİTİMİ", hoca: "Görkem Sertcan" }, 5: { ders: "FEN BİLİMLERİ", hoca: "Nilay Mutlular" }, 6: { ders: "TEKNOLOJİ TASARIM", hoca: "Fatma Babur" }, 7: { ders: "MATEMATİK", hoca: "Pelin Eren" }, 8: { ders: "TÜRKÇE", hoca: "Öznur Aydın" } },
-            "Salı": { 1: { ders: "TÜRKÇE", hoca: "Öznur Aydın" }, 2: { ders: "TÜRKÇE", hoca: "Öznur Aydın" }, 3: { ders: "İNGİLİZCE", hoca: "Damla Öğüt" }, 4: { ders: "ZEKA OYUNLARI", hoca: "Pelin Eren" }, 5: { ders: "MATEMATİK", hoca: "Pelin Eren" }, 6: { ders: "DİN KÜLTÜRÜ", hoca: "Ali Alperen Kelleci" }, 7: { ders: "DİN KÜLTÜRÜ", hoca: "Ali Alperen Kelleci" }, 8: { ders: "FEN BİLİMLERİ", hoca: "Nilay Mutlular" }, 9: { ders: "SOSYAL BİLGİLER", hoca: "Sevda İnkaya" } },
-            "Çarşamba": { 1: { ders: "İNGİLİZCE (EF)", hoca: "L. J. Perez" }, 2: { ders: "ZEKA OYUNLARI", hoca: "Pelin Eren" }, 3: { ders: "İNGİLİZCE", hoca: "Damla Öğüt" }, 4: { ders: "İNGİLİZCE", hoca: "Damla Öğüt" }, 5: { ders: "KÜLTÜR VE MED.", hoca: "Öznur Aydın" }, 6: { ders: "KÜLTÜR VE MED.", hoca: "Öznur Aydın" }, 7: { ders: "EĞİTİCİ FAALİYET", hoca: "-" }, 8: { ders: "EĞİTİCİ FAALİYET", hoca: "-" } },
-            "Perşembe": { 1: { ders: "MÜZİK", hoca: "Nesli T./Samet B." }, 2: { ders: "MATEMATİK", hoca: "Pelin Eren" }, 3: { ders: "MATEMATİK", hoca: "Pelin Eren" }, 4: { ders: "FEN BİLİMLERİ", hoca: "Nilay Mutlular" }, 5: { ders: "FEN BİLİMLERİ", hoca: "Nilay Mutlular" }, 6: { ders: "SOSYAL BİLGİLER", hoca: "Sevda İnkaya" }, 7: { ders: "İNGİLİZCE", hoca: "Damla Öğüt" }, 8: { ders: "TEKNOLOJİ TASARIM", hoca: "Fatma Babur" }, 9: { ders: "GÖRSEL SANATLAR", hoca: "Sedef Demir" } },
-            "Cuma": { 1: { ders: "İNGİLİZCE (EF)", hoca: "Damla Öğüt" }, 2: { ders: "TÜRKÇE", hoca: "Öznur Aydın" }, 3: { ders: "TÜRKÇE", hoca: "Öznur Aydın" }, 4: { ders: "2. YABANCI DİL", hoca: "Betül/Ayşe/Esra" }, 5: { ders: "2. YABANCI DİL", hoca: "Betül/Ayşe/Esra" }, 6: { ders: "MATEMATİK", hoca: "Pelin Eren" }, 7: { ders: "FEN BİLİMLERİ (EF)", hoca: "Nilay Mutlular" }, 8: { ders: "REHBERLİK", hoca: "Nilay Mutlular" } }
-        },
-        "7D": {
-            "Pazartesi": { 1: { ders: "İNGİLİZCE (EF)", hoca: "L. J. Perez" }, 2: { ders: "İNGİLİZCE", hoca: "Hande Ergün" }, 3: { ders: "MATEMATİK", hoca: "İrem Altınbaşak" }, 4: { ders: "ZEKA OYUNLARI", hoca: "İrem Altınbaşak" }, 5: { ders: "SOSYAL BİLGİLER", hoca: "Eylem Sarıkaya" }, 6: { ders: "TEKNOLOJİ TASARIM", hoca: "Sedef Demir" }, 7: { ders: "TEKNOLOJİ TASARIM", hoca: "Sedef Demir" }, 8: { ders: "FEN BİLİMLERİ", hoca: "Yağmur C. Cantürk" } },
-            "Salı": { 1: { ders: "TÜRKÇE", hoca: "Duygu Altındağ" }, 2: { ders: "TÜRKÇE", hoca: "Duygu Altındağ" }, 3: { ders: "FEN BİLİMLERİ", hoca: "Yağmur C. Cantürk" }, 4: { ders: "FEN BİLİMLERİ", hoca: "Yağmur C. Cantürk" }, 5: { ders: "SOSYAL BİLGİLER", hoca: "Eylem Sarıkaya" }, 6: { ders: "DİN KÜLTÜRÜ", hoca: "Muhammet Keskin" }, 7: { ders: "ZEKA OYUNLARI", hoca: "İrem Altınbaşak" }, 8: { ders: "MATEMATİK", hoca: "İrem Altınbaşak" }, 9: { ders: "GÖRSEL SANATLAR", hoca: "Sedef Demir" } },
-            "Çarşamba": { 1: { ders: "İNGİLİZCE (EF)", hoca: "Hande Ergün" }, 2: { ders: "İNGİLİZCE", hoca: "Hande Ergün" }, 3: { ders: "TÜRKÇE", hoca: "Duygu Altındağ" }, 4: { ders: "TÜRKÇE", hoca: "Duygu Altındağ" }, 5: { ders: "FEN BİLİMLERİ", hoca: "Yağmur C. Cantürk" }, 6: { ders: "MATEMATİK", hoca: "İrem Altınbaşak" }, 7: { ders: "EĞİTİCİ FAALİYET", hoca: "-" }, 8: { ders: "EĞİTİCİ FAALİYET", hoca: "-" } },
-            "Perşembe": { 1: { ders: "SOSYAL BİLGİLER", hoca: "Eylem Sarıkaya" }, 2: { ders: "MATEMATİK", hoca: "İrem Altınbaşak" }, 3: { ders: "MÜZİK", hoca: "Nesli T./Samet B." }, 4: { ders: "İNGİLİZCE", hoca: "Hande Ergün" }, 5: { ders: "İNGİLİZCE (EF)", hoca: "L. J. Perez" }, 6: { ders: "TÜRKÇE", hoca: "Duygu Altındağ" }, 7: { ders: "FEN BİLİMLERİ (EF)", hoca: "Yağmur C. Cantürk" }, 8: { ders: "REHBERLİK", hoca: "Yağmur C. Cantürk" }, 9: { ders: "DİN KÜLTÜRÜ", hoca: "Muhammet Keskin" } },
-            "Cuma": { 1: { ders: "2. YABANCI DİL", hoca: "Betül/Ayşe/Esra" }, 2: { ders: "2. YABANCI DİL", hoca: "Betül/Ayşe/Esra" }, 3: { ders: "KÜLTÜR VE MED.", hoca: "Duygu Altındağ" }, 4: { ders: "KÜLTÜR VE MED.", hoca: "Duygu Altındağ" }, 5: { ders: "MATEMATİK", hoca: "İrem Altınbaşak" }, 6: { ders: "İNGİLİZCE", hoca: "Hande Ergün" }, 7: { ders: "BEDEN EĞİTİMİ", hoca: "Sonay Kefeli" }, 8: { ders: "BEDEN EĞİTİMİ", hoca: "Sonay Kefeli" } }
+        "Cuma": {
+            1: "08:15 - 08:55",
+            2: "09:05 - 09:45",
+            3: "09:55 - 10:35",
+            4: "10:45 - 11:25",
+            5: "11:35 - 12:15",
+            6: "12:55 - 13:35",
+            7: "13:45 - 14:25",
+            8: "14:35 - 15:15",
+            9: "15:20 - 16:00"
         }
     };
 
-    const cagrilabilirDersler = ["BEDEN", "MÜZİK", "GÖRSEL", "BİLİŞİM", "TEKNOLOJİ"];
-    const cagrilabilirHocalar = ["ENİS", "PEREZ"];
+    /* =======================================================
+       4. RESMİ TABLODAN ALINAN ÖĞRETMEN & ROBOTİK BOŞ SAATLERİ
+       ======================================================= */
+    const initialDefaultRoomSchedule = {
+        "Pazartesi": { 1: "", 2: "", 3: "BBRB", 4: "BBRB", 5: "", 6: "", 7: "", 8: "", 9: "" },
+        "Salı":      { 1: "", 2: "", 3: "", 4: "", 5: "", 6: "", 7: "RB", 8: "BBRB", 9: "" },
+        "Çarşamba":  { 1: "", 2: "", 3: "", 4: "", 5: "RB", 6: "", 7: "", 8: "", 9: "BBRB" },
+        "Perşembe":  { 1: "", 2: "", 3: "", 4: "", 5: "", 6: "", 7: "", 8: "", 9: "" },
+        "Cuma":      { 1: "RB", 2: "RB", 3: "BBRB", 4: "BBRB", 5: "RB", 6: "RB", 7: "RB", 8: "RB", 9: "BBRB" }
+    };
 
-    function switchTab(t, b) {
-        document.querySelectorAll('.tab-btn').forEach(x => x.classList.remove('active'));
-        document.querySelectorAll('.tab-content').forEach(x => x.classList.remove('active'));
-        b.classList.add('active');
-        document.getElementById('tab-' + t).classList.add('active');
+    let activeRoomSchedule = JSON.parse(JSON.stringify(initialDefaultRoomSchedule));
+
+    /* Çarşamba 7 ve 8 kulüp olduğu için çizelgeden hariç tut */
+    function getDisplayPeriodsForDay(day) {
+        let maxDers = (day === "Salı" || day === "Perşembe") ? 9 : 8;
+        if (day === "Çarşamba" && activeRoomSchedule["Çarşamba"] && activeRoomSchedule["Çarşamba"][9]) {
+            maxDers = 9;
+        }
+
+        let list = [];
+        for (let i = 1; i <= maxDers; i++) {
+            if (day === "Çarşamba" && (i === 7 || i === 8)) {
+                continue;
+            }
+            list.push(i);
+        }
+        return list;
     }
 
-    function selectDay(g, b) {
-        document.querySelectorAll('#dayContainer .tick-box').forEach(x => x.classList.remove('active'));
-        b.classList.add('active');
-        document.getElementById('periodSection').style.display = 'block';
-        document.getElementById('resultsArea').style.display = 'none';
+    /* =======================================================
+       5. 2026-2027 ORTAOKUL DERS PROGRAMLARI
+       ======================================================= */
+    const progs = {
+        "6B": {
+            "Pazartesi": {
+                1: { ders: "BEDEN EĞİTİMİ VE SPOR", hoca: "Canan Can" },
+                2: { ders: "BEDEN EĞİTİMİ VE SPOR", hoca: "Canan Can" },
+                3: { ders: "İNGİLİZCE", hoca: "Damla Öğüt" },
+                4: { ders: "FEN BİLİMLERİ", hoca: "Çağrı Çokkan" },
+                5: { ders: "FEN BİLİMLERİ", hoca: "Çağrı Çokkan" },
+                6: { ders: "BİLİŞİM TEKNOLOJİLERİ VE YAZILIM", hoca: "Samet Baştarcan" },
+                7: { ders: "MATEMATİK", hoca: "Batıkan Öztunalı" },
+                8: { ders: "TÜRKÇE", hoca: "Pınar Sofuoğlu" }
+            },
+            "Salı": {
+                1: { ders: "DİN KÜLTÜRÜ VE AHLAK BİLGİSİ", hoca: "Ali Alperen Kelleci" },
+                2: { ders: "TÜRKÇE", hoca: "Pınar Sofuoğlu" },
+                3: { ders: "TÜRKÇE", hoca: "Pınar Sofuoğlu" },
+                4: { ders: "2. YABANCI DİL", hoca: "Ayşe/Betül/Canan" },
+                5: { ders: "2. YABANCI DİL", hoca: "Ayşe/Betül/Canan" },
+                6: { ders: "EĞİTİCİ FAALİYET/ İNGİLİZCE", hoca: "Damla Öğüt" },
+                7: { ders: "EĞİTİCİ FAALİYET/ İNGİLİZCE", hoca: "Damla Öğüt" },
+                8: { ders: "SOSYAL BİLGİLER", hoca: "Sevda İnkaya" },
+                9: { ders: "ZEKA OYUNLARI", hoca: "Batıkan Öztunalı" }
+            },
+            "Çarşamba": {
+                1: { ders: "İNGİLİZCE", hoca: "Damla Öğüt" },
+                2: { ders: "MÜZİK", hoca: "Nesli T./Samet B." },
+                3: { ders: "FEN BİLİMLERİ", hoca: "Çağrı Çokkan" },
+                4: { ders: "SOSYAL BİLGİLER", hoca: "Sevda İnkaya" },
+                5: { ders: "TÜRKÇE", hoca: "Pınar Sofuoğlu" },
+                6: { ders: "MATEMATİK", hoca: "Batıkan Öztunalı" },
+                7: { ders: "EĞİTİCİ FAALİYET (KULÜP)", hoca: "-" },
+                8: { ders: "EĞİTİCİ FAALİYET (KULÜP)", hoca: "-" }
+            },
+            "Perşembe": {
+                1: { ders: "MATEMATİK", hoca: "Batıkan Öztunalı" },
+                2: { ders: "TÜRKÇE", hoca: "Pınar Sofuoğlu" },
+                3: { ders: "TÜRKÇE", hoca: "Pınar Sofuoğlu" },
+                4: { ders: "DİN KÜLTÜRÜ VE AHLAK BİLGİSİ", hoca: "Ali Alperen Kelleci" },
+                5: { ders: "BİLİŞİM TEKNOLOJİLERİ VE YAZILIM", hoca: "Samet Baştarcan" },
+                6: { ders: "EĞİTİCİ FAALİYET/ İNGİLİZCE", hoca: "Enis Hüdaverdi" },
+                7: { ders: "GÖRSEL SANATLAR", hoca: "Sedef Demir" },
+                8: { ders: "FEN BİLİMLERİ", hoca: "Çağrı Çokkan" },
+                9: { ders: "REHBERLİK VE YÖNLENDİRME", hoca: "Damla Öğüt" }
+            },
+            "Cuma": {
+                1: { ders: "SOSYAL BİLGİLER", hoca: "Sevda İnkaya" },
+                2: { ders: "İNGİLİZCE", hoca: "Damla Öğüt" },
+                3: { ders: "EĞİTİCİ FAALİYET/ FEN BİLİMLERİ", hoca: "Çağrı Çokkan" },
+                4: { ders: "KÜLTÜR VE MEDENİYETİMİZE YÖN VERENLER", hoca: "Pınar Sofuoğlu" },
+                5: { ders: "KÜLTÜR VE MEDENİYETİMİZE YÖN VERENLER", hoca: "Pınar Sofuoğlu" },
+                6: { ders: "MATEMATİK", hoca: "Batıkan Öztunalı" },
+                7: { ders: "MATEMATİK", hoca: "Batıkan Öztunalı" },
+                8: { ders: "EĞİTİCİ FAALİYET/ İNGİLİZCE", hoca: "Enis Hüdaverdi" }
+            }
+        },
+        "6C": {
+            "Pazartesi": {
+                1: { ders: "TÜRKÇE", hoca: "Pınar Sofuoğlu" },
+                2: { ders: "TÜRKÇE", hoca: "Pınar Sofuoğlu" },
+                3: { ders: "REHBERLİK VE YÖNLENDİRME", hoca: "Meryem Dağlı" },
+                4: { ders: "ZEKA OYUNLARI", hoca: "Meryem Dağlı" },
+                5: { ders: "FEN BİLİMLERİ", hoca: "Ece Karapınar" },
+                6: { ders: "DİN KÜLTÜRÜ VE AHLAK BİLGİSİ", hoca: "Muhammet Keskin" },
+                7: { ders: "EĞİTİCİ FAALİYET/ İNGİLİZCE", hoca: "Aylin Simge Kaplanoğlu" },
+                8: { ders: "EĞİTİCİ FAALİYET/ İNGİLİZCE", hoca: "Aylin Simge Kaplanoğlu" }
+            },
+            "Salı": {
+                1: { ders: "EĞİTİCİ FAALİYET/ İNGİLİZCE", hoca: "Enis Hüdaverdi" },
+                2: { ders: "MATEMATİK", hoca: "Meryem Dağlı" },
+                3: { ders: "MATEMATİK", hoca: "Meryem Dağlı" },
+                4: { ders: "TÜRKÇE", hoca: "Pınar Sofuoğlu" },
+                5: { ders: "TÜRKÇE", hoca: "Pınar Sofuoğlu" },
+                6: { ders: "FEN BİLİMLERİ", hoca: "Ece Karapınar" },
+                7: { ders: "BEDEN EĞİTİMİ VE SPOR", hoca: "Görkem Sertcan" },
+                8: { ders: "BEDEN EĞİTİMİ VE SPOR", hoca: "Görkem Sertcan" },
+                9: { ders: "SOSYAL BİLGİLER", hoca: "Sevda İnkaya" }
+            },
+            "Çarşamba": {
+                1: { ders: "TÜRKÇE", hoca: "Pınar Sofuoğlu" },
+                2: { ders: "MATEMATİK", hoca: "Meryem Dağlı" },
+                3: { ders: "MÜZİK", hoca: "Nesli T./Samet B." },
+                4: { ders: "FEN BİLİMLERİ", hoca: "Ece Karapınar" },
+                5: { ders: "İNGİLİZCE", hoca: "Aylin Simge Kaplanoğlu" },
+                6: { ders: "BİLİŞİM TEKNOLOJİLERİ VE YAZILIM", hoca: "Samet Baştarcan" },
+                7: { ders: "EĞİTİCİ FAALİYET (KULÜP)", hoca: "-" },
+                8: { ders: "EĞİTİCİ FAALİYET (KULÜP)", hoca: "-" }
+            },
+            "Perşembe": {
+                1: { ders: "BİLİŞİM TEKNOLOJİLERİ VE YAZILIM", hoca: "Samet Baştarcan" },
+                2: { ders: "DİN KÜLTÜRÜ VE AHLAK BİLGİSİ", hoca: "Muhammet Keskin" },
+                3: { ders: "GÖRSEL SANATLAR", hoca: "Sedef Demir" },
+                4: { ders: "TÜRKÇE", hoca: "Pınar Sofuoğlu" },
+                5: { ders: "FEN BİLİMLERİ", hoca: "Ece Karapınar" },
+                6: { ders: "MATEMATİK", hoca: "Meryem Dağlı" },
+                7: { ders: "MATEMATİK", hoca: "Meryem Dağlı" },
+                8: { ders: "İNGİLİZCE", hoca: "Aylin Simge Kaplanoğlu" },
+                9: { ders: "SOSYAL BİLGİLER", hoca: "Sevda İnkaya" }
+            },
+            "Cuma": {
+                1: { ders: "2. YABANCI DİL", hoca: "Ayşe/Betül/Canan" },
+                2: { ders: "2. YABANCI DİL", hoca: "Ayşe/Betül/Canan" },
+                3: { ders: "SOSYAL BİLGİLER", hoca: "Sevda İnkaya" },
+                4: { ders: "EĞİTİCİ FAALİYET/ FEN BİLİMLERİ", hoca: "Ece Karapınar" },
+                5: { ders: "İNGİLİZCE", hoca: "Aylin Simge Kaplanoğlu" },
+                6: { ders: "EĞİTİCİ FAALİYET/ İNGİLİZCE", hoca: "Enis Hüdaverdi" },
+                7: { ders: "KÜLTÜR VE MEDENİYETİMİZE YÖN VERENLER", hoca: "Pınar Sofuoğlu" },
+                8: { ders: "KÜLTÜR VE MEDENİYETİMİZE YÖN VERENLER", hoca: "Pınar Sofuoğlu" }
+            }
+        },
+        "6E": {
+            "Pazartesi": {
+                1: { ders: "SOSYAL BİLGİLER", hoca: "Sevda İnkaya" },
+                2: { ders: "TÜRKÇE", hoca: "Gizem Akdemir" },
+                3: { ders: "TÜRKÇE", hoca: "Gizem Akdemir" },
+                4: { ders: "ZEKA OYUNLARI", hoca: "Derya Atıcı" },
+                5: { ders: "GÖRSEL SANATLAR", hoca: "Sedef Demir" },
+                6: { ders: "İNGİLİZCE", hoca: "Aylin Simge Kaplanoğlu" },
+                7: { ders: "FEN BİLİMLERİ", hoca: "Ece Karapınar" },
+                8: { ders: "DİN KÜLTÜRÜ VE AHLAK BİLGİSİ", hoca: "Muhammet Keskin" }
+            },
+            "Salı": {
+                1: { ders: "İNGİLİZCE", hoca: "Aylin Simge Kaplanoğlu" },
+                2: { ders: "TÜRKÇE", hoca: "Gizem Akdemir" },
+                3: { ders: "TÜRKÇE", hoca: "Gizem Akdemir" },
+                4: { ders: "FEN BİLİMLERİ", hoca: "Ece Karapınar" },
+                5: { ders: "BİLİŞİM TEKNOLOJİLERİ VE YAZILIM", hoca: "Samet Baştarcan" },
+                6: { ders: "SOSYAL BİLGİLER", hoca: "Sevda İnkaya" },
+                7: { ders: "BEDEN EĞİTİMİ VE SPOR", hoca: "Canan Can" },
+                8: { ders: "BEDEN EĞİTİMİ VE SPOR", hoca: "Canan Can" },
+                9: { ders: "EĞİTİCİ FAALİYET/ İNGİLİZCE", hoca: "Enis Hüdaverdi" }
+            },
+            "Çarşamba": {
+                1: { ders: "MÜZİK", hoca: "Nesli T./Samet B." },
+                2: { ders: "TÜRKÇE", hoca: "Gizem Akdemir" },
+                3: { ders: "TÜRKÇE", hoca: "Gizem Akdemir" },
+                4: { ders: "MATEMATİK", hoca: "Derya Atıcı" },
+                5: { ders: "MATEMATİK", hoca: "Derya Atıcı" },
+                6: { ders: "FEN BİLİMLERİ", hoca: "Ece Karapınar" },
+                7: { ders: "EĞİTİCİ FAALİYET (KULÜP)", hoca: "-" },
+                8: { ders: "EĞİTİCİ FAALİYET (KULÜP)", hoca: "-" }
+            },
+            "Perşembe": {
+                1: { ders: "FEN BİLİMLERİ", hoca: "Ece Karapınar" },
+                2: { ders: "BİLİŞİM TEKNOLOJİLERİ VE YAZILIM", hoca: "Samet Baştarcan" },
+                3: { ders: "REHBERLİK VE YÖNLENDİRME", hoca: "Aylin Simge Kaplanoğlu" },
+                4: { ders: "KÜLTÜR VE MEDENİYETİMİZE YÖN VERENLER", hoca: "Gizem Akdemir" },
+                5: { ders: "KÜLTÜR VE MEDENİYETİMİZE YÖN VERENLER", hoca: "Gizem Akdemir" },
+                6: { ders: "EĞİTİCİ FAALİYET/ İNGİLİZCE", hoca: "Aylin Simge Kaplanoğlu" },
+                7: { ders: "EĞİTİCİ FAALİYET/ İNGİLİZCE", hoca: "Aylin Simge Kaplanoğlu" },
+                8: { ders: "MATEMATİK", hoca: "Derya Atıcı" },
+                9: { ders: "MATEMATİK", hoca: "Derya Atıcı" }
+            },
+            "Cuma": {
+                1: { ders: "EĞİTİCİ FAALİYET/ İNGİLİZCE", hoca: "Enis Hüdaverdi" },
+                2: { ders: "İNGİLİZCE", hoca: "Aylin Simge Kaplanoğlu" },
+                3: { ders: "MATEMATİK", hoca: "Derya Atıcı" },
+                4: { ders: "DİN KÜLTÜRÜ VE AHLAK BİLGİSİ", hoca: "Muhammet Keskin" },
+                5: { ders: "EĞİTİCİ FAALİYET/ FEN BİLİMLERİ", hoca: "Ece Karapınar" },
+                6: { ders: "SOSYAL BİLGİLER", hoca: "Sevda İnkaya" },
+                7: { ders: "2. YABANCI DİL", hoca: "Ayşe/Betül/Canan" },
+                8: { ders: "2. YABANCI DİL", hoca: "Ayşe/Betül/Canan" }
+            }
+        },
+        "7A": {
+            "Pazartesi": {
+                1: { ders: "DİN KÜLTÜRÜ VE AHLAK BİLGİSİ", hoca: "Ali Alperen Kelleci" },
+                2: { ders: "TÜRKÇE", hoca: "Çağdaş Altınarık" },
+                3: { ders: "BEDEN EĞİTİMİ VE SPOR", hoca: "Safa Harmankaya" },
+                4: { ders: "BEDEN EĞİTİMİ VE SPOR", hoca: "Safa Harmankaya" },
+                5: { ders: "EĞİTİCİ FAALİYET/ MATEMATİK", hoca: "Pelin Eren" },
+                6: { ders: "GÖRSEL SANATLAR", hoca: "Sedef Demir" },
+                7: { ders: "EĞİTİCİ FAALİYET/İNGİLİZCE", hoca: "Evrim Eren" },
+                8: { ders: "SOSYAL BİLGİLER", hoca: "Eylem Sarıkaya" }
+            },
+            "Salı": {
+                1: { ders: "MATEMATİK", hoca: "Pelin Eren" },
+                2: { ders: "MATEMATİK", hoca: "Pelin Eren" },
+                3: { ders: "FEN BİLİMLERİ", hoca: "Yağmur Ceren Cantürk" },
+                4: { ders: "EĞİTİCİ FAALİYET/ FEN BİLİMLERİ", hoca: "Yağmur Ceren Cantürk" },
+                5: { ders: "TEKNOLOJİ VE TASARIM", hoca: "Sedef Demir" },
+                6: { ders: "TÜRKÇE", hoca: "Çağdaş Altınarık" },
+                7: { ders: "TÜRKÇE", hoca: "Çağdaş Altınarık" },
+                8: { ders: "İNGİLİZCE", hoca: "Evrim Eren" },
+                9: { ders: "İNGİLİZCE", hoca: "Evrim Eren" }
+            },
+            "Çarşamba": {
+                1: { ders: "MATEMATİK", hoca: "Pelin Eren" },
+                2: { ders: "İNGİLİZCE", hoca: "Evrim Eren" },
+                3: { ders: "TÜRKÇE", hoca: "Çağdaş Altınarık" },
+                4: { ders: "2. YABANCI DİL", hoca: "Ayşe/Betül/Canan" },
+                5: { ders: "2. YABANCI DİL", hoca: "Ayşe/Betül/Canan" },
+                6: { ders: "FEN BİLİMLERİ", hoca: "Yağmur Ceren Cantürk" },
+                7: { ders: "EĞİTİCİ FAALİYET (KULÜP)", hoca: "-" },
+                8: { ders: "EĞİTİCİ FAALİYET (KULÜP)", hoca: "-" }
+            },
+            "Perşembe": {
+                1: { ders: "MÜZİK", hoca: "Nesli T./Samet B." },
+                2: { ders: "TÜRKÇE", hoca: "Çağdaş Altınarık" },
+                3: { ders: "FEN BİLİMLERİ", hoca: "Yağmur Ceren Cantürk" },
+                4: { ders: "FEN BİLİMLERİ", hoca: "Yağmur Ceren Cantürk" },
+                5: { ders: "SOSYAL BİLGİLER", hoca: "Eylem Sarıkaya" },
+                6: { ders: "MATEMATİK", hoca: "Pelin Eren" },
+                7: { ders: "MATEMATİK", hoca: "Pelin Eren" },
+                8: { ders: "TEKNOLOJİ VE TASARIM", hoca: "Sedef Demir" },
+                9: { ders: "DİN KÜLTÜRÜ VE AHLAK BİLGİSİ", hoca: "Ali Alperen Kelleci" }
+            },
+            "Cuma": {
+                1: { ders: "REHBERLİK VE YÖNLENDİRME", hoca: "Pelin Eren" },
+                2: { ders: "ZEKA OYUNLARI", hoca: "Pelin Eren" },
+                3: { ders: "KÜLTÜR VE MEDENİYETİMİZE YÖN VERENLER", hoca: "Çağdaş Altınarık" },
+                4: { ders: "KÜLTÜR VE MEDENİYETİMİZE YÖN VERENLER", hoca: "Çağdaş Altınarık" },
+                5: { ders: "SOSYAL BİLGİLER", hoca: "Eylem Sarıkaya" },
+                6: { ders: "İNGİLİZCE", hoca: "Evrim Eren" },
+                7: { ders: "EĞİTİCİ FAALİYET/İNGİLİZCE", hoca: "Matthew Anemikaye" },
+                8: { ders: "EĞİTİCİ FAALİYET/İNGİLİZCE", hoca: "Matthew Anemikaye" }
+            }
+        },
+        "7B": {
+            "Pazartesi": {
+                1: { ders: "TÜRKÇE", hoca: "Çağdaş Altınarık" },
+                2: { ders: "İNGİLİZCE", hoca: "Evrim Eren" },
+                3: { ders: "BEDEN EĞİTİMİ VE SPOR", hoca: "Görkem Sertcan" },
+                4: { ders: "BEDEN EĞİTİMİ VE SPOR", hoca: "Görkem Sertcan" },
+                5: { ders: "FEN BİLİMLERİ", hoca: "Yağmur Ceren Cantürk" },
+                6: { ders: "TEKNOLOJİ VE TASARIM", hoca: "Merve Özcan" },
+                7: { ders: "EĞİTİCİ FAALİYET/MATEMATİK", hoca: "Pelin Eren" },
+                8: { ders: "REHBERLİK VE YÖNLENDİRME", hoca: "Çağdaş Altınarık" }
+            },
+            "Salı": {
+                1: { ders: "İNGİLİZCE", hoca: "Evrim Eren" },
+                2: { ders: "İNGİLİZCE", hoca: "Evrim Eren" },
+                3: { ders: "MATEMATİK", hoca: "Pelin Eren" },
+                4: { ders: "TÜRKÇE", hoca: "Çağdaş Altınarık" },
+                5: { ders: "DİN KÜLTÜRÜ VE AHLAK BİLGİSİ", hoca: "Ali Alperen Kelleci" },
+                6: { ders: "FEN BİLİMLERİ", hoca: "Yağmur Ceren Cantürk" },
+                7: { ders: "SOSYAL BİLGİLER", hoca: "Eylem Sarıkaya" },
+                8: { ders: "GÖRSEL SANATLAR", hoca: "Sedef Demir" },
+                9: { ders: "EĞİTİCİ FAALİYET/İNGİLİZCE", hoca: "Matthew Anemikaye" }
+            },
+            "Çarşamba": {
+                1: { ders: "TÜRKÇE", hoca: "Çağdaş Altınarık" },
+                2: { ders: "MATEMATİK", hoca: "Pelin Eren" },
+                3: { ders: "MATEMATİK", hoca: "Pelin Eren" },
+                4: { ders: "2. YABANCI DİL", hoca: "Ayşe/Betül/Canan" },
+                5: { ders: "2. YABANCI DİL", hoca: "Ayşe/Betül/Canan" },
+                6: { ders: "İNGİLİZCE", hoca: "Evrim Eren" },
+                7: { ders: "EĞİTİCİ FAALİYET (KULÜP)", hoca: "-" },
+                8: { ders: "EĞİTİCİ FAALİYET (KULÜP)", hoca: "-" }
+            },
+            "Perşembe": {
+                1: { ders: "SOSYAL BİLGİLER", hoca: "Eylem Sarıkaya" },
+                2: { ders: "MÜZİK", hoca: "Nesli T./Samet B." },
+                3: { ders: "KÜLTÜR VE MEDENİYETİMİZE YÖN VERENLER", hoca: "Çağdaş Altınarık" },
+                4: { ders: "KÜLTÜR VE MEDENİYETİMİZE YÖN VERENLER", hoca: "Çağdaş Altınarık" },
+                5: { ders: "ZEKA OYUNLARI", hoca: "Pelin Eren" },
+                6: { ders: "EĞİTİCİ FAALİYET/İNGİLİZCE", hoca: "Matthew Anemikaye" },
+                7: { ders: "FEN BİLİMLERİ", hoca: "Yağmur Ceren Cantürk" },
+                8: { ders: "FEN BİLİMLERİ", hoca: "Yağmur Ceren Cantürk" },
+                9: { ders: "TEKNOLOJİ VE TASARIM", hoca: "Merve Özcan" }
+            },
+            "Cuma": {
+                1: { ders: "TÜRKÇE", hoca: "Çağdaş Altınarık" },
+                2: { ders: "SOSYAL BİLGİLER", hoca: "Eylem Sarıkaya" },
+                3: { ders: "EĞİTİCİ FAALİYET/ FEN BİLİMLERİ", hoca: "Yağmur Ceren Cantürk" },
+                4: { ders: "DİN KÜLTÜRÜ VE AHLAK BİLGİSİ", hoca: "Ali Alperen Kelleci" },
+                5: { ders: "EĞİTİCİ FAALİYET/İNGİLİZCE", hoca: "Evrim Eren" },
+                6: { ders: "MATEMATİK", hoca: "Pelin Eren" },
+                7: { ders: "MATEMATİK", hoca: "Pelin Eren" },
+                8: { ders: "TÜRKÇE", hoca: "Çağdaş Altınarık" }
+            }
+        },
+        "7C": {
+            "Pazartesi": {
+                1: { ders: "2. YABANCI DİL", hoca: "Ayşe/Betül/Canan" },
+                2: { ders: "2. YABANCI DİL", hoca: "Ayşe/Betül/Canan" },
+                3: { ders: "BEDEN EĞİTİMİ VE SPOR", hoca: "Sonay Kefeli" },
+                4: { ders: "BEDEN EĞİTİMİ VE SPOR", hoca: "Sonay Kefeli" },
+                5: { ders: "MATEMATİK", hoca: "Elif Kılıç" },
+                6: { ders: "EĞİTİCİ FAALİYET/İNGİLİZCE", hoca: "Matthew Anemikaye" },
+                7: { ders: "FEN BİLİMLERİ", hoca: "Yağmur Ceren Cantürk" },
+                8: { ders: "TÜRKÇE", hoca: "Duygu Altındağ" }
+            },
+            "Salı": {
+                1: { ders: "MATEMATİK", hoca: "Elif Kılıç" },
+                2: { ders: "MATEMATİK", hoca: "Elif Kılıç" },
+                3: { ders: "DİN KÜLTÜRÜ VE AHLAK BİLGİSİ", hoca: "Ali Alperen Kelleci" },
+                4: { ders: "İNGİLİZCE", hoca: "Evrim Eren" },
+                5: { ders: "SOSYAL BİLGİLER", hoca: "Eylem Sarıkaya" },
+                6: { ders: "TEKNOLOJİ VE TASARIM", hoca: "Sedef Demir" },
+                7: { ders: "TEKNOLOJİ VE TASARIM", hoca: "Sedef Demir" },
+                8: { ders: "TÜRKÇE", hoca: "Duygu Altındağ" },
+                9: { ders: "TÜRKÇE", hoca: "Duygu Altındağ" }
+            },
+            "Çarşamba": {
+                1: { ders: "TÜRKÇE", hoca: "Duygu Altındağ" },
+                2: { ders: "EĞİTİCİ FAALİYET/MATEMATİK", hoca: "Elif Kılıç" },
+                3: { ders: "FEN BİLİMLERİ", hoca: "Yağmur Ceren Cantürk" },
+                4: { ders: "FEN BİLİMLERİ", hoca: "Yağmur Ceren Cantürk" },
+                5: { ders: "EĞİTİCİ FAALİYET/İNGİLİZCE", hoca: "Evrim Eren" },
+                6: { ders: "GÖRSEL SANATLAR", hoca: "Sedef Demir" },
+                7: { ders: "EĞİTİCİ FAALİYET (KULÜP)", hoca: "-" },
+                8: { ders: "EĞİTİCİ FAALİYET (KULÜP)", hoca: "-" }
+            },
+            "Perşembe": {
+                1: { ders: "TÜRKÇE", hoca: "Duygu Altındağ" },
+                2: { ders: "FEN BİLİMLERİ", hoca: "Yağmur Ceren Cantürk" },
+                3: { ders: "MÜZİK", hoca: "Nesli T./Samet B." },
+                4: { ders: "SOSYAL BİLGİLER", hoca: "Eylem Sarıkaya" },
+                5: { ders: "İNGİLİZCE", hoca: "Evrim Eren" },
+                6: { ders: "MATEMATİK", hoca: "Elif Kılıç" },
+                7: { ders: "MATEMATİK", hoca: "Elif Kılıç" },
+                8: { ders: "DİN KÜLTÜRÜ VE AHLAK BİLGİSİ", hoca: "Ali Alperen Kelleci" },
+                9: { ders: "REHBERLİK", hoca: "Yağmur Ceren Cantürk" }
+            },
+            "Cuma": {
+                1: { ders: "ZEKA OYUNLARI", hoca: "Elif Kılıç" },
+                2: { ders: "EĞİTİCİ FAALİYET/ FEN BİLİMLERİ", hoca: "Yağmur Ceren Cantürk" },
+                3: { ders: "SOSYAL BİLGİLER", hoca: "Eylem Sarıkaya" },
+                4: { ders: "KÜLTÜR VE MEDENİYETİMİZE YÖN VERENLER", hoca: "Duygu Altındağ" },
+                5: { ders: "KÜLTÜR VE MEDENİYETİMİZE YÖN VERENLER", hoca: "Duygu Altındağ" },
+                6: { ders: "EĞİTİCİ FAALİYET/İNGİLİZCE", hoca: "Matthew Anemikaye" },
+                7: { ders: "İNGİLİZCE", hoca: "Evrim Eren" },
+                8: { ders: "İNGİLİZCE", hoca: "Evrim Eren" }
+            }
+        },
+        "7E": {
+            "Pazartesi": {
+                1: { ders: "EĞİTİCİ FAALİYET/İNGİLİZCE", hoca: "Matthew Anemikaye" },
+                2: { ders: "EĞİTİCİ FAALİYET/İNGİLİZCE", hoca: "Damla Öğüt" },
+                3: { ders: "2. YABANCI DİL", hoca: "Ayşe/Betül/Canan" },
+                4: { ders: "2. YABANCI DİL", hoca: "Ayşe/Betül/Canan" },
+                5: { ders: "MATEMATİK", hoca: "Meryem Dağlı" },
+                6: { ders: "DİN KÜLTÜRÜ VE AHLAK BİLGİSİ", hoca: "Ali Alperen Kelleci" },
+                7: { ders: "TÜRKÇE", hoca: "Duygu Altındağ" },
+                8: { ders: "FEN BİLİMLERİ", hoca: "Bilge Soylu" }
+            },
+            "Salı": {
+                1: { ders: "İNGİLİZCE", hoca: "Damla Öğüt" },
+                2: { ders: "İNGİLİZCE", hoca: "Damla Öğüt" },
+                3: { ders: "TÜRKÇE", hoca: "Duygu Altındağ" },
+                4: { ders: "MATEMATİK", hoca: "Meryem Dağlı" },
+                5: { ders: "MATEMATİK", hoca: "Meryem Dağlı" },
+                6: { ders: "DİN KÜLTÜRÜ VE AHLAK BİLGİSİ", hoca: "Ali Alperen Kelleci" },
+                7: { ders: "EĞİTİCİ FAALİYET/İNGİLİZCE", hoca: "Matthew Anemikaye" },
+                8: { ders: "SOSYAL BİLGİLER", hoca: "Eylem Sarıkaya" },
+                9: { ders: "EĞİTİCİ FAALİYET/ FEN BİLİMLERİ", hoca: "Bilge Soylu" }
+            },
+            "Çarşamba": {
+                1: { ders: "FEN BİLİMLERİ", hoca: "Bilge Soylu" },
+                2: { ders: "SOSYAL BİLGİLER", hoca: "Eylem Sarıkaya" },
+                3: { ders: "MATEMATİK", hoca: "Meryem Dağlı" },
+                4: { ders: "MATEMATİK", hoca: "Meryem Dağlı" },
+                5: { ders: "TÜRKÇE", hoca: "Duygu Altındağ" },
+                6: { ders: "TEKNOLOJİ VE TASARIM", hoca: "Merve Özcan" },
+                7: { ders: "EĞİTİCİ FAALİYET (KULÜP)", hoca: "-" },
+                8: { ders: "EĞİTİCİ FAALİYET (KULÜP)", hoca: "-" }
+            },
+            "Perşembe": {
+                1: { ders: "FEN BİLİMLERİ", hoca: "Bilge Soylu" },
+                2: { ders: "SOSYAL BİLGİLER", hoca: "Eylem Sarıkaya" },
+                3: { ders: "TÜRKÇE", hoca: "Duygu Altındağ" },
+                4: { ders: "TÜRKÇE", hoca: "Duygu Altındağ" },
+                5: { ders: "MÜZİK", hoca: "Nesli T./Samet B." },
+                6: { ders: "REHBERLİK", hoca: "Ali Alperen Kelleci" },
+                7: { ders: "İNGİLİZCE", hoca: "Damla Öğüt" },
+                8: { ders: "ZEKA OYUNLARI", hoca: "Meryem Dağlı" },
+                9: { ders: "EĞİTİCİ FAALİYET/MATEMATİK", hoca: "Meryem Dağlı" }
+            },
+            "Cuma": {
+                1: { ders: "FEN BİLİMLERİ", hoca: "Bilge Soylu" },
+                2: { ders: "KÜLTÜR VE MEDENİYETİMİZE YÖN VERENLER", hoca: "Duygu Altındağ" },
+                3: { ders: "KÜLTÜR VE MEDENİYETİMİZE YÖN VERENLER", hoca: "Duygu Altındağ" },
+                4: { ders: "TEKNOLOJİ VE TASARIM", hoca: "Merve Özcan" },
+                5: { ders: "İNGİLİZCE", hoca: "Damla Öğüt" },
+                6: { ders: "GÖRSEL SANATLAR", hoca: "Sedef Demir" },
+                7: { ders: "BEDEN EĞİTİMİ VE SPOR", hoca: "Safa Harmankaya" },
+                8: { ders: "BEDEN EĞİTİMİ VE SPOR", hoca: "Safa Harmankaya" }
+            }
+        }
+    };
+
+    /* =======================================================
+       6. AYARLAR VE ÇAĞRILABİLİRLİK MANTIĞI
+          - Zeka Oyunları ve Eğitici Faaliyetler varsayılan muaf/uygun değildir.
+          - İlk kelime veya anahtar kelime eşleşmesi (normalizeTr).
+       ======================================================= */
+    let appSettings = {
+        eligibleLessons: ["BEDEN", "MÜZİK", "GÖRSEL", "BİLİŞİM", "TEKNOLOJİ"],
+        blockedLessons: ["EĞİTİCİ", "FAALİYET", "KULÜP", "ZEKA"],
+        eligibleTeachers: ["ENİS", "PEREZ", "MATTHEW"]
+    };
+
+    function setCloudStatus(state, msg) {
+        const badge = document.getElementById('cloudStatusBadge');
+        const icon = document.getElementById('cloudIcon');
+        const text = document.getElementById('cloudText');
         
+        badge.className = "pill-badge cloud-status " + state;
+        text.innerText = msg;
+        if (state === "connected") icon.innerText = "☁️";
+        else if (state === "syncing") icon.innerText = "🔄";
+        else icon.innerText = "⚠️";
+    }
+
+    function initFirebaseCloud() {
+        try {
+            if (typeof firebase !== 'undefined') {
+                if (!firebase.apps.length) {
+                    firebase.initializeApp(FIREBASE_CONFIG);
+                }
+                db = firebase.firestore();
+                listenToCloud();
+            } else {
+                setCloudStatus("offline", "Yerel Mod (Çevrimdışı)");
+            }
+        } catch(err) {
+            console.warn("Firebase başlatılamadı, yerel modda çalışılıyor:", err);
+            setCloudStatus("offline", "Yerel Mod");
+        }
+    }
+
+    function listenToCloud() {
+        if (!db) return;
+        setCloudStatus("syncing", "Bulut Bağlanıyor...");
+
+        db.collection("thunderbots_planlama").doc("ayarlar_ve_tablo")
+          .onSnapshot((doc) => {
+              if (doc.exists) {
+                  const data = doc.data();
+                  if (data.appSettings) {
+                      appSettings = Object.assign(appSettings, data.appSettings);
+                      updateSettingsFormUI();
+                  }
+                  if (data.activeRoomSchedule) {
+                      activeRoomSchedule = data.activeRoomSchedule;
+                  }
+                  setCloudStatus("connected", "Bulut Eşitlendi (Canlı)");
+                  refreshAllViews();
+              } else {
+                  syncToCloud(false);
+              }
+          }, (err) => {
+              console.error("Bulut dinleme hatası:", err);
+              setCloudStatus("offline", "Yerel Mod (Çevrimdışı)");
+          });
+    }
+
+    function syncToCloud(showToastAlert = true) {
+        try {
+            localStorage.setItem("thunderbots_settings", JSON.stringify(appSettings));
+            localStorage.setItem("thunderbots_room_schedule", JSON.stringify(activeRoomSchedule));
+        } catch(e) {}
+
+        if (db) {
+            setCloudStatus("syncing", "Eşitleniyor...");
+            db.collection("thunderbots_planlama").doc("ayarlar_ve_tablo").set({
+                appSettings: appSettings,
+                activeRoomSchedule: activeRoomSchedule,
+                updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+            }, { merge: true })
+            .then(() => {
+                setCloudStatus("connected", "Bulut Eşitlendi (Tüm Cihazlar)");
+                if (showToastAlert) showToast("Değişiklik tüm cihazlarda güncellendi!");
+            })
+            .catch(err => {
+                console.error("Bulut kaydetme hatası:", err);
+                setCloudStatus("offline", "Yerel Modda Kaydedildi");
+            });
+        } else {
+            if (showToastAlert) showToast("Ayarlar yerel olarak güncellendi!");
+        }
+    }
+
+    function loadLocalSettingsFallback() {
+        try {
+            const s = localStorage.getItem("thunderbots_settings");
+            if (s) {
+                appSettings = Object.assign(appSettings, JSON.parse(s));
+                updateSettingsFormUI();
+            }
+            const roomSaved = localStorage.getItem("thunderbots_room_schedule");
+            if (roomSaved) {
+                activeRoomSchedule = JSON.parse(roomSaved);
+            }
+        } catch(e) {}
+    }
+
+    function updateSettingsFormUI() {
+        document.getElementById('settingEligibleLessons').value = appSettings.eligibleLessons.join(", ");
+        document.getElementById('settingBlockedLessons').value = (appSettings.blockedLessons || ["EĞİTİCİ", "FAALİYET", "KULÜP", "ZEKA"]).join(", ");
+        document.getElementById('settingEligibleTeachers').value = appSettings.eligibleTeachers.join(", ");
+    }
+
+    function autoSyncSettings() {
+        const lStr = document.getElementById('settingEligibleLessons').value;
+        const bStr = document.getElementById('settingBlockedLessons').value;
+        const tStr = document.getElementById('settingEligibleTeachers').value;
+
+        appSettings.eligibleLessons = lStr.split(",").map(x => x.trim().toLocaleUpperCase('tr-TR')).filter(Boolean);
+        appSettings.blockedLessons = bStr.split(",").map(x => x.trim().toLocaleUpperCase('tr-TR')).filter(Boolean);
+        appSettings.eligibleTeachers = tStr.split(",").map(x => x.trim().toLocaleUpperCase('tr-TR')).filter(Boolean);
+
+        syncToCloud(true);
+        refreshAllViews();
+    }
+
+    function manualSaveSettings() {
+        autoSyncSettings();
+        closeSettingsModal();
+    }
+
+    function restoreDefaultSchedule() {
+        activeRoomSchedule = JSON.parse(JSON.stringify(initialDefaultRoomSchedule));
+        renderModalEditorGrid();
+        syncToCloud(true);
+        refreshAllViews();
+        showToast("Boş saatler çizelgesi varsayılana sıfırlandı.");
+    }
+
+    /* KESİN ÇAĞRILABİLİRLİK DEĞERLENDİRMESİ (TÜRKÇE KARAKTER VE İÇERİR DESTEKLİ) */
+    function isLessonAvailable(l) {
+        if (!l || !l.ders) return { ok: false, reason: "Ders yok" };
+        const dNorm = normalizeTr(l.ders);
+        const hNorm = normalizeTr(l.hoca || "");
+
+        // 1. Yasaklı / Muaf dersler kontrolü (Eğitici faaliyet, Zeka oyunları, Kulüp vb.)
+        const blockedList = (appSettings.blockedLessons || ["EĞİTİCİ", "FAALİYET", "KULÜP", "ZEKA"])
+            .map(x => normalizeTr(x))
+            .filter(Boolean);
+
+        for (let k of blockedList) {
+            if (dNorm.includes(k)) {
+                if (k.includes("zeka")) return { ok: false, reason: "Zeka Oyunları (Muaf)" };
+                if (k.includes("egitici") || k.includes("faaliyet")) return { ok: false, reason: "Eğitici Faaliyet (Muaf)" };
+                if (k.includes("kulup")) return { ok: false, reason: "Kulüp Saati" };
+                return { ok: false, reason: `${l.ders} (Muaf)` };
+            }
+        }
+
+        // 2. Uygun / Çağrılabilir dersler kontrolü (Beden, Müzik, Görsel, Bilişim, Teknoloji vb.)
+        const eligibleList = (appSettings.eligibleLessons || ["BEDEN", "MÜZİK", "GÖRSEL", "BİLİŞİM", "TEKNOLOJİ"])
+            .map(x => normalizeTr(x))
+            .filter(Boolean);
+
+        for (let k of eligibleList) {
+            if (dNorm.includes(k)) {
+                return { ok: true, reason: `✅ ${l.ders} · Alınabilir` };
+            }
+        }
+
+        // 3. Çağrılabilir öğretmenler kontrolü
+        const teachersList = (appSettings.eligibleTeachers || ["ENİS", "PEREZ", "MATTHEW"])
+            .map(x => normalizeTr(x))
+            .filter(Boolean);
+
+        for (let k of teachersList) {
+            if (hNorm.includes(k)) {
+                return { ok: true, reason: `✅ ${l.hoca} · Alınabilir` };
+            }
+        }
+
+        return { ok: false, reason: "Sınıfta Olmalı" };
+    }
+
+    /* KESİN ÇAĞRILABİLİRLİK DEĞERLENDİRMESİ (ODA & ÖĞRETMEN MÜSAİTLİĞİ ZORUNLULUĞU)
+       Kural: BBRB veya RB olmadığı sürece (oda ve öğretmen boş olmadığı sürece)
+       öğrencinin dersi uygun olsa bile öğrenci çağrılamaz ve uygun gösterilmez. */
+    function evaluateCallingStatus(l, day, period) {
+        if (!l || !l.ders) {
+            return {
+                ok: false,
+                isRoomReady: false,
+                lessonOk: false,
+                reason: "Ders yok",
+                badgeClass: "pill-status-busy",
+                icon: "🔴"
+            };
+        }
+
+        const roomStatus = (activeRoomSchedule[day] && activeRoomSchedule[day][period]) || "";
+        const isRoomReady = (roomStatus === "BBRB" || roomStatus === "RB");
+        const lessonStatus = isLessonAvailable(l);
+
+        if (!isRoomReady) {
+            // Oda veya Öğretmen müsait değil (BBRB veya RB değil)
+            if (lessonStatus.ok) {
+                return {
+                    ok: false,
+                    isRoomReady: false,
+                    lessonOk: true,
+                    reason: `⛔ Oda/Öğr. Dolu (Ders Uygun)`,
+                    detail: `Ders (${l.ders}) uygun ancak bu saatte öğretmen veya robotik atölyesi müsait değil (BBRB veya RB değil).`,
+                    badgeClass: "pill-status-room-busy",
+                    icon: "⚪"
+                };
+            } else {
+                return {
+                    ok: false,
+                    isRoomReady: false,
+                    lessonOk: false,
+                    reason: lessonStatus.reason,
+                    detail: lessonStatus.reason,
+                    badgeClass: "pill-status-busy",
+                    icon: "🔴"
+                };
+            }
+        }
+
+        // Oda / Öğretmen müsait (BBRB veya RB)
+        if (lessonStatus.ok) {
+            return {
+                ok: true,
+                isRoomReady: true,
+                lessonOk: true,
+                reason: lessonStatus.reason,
+                detail: lessonStatus.reason,
+                badgeClass: "pill-status-avail",
+                icon: "🟢"
+            };
+        } else {
+            return {
+                ok: false,
+                isRoomReady: true,
+                lessonOk: false,
+                reason: lessonStatus.reason,
+                detail: lessonStatus.reason,
+                badgeClass: "pill-status-busy",
+                icon: "🔴"
+            };
+        }
+    }
+
+    function refreshAllViews() {
+        renderPeriodButtons();
+        if (currentSelectedDay && currentSelectedPeriod) {
+            showAnlik(currentSelectedDay, currentSelectedPeriod, null);
+        }
+        renderMatrix();
+        renderH();
+    }
+
+    /* =======================================================
+       7. TAB 1: ANLIK DURUM VE FİLTRELEME
+       ======================================================= */
+    let currentSelectedDay = "Pazartesi";
+    let currentSelectedPeriod = null;
+    let currentPeriodFilter = "all"; // 'all', 'bbrb', 'all-empty'
+
+    function setPeriodFilter(filterType, btn) {
+        currentPeriodFilter = filterType;
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        if (btn) btn.classList.add('active');
+        renderPeriodButtons();
+    }
+
+    function selectDay(g, btn) {
+        currentSelectedDay = g;
+        document.querySelectorAll('#dayContainer .plate-box').forEach(x => x.classList.remove('active'));
+        if (btn) btn.classList.add('active');
+
+        renderPeriodButtons();
+        document.getElementById('resultsArea').style.display = 'none';
+        currentSelectedPeriod = null;
+    }
+
+    function renderPeriodButtons() {
         const pc = document.getElementById('periodContainer');
         pc.innerHTML = "";
-        
-        const boslar = robotikBos.filter(x => x.g === g);
-        if(boslar.length === 0) {
-            pc.innerHTML = "<div style='color:#ef4444; font-size:14px; width:100%; text-align:center;'>Bu günde robotik odası boş değil.</div>";
+
+        const timeDict = (currentSelectedDay === "Cuma") ? lessonTimes.Cuma : lessonTimes.Haftaici;
+        const daySchedule = activeRoomSchedule[currentSelectedDay] || {};
+        const availableDayPeriods = getDisplayPeriodsForDay(currentSelectedDay);
+
+        let filteredPeriods = [];
+        availableDayPeriods.forEach(i => {
+            const status = daySchedule[i] || "";
+            if (currentPeriodFilter === "bbrb" && status !== "BBRB") return;
+            if (currentPeriodFilter === "all-empty" && status !== "BBRB" && status !== "RB") return;
+            filteredPeriods.push(i);
+        });
+
+        if (filteredPeriods.length === 0) {
+            pc.innerHTML = `<div style="grid-column:1/-1; color:#ef4444; font-size:13px; text-align:center; padding:18px; background:#fff; border-radius:12px; border:1px solid #e2e8f0;">Seçilen filtreye uygun boş ders saati bulunamadı. Filtreyi "Tüm Dersler" yaparak tüm saatleri görebilirsiniz.</div>`;
             return;
         }
 
-        boslar.forEach(z => {
-            let d = document.createElement("div");
-            d.className = "period-box";
-            let text = z.d + ". Ders";
-            
-            if (z.g === "Cuma" && z.d === 5) {
-                text += "<br><span style='font-size:0.75em; font-weight:normal;'>(12.20'ye kadar boş)</span>";
+        filteredPeriods.forEach(dNo => {
+            const status = daySchedule[dNo] || "";
+            const isRoomReady = (status === "BBRB" || status === "RB");
+
+            let availCount = 0;
+            if (isRoomReady) {
+                ogrs.forEach(o => {
+                    const l = (progs[o.s] && progs[o.s][currentSelectedDay]) ? progs[o.s][currentSelectedDay][dNo] : null;
+                    if (evaluateCallingStatus(l, currentSelectedDay, dNo).ok) availCount++;
+                });
             }
-            if (z.g === "Cuma" && z.d === 8) {
-                text += "<br><span style='font-size:0.75em; font-weight:normal; color:#d97706;'>(Robotik Odası Boş)</span>";
+
+            const box = document.createElement("div");
+            box.className = "plate-box";
+            if (currentSelectedPeriod === dNo) box.classList.add('active');
+
+            const tStr = timeDict[dNo] || "";
+            const isHigh = availCount >= 4;
+
+            let statusHTML = "";
+            let counterHTML = "";
+
+            if (status === "BBRB") {
+                statusHTML = `<span class="room-status-badge status-bbrb">🟢 BBRB: İkisi de Boş</span>`;
+                counterHTML = `<span class="badge-avail-counter ${availCount === 0 ? 'low' : ''}">
+                    ${availCount} / 8 Öğrenci Uygun ${isHigh ? '⭐' : ''}
+                </span>`;
+            } else if (status === "RB") {
+                statusHTML = `<span class="room-status-badge status-rb">🟣 RB: Robotik Boş</span>`;
+                counterHTML = `<span class="badge-avail-counter ${availCount === 0 ? 'low' : ''}">
+                    ${availCount} / 8 Öğrenci Uygun ${isHigh ? '⭐' : ''}
+                </span>`;
+            } else if (status === "KAPALI") {
+                statusHTML = `<span class="room-status-badge status-closed">⚫ Kapalı</span>`;
+                counterHTML = `<span class="badge-avail-counter low">0 / 8 (Kapalı)</span>`;
+            } else {
+                statusHTML = `<span style="font-size:10px; color:var(--text-muted); padding:2px 6px; background:#f1f5f9; border-radius:6px; border:1px solid #cbd5e1;">Ders / Dolu Saat</span>`;
+                counterHTML = `<span class="badge-avail-counter low">Uygun Değil</span>`;
             }
-            
-            d.innerHTML = text;
-            d.onclick = () => showAnlik(g, z.d, d);
-            pc.appendChild(d);
+
+            box.innerHTML = `
+                <span class="box-primary-text">${dNo}. Ders</span>
+                <span class="box-sub-text">${tStr}</span>
+                ${statusHTML}
+                ${counterHTML}
+            `;
+            box.onclick = () => showAnlik(currentSelectedDay, dNo, box);
+            pc.appendChild(box);
         });
     }
 
-    function showAnlik(g, d, b) {
-        document.querySelectorAll('.period-box').forEach(x => x.classList.remove('active'));
-        b.classList.add('active');
+    function showAnlik(g, dNo, boxElem) {
+        currentSelectedPeriod = dNo;
+        document.querySelectorAll('#periodContainer .plate-box').forEach(x => x.classList.remove('active'));
+        if (boxElem) boxElem.classList.add('active');
+
         const sc = document.getElementById('studentCards');
         sc.innerHTML = "";
-        
+
+        const roomStatus = (activeRoomSchedule[g] && activeRoomSchedule[g][dNo]) || "";
+        const isRoomReady = (roomStatus === "BBRB" || roomStatus === "RB");
+
+        let callList = [];
+        let availTotal = 0;
+
         ogrs.forEach(o => {
-            let l = progs[o.s][g][d] || { ders: "Bilinmiyor", hoca: "?" };
-            let ok = cagrilabilirDersler.some(y => l.ders.toUpperCase().includes(y)) || cagrilabilirHocalar.some(y => l.hoca.toUpperCase().includes(y));
-            if(l.ders.toUpperCase().includes("ZEKA")) ok = false;
-            
-            let ekstraNotHTML = "";
-            
-            if (g === "Cuma" && d === 8 && o.s === "7D") {
-                ok = true;
-                ekstraNotHTML = `<div class="special-note">✅ Beden Dersi - Öğrenci Alınabilir</div>`;
+            const l = (progs[o.s] && progs[o.s][g]) ? progs[o.s][g][dNo] : { ders: "Ders Bulunamadı", hoca: "-" };
+            const status = evaluateCallingStatus(l, g, dNo);
+
+            if (status.ok) {
+                availTotal++;
+                callList.push(`${o.n} (${o.s}) - [${l.ders}]`);
             }
 
-            sc.innerHTML += `
-            <div class="student-card ${ok ? 'available' : ''}">
-                <div class="student-header">
-                    <span class="student-name">${o.n.split(' ')[0]} ${o.n.split(' ')[1] || ''}</span>
-                    <span class="class-badge">${o.s}</span>
+            const card = document.createElement("div");
+            card.className = `student-glass-card ${status.ok ? 'is-available' : 'is-busy'}`;
+            card.innerHTML = `
+                <div class="card-top-row">
+                    <div>
+                        <div class="card-student-name">${o.n}</div>
+                        <div class="card-student-sub">${o.grade} · No: ${o.no}</div>
+                    </div>
+                    <span class="class-glass-badge">${o.s}</span>
                 </div>
-                <div class="lesson-info">
-                    <span class="lesson-name">📚 ${l.ders}</span>
-                    <span class="teacher-name">👤 ${l.hoca}</span>
+                <div class="card-divider"></div>
+                <div class="card-lesson-block">
+                    <span class="card-lesson-name">
+                        <span>${status.icon}</span> ${l.ders}
+                    </span>
+                    <span class="card-teacher-name">👤 ${l.hoca || '-'}</span>
                 </div>
-                ${ekstraNotHTML}
-            </div>`;
+                <div class="card-status-pill ${status.badgeClass}">
+                    ${status.reason}
+                </div>
+            `;
+            sc.appendChild(card);
         });
+
+        const timeDict = (g === "Cuma") ? lessonTimes.Cuma : lessonTimes.Haftaici;
+        const timeStr = timeDict[dNo] ? `(${timeDict[dNo]})` : "";
+
+        let roomTag = "";
+        let copyStatusTag = "";
+        let warningNote = "";
+
+        if (roomStatus === "BBRB") {
+            roomTag = `<span class="room-status-badge status-bbrb" style="font-size:0.8rem; padding:4px 10px;">🟢 BBRB: Öğretmen Boş + Robotik Boş</span>`;
+            copyStatusTag = "[🟢 BBRB: Öğretmen & Robotik Boş]";
+        } else if (roomStatus === "RB") {
+            roomTag = `<span class="room-status-badge status-rb" style="font-size:0.8rem; padding:4px 10px;">🟣 RB: Robotik Odası Boş</span>`;
+            copyStatusTag = "[🟣 RB: Robotik Boş]";
+        } else {
+            roomTag = `<span class="room-status-badge status-closed" style="font-size:0.8rem; padding:4px 10px;">⛔ Oda / Öğretmen Dolu (BBRB/RB Değil)</span>`;
+            copyStatusTag = "[Ders / Oda Dolu]";
+            warningNote = `<div style="margin-top:12px; font-size:12.5px; color:#b91c1c; background:linear-gradient(135deg, #fff5f5 0%, #fef2f2 100%); border:1px solid #fecaca; padding:10px 14px; border-radius:10px; line-height:1.45; box-shadow:inset 0 1px 0 #ffffff;">
+                ⚠️ <strong>Oda veya Öğretmen Müsait Değil:</strong> Bu saatte öğretmen veya robotik atölyesi boş olmadığı için (BBRB veya RB değildir), dersi uygun olan öğrenciler de çağrılamaz.
+            </div>`;
+        }
+
+        document.getElementById('summaryText').innerHTML = `
+            <div style="display:flex; align-items:center; flex-wrap:wrap; gap:8px;">
+                <span>📍 <strong>${g} ${dNo}. Ders ${timeStr}:</strong></span>
+                ${roomTag}
+                <span class="pill-badge" style="background:${isRoomReady ? 'var(--bbrb-bg)' : 'linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%)'}; border-color:${isRoomReady ? 'var(--bbrb-border)' : '#fecaca'}; color:${isRoomReady ? 'var(--bbrb-text)' : '#991b1b'}; font-weight:800; box-shadow:${isRoomReady ? 'var(--bbrb-shadow)' : 'inset 0 1px 0 #ffffff'};">
+                    ${availTotal} / 8 Öğrenci Çağrılabilir
+                </span>
+            </div>
+            ${warningNote}
+        `;
+
+        if (!isRoomReady) {
+            window.currentCallingListText = `⚡ THUNDER BOTS ${g} ${dNo}. Ders ${timeStr}:\n⚠️ Bu saatte Öğretmen veya Robotik Odası müsait değildir (BBRB veya RB değildir). Öğrenci çağrılamaz.`;
+        } else {
+            window.currentCallingListText = `⚡ THUNDER BOTS ${g} ${dNo}. Ders Çağrı Listesi ${timeStr} ${copyStatusTag}:\n` +
+                (callList.length > 0 ? callList.map((c, i) => `${i+1}. ${c}`).join("\n") : "Bu saatte çağrılabilir öğrenci bulunmuyor.");
+        }
+
         document.getElementById('resultsArea').style.display = 'block';
     }
 
-    let hG = "", hO = "";
+    function copyCallingList() {
+        if (!window.currentCallingListText) return;
+        const roomStatus = (activeRoomSchedule[currentSelectedDay] && activeRoomSchedule[currentSelectedDay][currentSelectedPeriod]) || "";
+        const isRoomReady = (roomStatus === "BBRB" || roomStatus === "RB");
+
+        navigator.clipboard.writeText(window.currentCallingListText).then(() => {
+            if (!isRoomReady) {
+                showToast("⚠️ Bu saatte oda/öğretmen müsait olmadığından uygun değildir.");
+            } else {
+                showToast("Çağrı listesi panoya kopyalandı!");
+            }
+        });
+    }
+
+    /* =======================================================
+       8. TAB 2: GÜNLÜK TAKIM MATRİSİ (ISI HARİTASI)
+       ======================================================= */
+    let currentMatrixDay = "Pazartesi";
+
+    function selectMatrixDay(g, btn) {
+        currentMatrixDay = g;
+        document.querySelectorAll('#matrixDayContainer .plate-box').forEach(x => x.classList.remove('active'));
+        if (btn) btn.classList.add('active');
+        renderMatrix();
+    }
+
+    function renderMatrix() {
+        const table = document.getElementById('matrixTable');
+        const g = currentMatrixDay;
+        const timeDict = (g === "Cuma") ? lessonTimes.Cuma : lessonTimes.Haftaici;
+        const daySchedule = activeRoomSchedule[g] || {};
+        const displayPeriods = getDisplayPeriodsForDay(g);
+
+        let theadHTML = `<thead><tr><th style="text-align:left; padding-left:14px; min-width:140px;">Öğrenci / Şube</th>`;
+        displayPeriods.forEach(d => {
+            const st = daySchedule[d] || "";
+            let stPill = "";
+            if (st === "BBRB") stPill = `<span class="room-status-badge status-bbrb" style="display:inline-block; margin-top:2px; font-size:9px; padding:1px 4px;">BBRB</span>`;
+            else if (st === "RB") stPill = `<span class="room-status-badge status-rb" style="display:inline-block; margin-top:2px; font-size:9px; padding:1px 4px;">RB</span>`;
+            else stPill = `<span style="display:inline-block; margin-top:2px; font-size:8.5px; color:#94a3b8; background:#f1f5f9; padding:1px 4px; border-radius:4px;">Dolu</span>`;
+
+            theadHTML += `<th>
+                <div>${d}. Ders</div>
+                <small>${timeDict[d] || ''}</small>
+                ${stPill}
+            </th>`;
+        });
+        theadHTML += `</tr></thead>`;
+
+        let tbodyHTML = `<tbody>`;
+        let columnAvailCount = {};
+        displayPeriods.forEach(d => columnAvailCount[d] = 0);
+
+        ogrs.forEach(o => {
+            tbodyHTML += `<tr>`;
+            tbodyHTML += `
+                <td style="text-align:left; padding-left:14px; font-weight:700;">
+                    ${o.n.split(' ')[0]} ${o.n.split(' ')[1] || ''}
+                    <span class="class-glass-badge" style="font-size:10px; margin-left:4px;">${o.s}</span>
+                </td>
+            `;
+
+            displayPeriods.forEach(d => {
+                const l = (progs[o.s] && progs[o.s][g]) ? progs[o.s][g][d] : null;
+                const st = evaluateCallingStatus(l, g, d);
+                if (st.ok) columnAvailCount[d]++;
+
+                let cellClass = "busy";
+                if (st.ok) {
+                    cellClass = "avail";
+                } else if (st.lessonOk && !st.isRoomReady) {
+                    cellClass = "room-busy";
+                }
+
+                tbodyHTML += `
+                    <td>
+                        <div class="matrix-cell-plate ${cellClass}" title="${l ? l.ders + ' (' + l.hoca + ') - ' + st.reason : ''}">
+                            ${l ? l.ders.substring(0, 13) + (l.ders.length > 13 ? '...' : '') : '-'}
+                            <span class="cell-teacher">${l ? (l.hoca || '').split(' ')[0] : ''}</span>
+                        </div>
+                    </td>
+                `;
+            });
+            tbodyHTML += `</tr>`;
+        });
+
+        // Summary row
+        tbodyHTML += `<tr class="matrix-total-row">`;
+        tbodyHTML += `<td style="text-align:left; padding-left:14px; font-weight:800; color:var(--text-main);">Toplam Uygun</td>`;
+        displayPeriods.forEach(d => {
+            const rSt = daySchedule[d] || "";
+            const isRoomReady = (rSt === "BBRB" || rSt === "RB");
+            const count = columnAvailCount[d];
+            const isHigh = count >= 4 && isRoomReady;
+
+            if (isRoomReady) {
+                tbodyHTML += `
+                    <td style="color:${isHigh ? '#047857' : 'var(--text-muted)'}; font-weight:800; font-family:'JetBrains Mono', monospace;">
+                        ${count} / 8 ${isHigh ? '⭐' : ''}
+                        ${rSt === 'BBRB' ? '<div style="color:var(--bbrb-text); font-size:9.5px; font-weight:bold;">BBRB</div>' : '<div style="color:var(--rb-text); font-size:9.5px; font-weight:bold;">RB</div>'}
+                    </td>
+                `;
+            } else {
+                tbodyHTML += `
+                    <td style="color:var(--text-muted); opacity:0.6; font-size:11px;">
+                        -
+                        <div style="font-size:9px;">Oda Dolu</div>
+                    </td>
+                `;
+            }
+        });
+        tbodyHTML += `</tr>`;
+        tbodyHTML += `</tbody>`;
+
+        table.innerHTML = theadHTML + tbodyHTML;
+    }
+
+    /* =======================================================
+       9. TAB 3: ÖĞRENCİ BİREYSEL PROGRAMI
+       ======================================================= */
+    let hG = "Pazartesi", hO = "batu";
+
     function selHDay(g, b) {
         hG = g;
-        document.querySelectorAll('#hDayContainer .tick-box').forEach(x => x.classList.remove('active'));
-        b.classList.add('active');
+        document.querySelectorAll('#hDayContainer .plate-box').forEach(x => x.classList.remove('active'));
+        if (b) b.classList.add('active');
         renderH();
     }
 
     function selHOgr(id, b) {
         hO = id;
-        document.querySelectorAll('#hStudentContainer .tick-box').forEach(x => x.classList.remove('active'));
-        b.classList.add('active');
+        document.querySelectorAll('#hStudentContainer .plate-box').forEach(x => x.classList.remove('active'));
+        if (b) b.classList.add('active');
         renderH();
     }
 
     function renderH() {
-        if(!hG || !hO) return;
+        if (!hG || !hO) return;
         const o = ogrs.find(x => x.id === hO);
-        const p = progs[o.s][hG];
+        const p = progs[o.s] ? progs[o.s][hG] : null;
         const res = document.getElementById('hScheduleList');
-        
-        document.getElementById('hTitle').innerText = `📍 ${o.n} (${o.s}) - ${hG}`;
+
+        document.getElementById('hTitle').innerHTML = `
+            <span>📍 ${o.n} (${o.grade} · No: ${o.no})</span>
+            <span style="font-weight:600; font-size:0.85rem; color:#93c5fd; font-family:'JetBrains Mono', monospace;">${hG} Günü</span>
+        `;
         res.innerHTML = "";
-        
-        let block = document.createElement("div");
-        block.className = "day-block";
-        
-        Object.keys(p).sort((a,b)=>a-b).forEach(no => {
-            let l = p[no];
-            block.innerHTML += `
-            <div class="lesson-row">
-                <div class="lesson-period">${no}. Ders</div>
-                <div class="lesson-detail">
-                    <strong>${l.ders}</strong>
+
+        if (!p) {
+            res.innerHTML = "<div style='padding:18px; color:var(--text-muted);'>Ders programı bulunamadı.</div>";
+            return;
+        }
+
+        const timeDict = (hG === "Cuma") ? lessonTimes.Cuma : lessonTimes.Haftaici;
+        const daySchedule = activeRoomSchedule[hG] || {};
+        const displayPeriods = getDisplayPeriodsForDay(hG);
+
+        displayPeriods.forEach(no => {
+            const l = p[no] || { ders: "Ders Yok", hoca: "-" };
+            const rSt = daySchedule[no] || "";
+            const isRoomReady = (rSt === "BBRB" || rSt === "RB");
+            const st = evaluateCallingStatus(l, hG, no);
+            const tStr = timeDict[no] || "";
+
+            let roomTag = "";
+            if (rSt === "BBRB") roomTag = `<span class="room-status-badge status-bbrb" style="margin-left:6px;">🟢 BBRB</span>`;
+            else if (rSt === "RB") roomTag = `<span class="room-status-badge status-rb" style="margin-left:6px;">🟣 RB</span>`;
+            else roomTag = `<span style="font-size:9px; color:var(--text-muted); margin-left:6px; background:#f1f5f9; padding:2px 5px; border-radius:4px; border:1px solid #e2e8f0;">Dolu</span>`;
+
+            let pillHTML = "";
+            if (st.ok) {
+                pillHTML = `<span class="card-status-pill pill-status-avail">🟢 Çağrılabilir</span>`;
+            } else if (st.lessonOk && !isRoomReady) {
+                pillHTML = `<span class="card-status-pill pill-status-room-busy">⚠️ Oda/Öğr. Dolu</span>`;
+            } else {
+                pillHTML = `<span class="card-status-pill pill-status-busy">🔴 Sınıfta</span>`;
+            }
+
+            const row = document.createElement("div");
+            row.className = `schedule-row ${st.ok ? 'is-call' : ''}`;
+            row.innerHTML = `
+                <div class="schedule-period">
+                    ${no}. Ders
+                    <div class="schedule-period-time">${tStr}</div>
+                </div>
+                <div class="schedule-detail">
+                    <strong>${l.ders} ${roomTag}</strong>
                     <span>👤 ${l.hoca}</span>
                 </div>
-            </div>`;
+                <div>
+                    ${pillHTML}
+                </div>
+            `;
+            res.appendChild(row);
         });
-        
-        res.appendChild(block);
+
         document.getElementById('hResultsArea').style.display = 'block';
     }
 
+    /* =======================================================
+       10. SETTINGS MODAL: İNTERAKTİF BOŞ SAATLER ÇİZELGESİ EDİTÖRÜ
+       ======================================================= */
+    const daysList = ["Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma"];
+
+    function renderModalEditorGrid() {
+        const table = document.getElementById('editorGridTable');
+        
+        let html = `<thead><tr><th>GÜN</th>`;
+        for (let d = 1; d <= 9; d++) {
+            html += `<th>${d}</th>`;
+        }
+        html += `</tr></thead><tbody>`;
+
+        daysList.forEach(day => {
+            html += `<tr><td style="font-weight:700; color:var(--text-main); text-align:left; padding-left:8px;">${day}</td>`;
+            for (let d = 1; d <= 9; d++) {
+                if (day === "Çarşamba" && (d === 7 || d === 8)) {
+                    html += `<td><div class="editor-cell-btn state-club">Kulüp</div></td>`;
+                    continue;
+                }
+
+                const val = (activeRoomSchedule[day] && activeRoomSchedule[day][d]) || "";
+                let cls = "state-empty";
+                let text = "-";
+                if (val === "BBRB") { cls = "state-bbrb"; text = "BBRB"; }
+                else if (val === "RB") { cls = "state-rb"; text = "RB"; }
+
+                html += `
+                    <td>
+                        <button type="button" class="editor-cell-btn ${cls}" onclick="cycleRoomCell('${day}', ${d}, this)">
+                            ${text}
+                        </button>
+                    </td>
+                `;
+            }
+            html += `</tr>`;
+        });
+
+        html += `</tbody>`;
+        table.innerHTML = html;
+    }
+
+    function cycleRoomCell(day, period, btn) {
+        if (!activeRoomSchedule[day]) activeRoomSchedule[day] = {};
+        const cur = activeRoomSchedule[day][period] || "";
+        
+        let next = "";
+        if (cur === "") next = "RB";
+        else if (cur === "RB") next = "BBRB";
+        else if (cur === "BBRB") next = "";
+
+        activeRoomSchedule[day][period] = next;
+
+        btn.className = "editor-cell-btn " + (next === "BBRB" ? "state-bbrb" : (next === "RB" ? "state-rb" : "state-empty"));
+        btn.innerText = next ? next : "-";
+
+        // Değişikliği anında buluta senkronize et
+        syncToCloud(false);
+        refreshAllViews();
+    }
+
+    /* =======================================================
+       11. GENEL GEÇİŞLER, MODAL & BİLDİRİM
+       ======================================================= */
+    function switchTab(t, b) {
+        document.querySelectorAll('.nav-tab-btn').forEach(x => x.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(x => x.classList.remove('active'));
+        if (b) b.classList.add('active');
+        document.getElementById('tab-' + t).classList.add('active');
+
+        if (t === 'matris') renderMatrix();
+        if (t === 'haftalik') renderH();
+    }
+
+    function openSettingsModal() {
+        updateSettingsFormUI();
+        renderModalEditorGrid();
+        document.getElementById('settingsModal').classList.add('open');
+    }
+    function closeSettingsModal() {
+        document.getElementById('settingsModal').classList.remove('open');
+    }
+
+    function showToast(msg) {
+        const toast = document.getElementById('toast');
+        document.getElementById('toastMsg').innerText = msg;
+        toast.classList.add('active');
+        setTimeout(() => toast.classList.remove('active'), 2500);
+    }
+
+    window.onclick = function(e) {
+        const m = document.getElementById('settingsModal');
+        if (e.target === m) closeSettingsModal();
+    };
+
+    /* =======================================================
+       12. SAYFA YÜKLENDİĞİNDE BAŞLATMA
+       ======================================================= */
     window.onload = () => {
+        // Önce yerel yedeği yükle (hızlı açılış)
+        loadLocalSettingsFallback();
+
+        // 1. Öğrenci butonlarını oluştur (Bireysel sekmesi için)
         const hc = document.getElementById('hStudentContainer');
-        ogrs.forEach(o => {
-            let b = document.createElement("div");
-            b.className = "tick-box";
-            b.innerHTML = `${o.n.split(' ')[0]}<br><span style="font-size:0.8em; color:#64748b;">(${o.s})</span>`;
+        ogrs.forEach((o, idx) => {
+            const b = document.createElement("div");
+            b.className = `plate-box ${idx === 0 ? 'active' : ''}`;
+            b.innerHTML = `
+                <span class="box-primary-text">${o.n.split(' ')[0]}</span>
+                <span class="box-sub-text">${o.s} · No:${o.no}</span>
+            `;
             b.onclick = () => selHOgr(o.id, b);
             hc.appendChild(b);
         });
+
+        // Tab 1 başlat
+        selectDay("Pazartesi", document.querySelector('#dayContainer .plate-box'));
+
+        // Tab 3 başlat
+        renderH();
+
+        // Firebase Bulut Dinleyicisini Başlat
+        initFirebaseCloud();
     };
 </script>
 </body>
