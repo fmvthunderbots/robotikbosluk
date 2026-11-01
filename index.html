@@ -49,6 +49,12 @@
             --rb-text: #581c87;
             --rb-shadow: inset 0 1px 0 #ffffff, 0 2px 6px rgba(168, 85, 247, 0.18);
 
+            /* BİREYSEL ETÜT: KEHRİBAR & PLATİN METALİK ALTIN */
+            --etut-bg: linear-gradient(135deg, #fffbeb 0%, #fef3c7 55%, #fde68a 100%);
+            --etut-border: #fcd34d;
+            --etut-text: #78350f;
+            --etut-shadow: inset 0 1px 0 #ffffff, 0 2px 6px rgba(245, 158, 11, 0.18);
+
             --avail-card-bg: linear-gradient(165deg, #f0fdf4 0%, #e6faf0 50%, #dcfce7 100%);
             --avail-card-border: #86efac;
             --busy-card-border: rgba(226, 232, 240, 0.95);
@@ -257,6 +263,7 @@
             box-shadow: 
                 inset 0 2px 4px rgba(15, 23, 42, 0.06),
                 0 1px 0 #ffffff;
+            overflow-x: auto;
         }
 
         .nav-tab-btn {
@@ -275,6 +282,7 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
+            white-space: nowrap;
         }
 
         .nav-tab-btn:hover {
@@ -507,6 +515,13 @@
             box-shadow: var(--rb-shadow);
         }
 
+        .status-etut {
+            background: var(--etut-bg);
+            color: var(--etut-text);
+            border: 1px solid var(--etut-border);
+            box-shadow: var(--etut-shadow);
+        }
+
         .status-closed {
             background: linear-gradient(180deg, #f8fafc 0%, #edf2f7 100%);
             color: #64748b;
@@ -533,6 +548,12 @@
             background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
             color: #b91c1c;
             border-color: #fecaca;
+        }
+
+        .badge-avail-counter.etut-gold {
+            background: var(--etut-bg);
+            color: var(--etut-text);
+            border-color: var(--etut-border);
         }
 
         .plate-box.active .badge-avail-counter {
@@ -659,6 +680,18 @@
             background: linear-gradient(180deg, #34d399 0%, #059669 100%);
         }
 
+        .student-glass-card.is-etut-match {
+            background: linear-gradient(165deg, #fffbeb 0%, #fef3c7 50%, #fde68a 100%);
+            border-color: #fcd34d;
+            box-shadow: 
+                inset 0 1px 0 #ffffff,
+                0 8px 22px rgba(245, 158, 11, 0.14);
+        }
+
+        .student-glass-card.is-etut-match::before {
+            background: linear-gradient(180deg, #f59e0b 0%, #d97706 100%);
+        }
+
         .student-glass-card.is-busy::before {
             background: linear-gradient(180deg, #cbd5e1 0%, #94a3b8 100%);
         }
@@ -705,6 +738,12 @@
             color: #065f46;
         }
 
+        .student-glass-card.is-etut-match .class-glass-badge {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border-color: #fcd34d;
+            color: #78350f;
+        }
+
         .card-divider {
             height: 1px;
             background: rgba(226, 232, 240, 0.8);
@@ -713,6 +752,10 @@
 
         .student-glass-card.is-available .card-divider {
             background: rgba(167, 243, 208, 0.7);
+        }
+
+        .student-glass-card.is-etut-match .card-divider {
+            background: rgba(253, 230, 138, 0.7);
         }
 
         .card-lesson-block {
@@ -732,6 +775,10 @@
 
         .student-glass-card.is-available .card-lesson-name {
             color: #047857;
+        }
+
+        .student-glass-card.is-etut-match .card-lesson-name {
+            color: #92400e;
         }
 
         .card-teacher-name {
@@ -772,6 +819,13 @@
             color: #92400e;
             border: 1px solid #fcd34d;
             box-shadow: inset 0 1px 0 #ffffff;
+        }
+
+        .pill-status-etut {
+            background: var(--etut-bg);
+            color: var(--etut-text);
+            border: 1px solid var(--etut-border);
+            box-shadow: var(--etut-shadow);
         }
 
         /* MATRIX VIEW (TABLE) */
@@ -844,6 +898,14 @@
             box-shadow: inset 0 1px 0 #ffffff, 0 1px 3px rgba(16, 185, 129, 0.12);
         }
 
+        .matrix-cell-plate.etut-avail {
+            background: var(--etut-bg);
+            color: var(--etut-text);
+            border: 1px solid var(--etut-border);
+            box-shadow: var(--etut-shadow);
+            font-weight: 800;
+        }
+
         .matrix-cell-plate.busy {
             background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
             color: var(--text-muted);
@@ -872,6 +934,90 @@
         .matrix-total-row td {
             padding: 14px 8px;
             border-top: 2px solid #94a3b8;
+        }
+
+        /* BATIKAN MINI SCHEDULE BAR IN ETÜT */
+        .batikan-day-bar {
+            background: linear-gradient(140deg, #243042 0%, #15202e 50%, #090d16 100%);
+            border: 1px solid #3b4d63;
+            color: #ffffff;
+            border-radius: 16px;
+            padding: 14px 18px;
+            margin-bottom: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            box-shadow: 
+                inset 0 1px 0 rgba(255, 255, 255, 0.25),
+                0 4px 16px rgba(15, 23, 42, 0.15);
+        }
+
+        .batikan-bar-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.92rem;
+            font-weight: 700;
+        }
+
+        .batikan-slots-mini {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .mini-slot-pill {
+            padding: 4px 9px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 800;
+            font-family: 'JetBrains Mono', monospace;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.2);
+        }
+
+        .mini-slot-pill.free {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: #ffffff;
+            border: 1px solid #34d399;
+        }
+
+        .mini-slot-pill.halfday {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            color: #ffffff;
+            border: 1px solid #60a5fa;
+            box-shadow: 0 2px 6px rgba(37, 99, 235, 0.25);
+        }
+
+        .mini-slot-pill.busy {
+            background: rgba(255, 255, 255, 0.12);
+            color: #94a3b8;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .plate-box.is-halfday-slot {
+            border-left: 4px solid #3b82f6;
+            background: linear-gradient(160deg, #ffffff 0%, #fbfdff 40%, #f0f7ff 100%);
+        }
+
+        .student-glass-card.is-halfday-match {
+            background: linear-gradient(165deg, #f0f7ff 0%, #e0effe 50%, #dbeafe 100%);
+            border-color: #93c5fd;
+            box-shadow: 
+                inset 0 1px 0 #ffffff,
+                0 8px 22px rgba(37, 99, 235, 0.14);
+        }
+
+        .student-glass-card.is-halfday-match::before {
+            background: linear-gradient(180deg, #3b82f6 0%, #1d4ed8 100%);
+        }
+
+        .matrix-cell-plate.halfday-avail {
+            background: linear-gradient(145deg, #eff6ff 0%, #dbeafe 100%);
+            color: #1e40af;
+            border: 1px solid #93c5fd;
+            font-weight: 800;
         }
 
         /* INDIVIDUAL SCHEDULE VIEW */
@@ -948,7 +1094,7 @@
             font-style: italic;
         }
 
-        /* SETTINGS MODAL & INTERACTIVE ROOM SCHEDULE EDITOR */
+        /* SETTINGS MODAL */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
@@ -967,7 +1113,7 @@
         .modal-box {
             background: linear-gradient(170deg, #ffffff 0%, #fcfdfe 45%, #f6f8fb 100%);
             border: 1px solid rgba(255, 255, 255, 0.95);
-            max-width: 760px;
+            max-width: 780px;
             width: 100%;
             border-radius: 22px;
             box-shadow: 
@@ -1073,7 +1219,6 @@
             line-height: 1.4;
         }
 
-        /* MODAL SCHEDULE MATRIX EDITOR */
         .editor-table-wrapper {
             overflow-x: auto;
             border-radius: 12px;
@@ -1211,7 +1356,7 @@
                 <div class="brand-logo">⚡</div>
                 <div class="brand-text">
                     <h1>THUNDER BOTS PLANLAMA</h1>
-                    <p>FMV Özel Ispartakule Işık Ortaokulu · 2026-2027 Kulüp Paneli</p>
+                    <p>FMV Özel Ispartakule Işık Ortaokulu · 2026-2027 Yönetim Paneli</p>
                 </div>
             </div>
             <div class="header-actions">
@@ -1219,10 +1364,13 @@
                     <span id="cloudIcon">☁️</span> <span id="cloudText">Bulut Eşitlendi</span>
                 </span>
                 <span class="pill-badge status-bbrb">
-                    <span>🟢</span> BBRB: İkisi de Boş
+                    <span>🟢</span> BBRB
                 </span>
                 <span class="pill-badge status-rb">
-                    <span>🟣</span> RB: Robotik Boş
+                    <span>🟣</span> RB
+                </span>
+                <span class="pill-badge status-etut">
+                    <span>🟡</span> Etüt
                 </span>
                 <button class="btn-glass" onclick="openSettingsModal()">
                     <span>⚙️</span> Ayarlar & Tablo
@@ -1230,7 +1378,7 @@
             </div>
         </header>
 
-        <!-- NAVIGATION TABS -->
+        <!-- NAVIGATION TABS: En sağda 'Bireysel Etüt' yer alır -->
         <nav class="tabs-wrapper">
             <button class="nav-tab-btn active" onclick="switchTab('anlik', this)">
                 <span>📍</span> Anlık Durum
@@ -1240,6 +1388,9 @@
             </button>
             <button class="nav-tab-btn" onclick="switchTab('haftalik', this)">
                 <span>📅</span> Öğrenci Çizelgesi
+            </button>
+            <button class="nav-tab-btn" onclick="switchTab('etut', this)">
+                <span>🎯</span> Bireysel Etüt
             </button>
         </nav>
 
@@ -1251,7 +1402,6 @@
                 <div class="step-title">
                     <span class="step-index">1</span> Gün Seçin
                 </div>
-                <!-- FILTER PILLS -->
                 <div class="period-filter-group">
                     <button class="filter-btn active" data-filter="all" onclick="setPeriodFilter('all', this)">Tüm Dersler</button>
                     <button class="filter-btn" data-filter="bbrb" onclick="setPeriodFilter('bbrb', this)">🟢 Sadece BBRB</button>
@@ -1382,6 +1532,84 @@
             </div>
         </section>
 
+        <!-- ==========================================
+             TAB 4: BİREYSEL ETÜT (EN SAĞDA)
+             ========================================== -->
+        <section id="tab-etut" class="tab-content">
+            <div class="step-header">
+                <div class="step-title">
+                    <span class="step-index">1</span> Gün Seçin
+                </div>
+                <span style="font-size:0.75rem; color:var(--text-muted);">
+                    Batıkan Öztunalı'nın ilk 8 dersteki boş saatleri (5T, 6T, boşluklar, x) taranır
+                </span>
+            </div>
+
+            <div class="grid-selector" id="etutDayContainer">
+                <div class="plate-box active" onclick="selectEtutDay('Pazartesi', this)">
+                    <span class="box-primary-text">Pazartesi</span>
+                </div>
+                <div class="plate-box" onclick="selectEtutDay('Salı', this)">
+                    <span class="box-primary-text">Salı</span>
+                </div>
+                <div class="plate-box" onclick="selectEtutDay('Çarşamba', this)">
+                    <span class="box-primary-text">Çarşamba</span>
+                </div>
+                <div class="plate-box" onclick="selectEtutDay('Perşembe', this)">
+                    <span class="box-primary-text">Perşembe</span>
+                </div>
+                <div class="plate-box" onclick="selectEtutDay('Cuma', this)">
+                    <span class="box-primary-text">Cuma</span>
+                </div>
+            </div>
+
+            <!-- BATIKAN ÖZTUNALI GÜNLÜK ÖZET BARI -->
+            <div class="batikan-day-bar" id="batikanDayBar">
+                <div class="batikan-bar-info" id="batikanBarInfo">
+                    <span>📌 Batıkan Hoca Programı:</span>
+                </div>
+                <div class="batikan-slots-mini" id="batikanSlotsMini"></div>
+            </div>
+
+            <div class="step-header">
+                <div class="step-title">
+                    <span class="step-index">2</span> Ders Saati Seçin (İlk 8 Ders)
+                </div>
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <label style="font-size:0.76rem; font-weight:700; color:var(--text-secondary); cursor:pointer;">
+                        <input type="checkbox" id="etutOnlyFreeCheck" checked onchange="renderEtutPeriodButtons()"> Sadece Boş Saatlerimi Göster
+                    </label>
+                </div>
+            </div>
+
+            <div class="grid-selector" id="etutPeriodContainer"></div>
+
+            <div id="etutResultsArea" class="results-box" style="display:none;">
+                <div class="action-banner">
+                    <div class="banner-info" id="etutSummaryText"></div>
+                    <button class="btn-action-copy" onclick="copyEtutCallingList()">
+                        <span>📋</span> Etüt Listesini Kopyala
+                    </button>
+                </div>
+                <div id="etutClassCards" class="cards-grid"></div>
+            </div>
+
+            <!-- GÜNLÜK ETÜT KARŞILAŞTIRMA MATRİSİ -->
+            <div class="step-header" style="margin-top:26px;">
+                <div class="step-title">
+                    <span class="step-index">3</span> Günlük Karşılaştırma Matrisi (5D, 5E, 6A, 6B)
+                </div>
+                <span style="font-size:0.75rem; color:var(--text-muted);">
+                    🟡 Kehribar Sarısı: Batıkan Hoca BOŞ ve sınıfta alınabilir ders var!
+                </span>
+            </div>
+            <div class="matrix-table-card">
+                <div class="matrix-scroll">
+                    <table class="matrix-table" id="etutMatrixTable"></table>
+                </div>
+            </div>
+        </section>
+
     </div>
 </div>
 
@@ -1391,7 +1619,7 @@
 <div class="modal-overlay" id="settingsModal">
     <div class="modal-box">
         <div class="modal-header">
-            <h3><span>⚙️</span> Kulüp & Boş Saatler Ayarları</h3>
+            <h3><span>⚙️</span> Sistem, Kulüp & Bireysel Etüt Ayarları</h3>
             <button class="btn-modal-close" onclick="closeSettingsModal()">&times;</button>
         </div>
         
@@ -1400,43 +1628,69 @@
             <span>Ayarlar otomatik olarak buluta eşitlenir. Telefonda veya PC'de yaptığınız her değişiklik anında tüm cihazlarınızda güncellenir.</span>
         </div>
 
-        <!-- INTERACTIVE ROOM / TEACHER SCHEDULE GRID -->
+        <!-- 1. BATIKAN HOCA HAFTALIK DERS PROGRAMI EDİTÖRÜ -->
         <div class="form-group">
-            <label>📅 Boş Saatler Çizelgesi (BBRB & RB Düzenleyici):</label>
-            <small class="form-hint">Hücreye tıklayarak durumu değiştirin: [Boş / Dolu] ➔ [🟣 RB (Robotik Boş)] ➔ [🟢 BBRB (İkisi de Boş)]</small>
+            <label>👤 Batıkan Öztunalı Haftalık Ders Programı (İlk 8 Ders):</label>
+            <small class="form-hint">Hücreye tıklayarak durumu değiştirebilirsiniz: [BOŞ (Müsait)] ➔ [DOLU (Ders/Görev Var)]</small>
+            
+            <div class="editor-table-wrapper">
+                <table class="editor-table" id="batikanEditorGrid"></table>
+            </div>
+            <div class="editor-legend">
+                <span>Lejant:</span>
+                <span style="color:#047857; font-weight:bold;">🟢 BOŞ: Etüt İçin Müsait (5T, 6T, Boşluklar, x)</span>
+                <span style="color:#64748b; font-weight:bold;">DOLU: Dersi Var (5D, 5E, 6A, 6B, BT, V vb.)</span>
+            </div>
+        </div>
+
+        <!-- 2. BİREYSEL ETÜT ALINABİLİR DERSLER & HOCALAR -->
+        <div class="form-group" style="margin-top:20px;">
+            <label>🎯 Bireysel Etüt Alınabilir Dersler (Virgülle ayırın):</label>
+            <input type="text" id="settingEtutLessons" class="glass-input" value="BEDEN, MÜZİK, BİLİŞİM, TEKNOLOJİ, GÖRSEL" onchange="autoSyncSettings()">
+            <small class="form-hint">Bu derslerin saatlerinde öğrenci bireysel matematik çalışmasına çağrılabilir.</small>
+        </div>
+
+        <div class="form-group">
+            <label>🎯 Bireysel Etüt Alınabilir Öğretmenler (Virgülle ayırın):</label>
+            <input type="text" id="settingEtutTeachers" class="glass-input" value="ENİS" onchange="autoSyncSettings()">
+            <small class="form-hint">Bu öğretmenlerin dersleri etüt için uygun kabul edilir (örn. Enis Hoca'nın İngilizce saatleri).</small>
+        </div>
+
+        <div class="form-group">
+            <label>🎯 Bireysel Etüt Hedef Şubeler:</label>
+            <input type="text" id="settingEtutClasses" class="glass-input" value="5D, 5E, 6A, 6B" onchange="autoSyncSettings()">
+            <small class="form-hint">Etüt için taranan sınıflar (5D, 5E, 6A, 6B).</small>
+        </div>
+
+        <hr style="border:none; border-top:1px solid #e2e8f0; margin:22px 0;">
+
+        <!-- 3. ROBOTİK BOŞ SAATLER ÇİZELGESİ -->
+        <div class="form-group">
+            <label>📅 Robotik Kulübü Boş Saatler Çizelgesi (BBRB & RB):</label>
+            <small class="form-hint">Hücreye tıklayarak durumu değiştirin: [Boş / Dolu] ➔ [🟣 RB] ➔ [🟢 BBRB]</small>
             
             <div class="editor-table-wrapper">
                 <table class="editor-table" id="editorGridTable"></table>
             </div>
-
-            <div class="editor-legend">
-                <span>Lejant:</span>
-                <span style="color:var(--bbrb-text); font-weight:bold;">🟢 BBRB: Öğretmen & Robotik Boş</span>
-                <span style="color:var(--rb-text); font-weight:bold;">🟣 RB: Robotik Boş</span>
-                <span style="color:var(--text-muted);">-: Dolu / Normal</span>
-            </div>
         </div>
 
-        <div class="form-group" style="margin-top:20px;">
-            <label>Uygun / Çağrılabilir Dersler (Virgülle ayırın):</label>
+        <div class="form-group">
+            <label>Robotik Uygun / Çağrılabilir Dersler:</label>
             <input type="text" id="settingEligibleLessons" class="glass-input" value="BEDEN, MÜZİK, GÖRSEL, BİLİŞİM, TEKNOLOJİ" onchange="autoSyncSettings()">
-            <small class="form-hint">💡 <strong>İpucu:</strong> Dersin tam adını yazmanıza gerek yoktur. İlk kelimesini veya içinde geçen bir kelimeyi (örn. <code>BEDEN</code>, <code>MÜZİK</code>, <code>GÖRSEL</code>, <code>BİLİŞİM</code>, <code>TEKNOLOJİ</code>) yazmanız yeterlidir; sistem otomatik bulur.</small>
         </div>
 
         <div class="form-group">
-            <label>Uygun Olmayan / Muaf Dersler (Virgülle ayırın):</label>
+            <label>Robotik Muaf / Uygun Olmayan Dersler:</label>
             <input type="text" id="settingBlockedLessons" class="glass-input" value="EĞİTİCİ, FAALİYET, KULÜP, ZEKA" onchange="autoSyncSettings()">
-            <small class="form-hint">Bu kelimeleri içeren hiçbir dersten öğrenci çağrılamaz (Eğitici faaliyetler ve Zeka Oyunları bu listede muaf tutulmuştur).</small>
         </div>
 
         <div class="form-group">
-            <label>Çağrılabilir / Esnek Öğretmenler (Virgülle ayırın):</label>
+            <label>Robotik Çağrılabilir Öğretmenler:</label>
             <input type="text" id="settingEligibleTeachers" class="glass-input" value="ENİS, PEREZ, MATTHEW" onchange="autoSyncSettings()">
-            <small class="form-hint">Bu öğretmenlerin dersleri uygun kabul edilir (Muaf dersler hariçtir).</small>
         </div>
 
         <div style="display:flex; justify-content:space-between; align-items:center; margin-top:24px; flex-wrap:wrap; gap:10px;">
-            <button class="btn-glass" onclick="restoreDefaultSchedule()">Tabloyu Sıfırla (Görseldeki Haline Dön)</button>
+            <button class="btn-glass" onclick="restoreDefaultSchedules()">Programları Görseldeki Haline Sıfırla</button>
             <div style="display:flex; gap:10px;">
                 <button class="btn-glass" onclick="closeSettingsModal()">Kapat</button>
                 <button class="btn-action-copy" onclick="manualSaveSettings()">Kaydet & Buluta Gönder</button>
@@ -1452,7 +1706,7 @@
 
 <script>
     /* =======================================================
-       1. FIREBASE CLOUD CONFIG (TELEFON & PC EŞİTLEME)
+       1. FIREBASE CLOUD CONFIG
        ======================================================= */
     const FIREBASE_CONFIG = {
         apiKey: "AIzaSyA8_WFJ2ftIc6c0VKtzM9kd6K2-13E3x2s",
@@ -1463,25 +1717,88 @@
         appId: "1:958770638632:web:49b988e954eccefef9aa1d",
         measurementId: "G-NNLWV0HCSS"
     };
-
     let db = null;
 
-    /* TÜRKÇE HARF VE ARAMA NORMALİZASYONU */
     function normalizeTr(str) {
         if (!str) return "";
         return str.toLocaleLowerCase('tr-TR')
-                  .replace(/i̇/g, 'i')
-                  .replace(/ı/g, 'i')
-                  .replace(/ğ/g, 'g')
-                  .replace(/ü/g, 'u')
-                  .replace(/ş/g, 's')
-                  .replace(/ö/g, 'o')
-                  .replace(/ç/g, 'c')
+                  .replace(/i̇/g, 'i').replace(/ı/g, 'i').replace(/ğ/g, 'g')
+                  .replace(/ü/g, 'u').replace(/ş/g, 's').replace(/ö/g, 'o').replace(/ç/g, 'c')
                   .trim();
     }
 
     /* =======================================================
-       2. 2026-2027 KULÜP ÖĞRENCİLERİ (GÜNCEL LİSTE)
+       2. BATIKAN ÖZTUNALI HAFTALIK DERS PROGRAMI
+          Kural: V ve BT dolu say. 5T ve 6T boş say. İlk 8 ders.
+       ======================================================= */
+    const initialBatikanSchedule = {
+        "Pazartesi": { 1: "5D", 2: "5E", 3: "BOŞ", 4: "BOŞ", 5: "6A", 6: "BT", 7: "6B", 8: "5E*" },
+        "Salı":      { 1: "5E", 2: "6A", 3: "BOŞ", 4: "V", 5: "BOŞ", 6: "6T", 7: "5D", 8: "BOŞ" },
+        "Çarşamba":  { 1: "5D", 2: "BOŞ", 3: "5T", 4: "6A", 5: "5E", 6: "6B", 7: "KLP", 8: "KLP" },
+        "Perşembe":  { 1: "6B", 2: "6A", 3: "6A", 4: "5E", 5: "5D", 6: "x", 7: "x", 8: "x" },
+        "Cuma":      { 1: "6A", 2: "5D*", 3: "BOŞ", 4: "BOŞ", 5: "5E", 6: "6B", 7: "6B", 8: "5D" }
+    };
+    let activeBatikanSchedule = JSON.parse(JSON.stringify(initialBatikanSchedule));
+
+    function getBatikanSlotInfo(day, period) {
+        if (!activeBatikanSchedule[day]) return { status: "busy", isFree: false, isHalfDay: false, rawText: "-" };
+        const raw = (activeBatikanSchedule[day][period] || "").trim();
+        const val = raw.toUpperCase();
+
+        // Perşembe x veya herhangi bir günde 'x' / 'yarım gün'
+        if (val === "X" || val.includes("YARIM")) {
+            return {
+                status: "halfday",
+                isFree: true,
+                isHalfDay: true,
+                rawText: raw || "x",
+                pillLabel: "Yarım Gün (x)",
+                badgeHtml: `<span class="room-status-badge" style="background:linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); color:#1d4ed8; border:1px solid #93c5fd; box-shadow:0 1px 3px rgba(37,99,235,0.12);">🕒 Yarım Gün (Okulda Kalınırsa)</span>`,
+                desc: "Yarım Gün (Okulda Kalınırsa)"
+            };
+        }
+
+        if (val === "BT" || val === "V" || val === "KLP" || val === "DOLU") {
+            return {
+                status: "busy",
+                isFree: false,
+                isHalfDay: false,
+                rawText: raw,
+                pillLabel: raw,
+                badgeHtml: `<span class="room-status-badge status-closed">Dolu (${raw})</span>`,
+                desc: `Ders/Görev: ${raw}`
+            };
+        }
+
+        if (val === "5T" || val === "6T" || val === "BOŞ" || val === "BOS" || val === "") {
+            return {
+                status: "free",
+                isFree: true,
+                isHalfDay: false,
+                rawText: raw || "BOŞ",
+                pillLabel: raw || "BOŞ",
+                badgeHtml: `<span class="room-status-badge status-bbrb">🟢 Batıkan Boş</span>`,
+                desc: "Boş Ders"
+            };
+        }
+
+        return {
+            status: "busy",
+            isFree: false,
+            isHalfDay: false,
+            rawText: raw,
+            pillLabel: raw,
+            badgeHtml: `<span class="room-status-badge status-closed">Ders: ${raw}</span>`,
+            desc: `Ders: ${raw}`
+        };
+    }
+
+    function isBatikanSlotFree(day, period) {
+        return getBatikanSlotInfo(day, period).isFree;
+    }
+
+    /* =======================================================
+       3. 2026-2027 KULÜP ÖĞRENCİLERİ (ROBOTİK)
        ======================================================= */
     const ogrs = [
         { id: "batu",  n: "BATU ŞAHİN",         s: "7B", no: "327", grade: "7. 7/B" },
@@ -1495,35 +1812,21 @@
     ];
 
     /* =======================================================
-       3. DERS SAATLERİ (ZİL PROGRAMI)
+       4. DERS SAATLERİ (ZİL PROGRAMI)
        ======================================================= */
     const lessonTimes = {
         "Haftaici": {
-            1: "08:30 - 09:10",
-            2: "09:20 - 10:00",
-            3: "10:10 - 10:50",
-            4: "11:00 - 11:40",
-            5: "11:50 - 12:30",
-            6: "13:10 - 13:50",
-            7: "14:00 - 14:40",
-            8: "14:50 - 15:30",
-            9: "15:25 - 16:05"
+            1: "08:30 - 09:10", 2: "09:20 - 10:00", 3: "10:10 - 10:50", 4: "11:00 - 11:40",
+            5: "11:50 - 12:30", 6: "13:10 - 13:50", 7: "14:00 - 14:40", 8: "14:50 - 15:30", 9: "15:25 - 16:05"
         },
         "Cuma": {
-            1: "08:15 - 08:55",
-            2: "09:05 - 09:45",
-            3: "09:55 - 10:35",
-            4: "10:45 - 11:25",
-            5: "11:35 - 12:15",
-            6: "12:55 - 13:35",
-            7: "13:45 - 14:25",
-            8: "14:35 - 15:15",
-            9: "15:20 - 16:00"
+            1: "08:15 - 08:55", 2: "09:05 - 09:45", 3: "09:55 - 10:35", 4: "10:45 - 11:25",
+            5: "11:35 - 12:15", 6: "12:55 - 13:35", 7: "13:45 - 14:25", 8: "14:35 - 15:15", 9: "15:20 - 16:00"
         }
     };
 
     /* =======================================================
-       4. RESMİ TABLODAN ALINAN ÖĞRETMEN & ROBOTİK BOŞ SAATLERİ
+       5. RESMİ TABLODAN ALINAN ROBOTİK BOŞ SAATLERİ
        ======================================================= */
     const initialDefaultRoomSchedule = {
         "Pazartesi": { 1: "", 2: "", 3: "BBRB", 4: "BBRB", 5: "", 6: "", 7: "", 8: "", 9: "" },
@@ -1532,30 +1835,187 @@
         "Perşembe":  { 1: "", 2: "", 3: "", 4: "", 5: "", 6: "", 7: "", 8: "", 9: "" },
         "Cuma":      { 1: "RB", 2: "RB", 3: "BBRB", 4: "BBRB", 5: "RB", 6: "RB", 7: "RB", 8: "RB", 9: "BBRB" }
     };
-
     let activeRoomSchedule = JSON.parse(JSON.stringify(initialDefaultRoomSchedule));
 
-    /* Çarşamba 7 ve 8 kulüp olduğu için çizelgeden hariç tut */
     function getDisplayPeriodsForDay(day) {
         let maxDers = (day === "Salı" || day === "Perşembe") ? 9 : 8;
         if (day === "Çarşamba" && activeRoomSchedule["Çarşamba"] && activeRoomSchedule["Çarşamba"][9]) {
             maxDers = 9;
         }
-
         let list = [];
         for (let i = 1; i <= maxDers; i++) {
-            if (day === "Çarşamba" && (i === 7 || i === 8)) {
-                continue;
-            }
+            if (day === "Çarşamba" && (i === 7 || i === 8)) continue;
             list.push(i);
         }
         return list;
     }
 
     /* =======================================================
-       5. 2026-2027 ORTAOKUL DERS PROGRAMLARI
+       6. DERS PROGRAMLARI (5D, 5E, 6A, 6B ve Robotik Sınıfları)
        ======================================================= */
     const progs = {
+        "5D": {
+            "Pazartesi": {
+                1: { ders: "MATEMATİK", hoca: "Batıkan Öztunalı" },
+                2: { ders: "FEN BİLİMLERİ", hoca: "Ece Karapınar" },
+                3: { ders: "İNGİLİZCE", hoca: "Şeyda Gül Buyan" },
+                4: { ders: "İNGİLİZCE", hoca: "Matthew Anemikaye" },
+                5: { ders: "SOSYAL BİLGİLER", hoca: "Eylem Sarıkaya" },
+                6: { ders: "TÜRKÇE", hoca: "Çağdaş Altınarık" },
+                7: { ders: "TÜRKÇE", hoca: "Çağdaş Altınarık" },
+                8: { ders: "EĞİTİCİ FAALİYET/BİLİŞİM", hoca: "Samet Baştarcan" }
+            },
+            "Salı": {
+                1: { ders: "TÜRKÇE", hoca: "Çağdaş Altınarık" },
+                2: { ders: "SEÇMELİ MÜZİK", hoca: "Nesli Tekin" },
+                3: { ders: "FEN BİLİMLERİ", hoca: "Ece Karapınar" },
+                4: { ders: "İNGİLİZCE", hoca: "Şeyda Gül Buyan" },
+                5: { ders: "İNGİLİZCE", hoca: "Şeyda Gül Buyan" },
+                6: { ders: "İNGİLİZCE", hoca: "Matthew Anemikaye" },
+                7: { ders: "MATEMATİK", hoca: "Batıkan Öztunalı" },
+                8: { ders: "SEÇMELİ MÜZİK", hoca: "Müzik Öğretmenleri" },
+                9: { ders: "TÜRKÇE", hoca: "Çağdaş Altınarık" }
+            },
+            "Çarşamba": {
+                1: { ders: "MATEMATİK", hoca: "Batıkan Öztunalı" },
+                2: { ders: "FEN BİLİMLERİ", hoca: "Ece Karapınar" },
+                3: { ders: "İNGİLİZCE", hoca: "Şeyda Gül Buyan" },
+                4: { ders: "İNGİLİZCE", hoca: "Şeyda Gül Buyan" },
+                5: { ders: "TÜRKÇE", hoca: "Çağdaş Altınarık" },
+                6: { ders: "İNGİLİZCE", hoca: "Şeyda Gül Buyan" },
+                7: { ders: "İNGİLİZCE", hoca: "Şeyda Gül Buyan" },
+                8: { ders: "EĞİTİCİ FAALİYET/İNGİLİZCE", hoca: "Enis Hüdaverdi" }
+            },
+            "Perşembe": {
+                1: { ders: "İNGİLİZCE", hoca: "Matthew Anemikaye" },
+                2: { ders: "İNGİLİZCE", hoca: "Matthew Anemikaye" },
+                3: { ders: "2. YABANCI DİL", hoca: "Ayşe/Betül/Canan" },
+                4: { ders: "2. YABANCI DİL", hoca: "Ayşe/Betül/Canan" },
+                5: { ders: "MATEMATİK", hoca: "Batıkan Öztunalı" },
+                6: { ders: "FEN BİLİMLERİ", hoca: "Ece Karapınar" },
+                7: { ders: "DİN KÜLTÜRÜ VE AHLAK BİLGİSİ", hoca: "Muhammet Keskin" },
+                8: { ders: "İNGİLİZCE", hoca: "Şeyda Gül Buyan" },
+                9: { ders: "İNGİLİZCE", hoca: "Şeyda Gül Buyan" }
+            },
+            "Cuma": {
+                1: { ders: "DİN KÜLTÜRÜ VE AHLAK BİLGİSİ", hoca: "Muhammet Keskin" },
+                2: { ders: "REHBERLİK VE YÖNLENDİRME", hoca: "Ece Karapınar" },
+                3: { ders: "İNGİLİZCE", hoca: "Matthew Anemikaye" },
+                4: { ders: "İNGİLİZCE", hoca: "Şeyda Gül Buyan" },
+                5: { ders: "TÜRKÇE", hoca: "Çağdaş Altınarık" },
+                6: { ders: "SOSYAL BİLGİLER", hoca: "Eylem Sarıkaya" },
+                7: { ders: "SOSYAL BİLGİLER", hoca: "Eylem Sarıkaya" },
+                8: { ders: "MATEMATİK", hoca: "Batıkan Öztunalı" }
+            }
+        },
+        "5E": {
+            "Pazartesi": {
+                1: { ders: "FEN BİLİMLERİ", hoca: "Ece Karapınar" },
+                2: { ders: "MATEMATİK", hoca: "Batıkan Öztunalı" },
+                3: { ders: "İNGİLİZCE", hoca: "Evrim Eren" },
+                4: { ders: "İNGİLİZCE", hoca: "Evrim Eren" },
+                5: { ders: "TÜRKÇE", hoca: "Çağdaş Altınarık" },
+                6: { ders: "SEÇMELİ MÜZİK", hoca: "Nesli Tekin" },
+                7: { ders: "SOSYAL BİLGİLER", hoca: "Eylem Sarıkaya" },
+                8: { ders: "REHBERLİK VE YÖNLENDİRME", hoca: "Evrim Eren" }
+            },
+            "Salı": {
+                1: { ders: "MATEMATİK", hoca: "Batıkan Öztunalı" },
+                2: { ders: "FEN BİLİMLERİ", hoca: "Ece Karapınar" },
+                3: { ders: "TÜRKÇE", hoca: "Çağdaş Altınarık" },
+                4: { ders: "İNGİLİZCE", hoca: "Matthew Anemikaye" },
+                5: { ders: "İNGİLİZCE", hoca: "Matthew Anemikaye" },
+                6: { ders: "İNGİLİZCE", hoca: "Evrim Eren" },
+                7: { ders: "2. YABANCI DİL", hoca: "Ayşe/Betül/Canan" },
+                8: { ders: "2. YABANCI DİL", hoca: "Ayşe/Betül/Canan" },
+                9: { ders: "SEÇMELİ MÜZİK", hoca: "Müzik Öğretmenleri" }
+            },
+            "Çarşamba": {
+                1: { ders: "EĞİTİCİ FAALİYET/BİLİŞİM", hoca: "Samet Baştarcan" },
+                2: { ders: "TÜRKÇE", hoca: "Çağdaş Altınarık" },
+                3: { ders: "İNGİLİZCE", hoca: "Evrim Eren" },
+                4: { ders: "İNGİLİZCE", hoca: "Evrim Eren" },
+                5: { ders: "MATEMATİK", hoca: "Batıkan Öztunalı" },
+                6: { ders: "İNGİLİZCE", hoca: "Matthew Anemikaye" },
+                7: { ders: "İNGİLİZCE", hoca: "Evrim Eren" },
+                8: { ders: "EĞİTİCİ FAALİYET/İNGİLİZCE", hoca: "Enis Hüdaverdi" }
+            },
+            "Perşembe": {
+                1: { ders: "İNGİLİZCE", hoca: "Evrim Eren" },
+                2: { ders: "İNGİLİZCE", hoca: "Evrim Eren" },
+                3: { ders: "SOSYAL BİLGİLER", hoca: "Eylem Sarıkaya" },
+                4: { ders: "MATEMATİK", hoca: "Batıkan Öztunalı" },
+                5: { ders: "TÜRKÇE", hoca: "Çağdaş Altınarık" },
+                6: { ders: "DİN KÜLTÜRÜ VE AHLAK BİLGİSİ", hoca: "Muhammet Keskin" },
+                7: { ders: "FEN BİLİMLERİ", hoca: "Ece Karapınar" },
+                8: { ders: "İNGİLİZCE", hoca: "Matthew Anemikaye" },
+                9: { ders: "İNGİLİZCE", hoca: "Matthew Anemikaye" }
+            },
+            "Cuma": {
+                1: { ders: "FEN BİLİMLERİ", hoca: "Ece Karapınar" },
+                2: { ders: "DİN KÜLTÜRÜ VE AHLAK BİLGİSİ", hoca: "Muhammet Keskin" },
+                3: { ders: "İNGİLİZCE", hoca: "Evrim Eren" },
+                4: { ders: "İNGİLİZCE", hoca: "Evrim Eren" },
+                5: { ders: "MATEMATİK", hoca: "Batıkan Öztunalı" },
+                6: { ders: "TÜRKÇE", hoca: "Çağdaş Altınarık" },
+                7: { ders: "TÜRKÇE", hoca: "Çağdaş Altınarık" },
+                8: { ders: "SOSYAL BİLGİLER", hoca: "Eylem Sarıkaya" }
+            }
+        },
+        "6A": {
+            "Pazartesi": {
+                1: { ders: "BEDEN EĞİTİMİ VE SPOR", hoca: "Görkem Sertcan" },
+                2: { ders: "BEDEN EĞİTİMİ VE SPOR", hoca: "Görkem Sertcan" },
+                3: { ders: "SOSYAL BİLGİLER", hoca: "Sevda İnkaya" },
+                4: { ders: "İNGİLİZCE", hoca: "Damla Öğüt" },
+                5: { ders: "ZEKA OYUNLARI", hoca: "Batıkan Öztunalı" },
+                6: { ders: "TÜRKÇE", hoca: "Pınar Sofuoğlu" },
+                7: { ders: "REHBERLİK VE YÖNLENDİRME", hoca: "Pınar Sofuoğlu" },
+                8: { ders: "FEN BİLİMLERİ", hoca: "Çağrı Çokkan" }
+            },
+            "Salı": {
+                1: { ders: "TÜRKÇE", hoca: "Pınar Sofuoğlu" },
+                2: { ders: "MATEMATİK", hoca: "Batıkan Öztunalı" },
+                3: { ders: "FEN BİLİMLERİ", hoca: "Çağrı Çokkan" },
+                4: { ders: "2. YABANCI DİL", hoca: "Ayşe/Betül/Canan" },
+                5: { ders: "2. YABANCI DİL", hoca: "Ayşe/Betül/Canan" },
+                6: { ders: "BİLİŞİM TEKNOLOJİLERİ VE YAZILIM", hoca: "Samet Baştarcan" },
+                7: { ders: "SOSYAL BİLGİLER", hoca: "Sevda İnkaya" },
+                8: { ders: "EĞİTİCİ FAALİYET/ İNGİLİZCE", hoca: "Enis Hüdaverdi" },
+                9: { ders: "İNGİLİZCE", hoca: "Damla Öğüt" }
+            },
+            "Çarşamba": {
+                1: { ders: "EĞİTİCİ FAALİYET/ İNGİLİZCE", hoca: "Enis Hüdaverdi" },
+                2: { ders: "KÜLTÜR VE MEDENİYETİMİZE YÖN VERENLER", hoca: "Pınar Sofuoğlu" },
+                3: { ders: "KÜLTÜR VE MEDENİYETİMİZE YÖN VERENLER", hoca: "Pınar Sofuoğlu" },
+                4: { ders: "MATEMATİK", hoca: "Batıkan Öztunalı" },
+                5: { ders: "MÜZİK", hoca: "Nesli Tekin/Samet Bulut" },
+                6: { ders: "FEN BİLİMLERİ", hoca: "Çağrı Çokkan" },
+                7: { ders: "EĞİTİCİ FAALİYET", hoca: "-" },
+                8: { ders: "EĞİTİCİ FAALİYET", hoca: "-" }
+            },
+            "Perşembe": {
+                1: { ders: "DİN KÜLTÜRÜ VE AHLAK BİLGİSİ", hoca: "Ali Alperen Kelleci" },
+                2: { ders: "MATEMATİK", hoca: "Batıkan Öztunalı" },
+                3: { ders: "MATEMATİK", hoca: "Batıkan Öztunalı" },
+                4: { ders: "BİLİŞİM TEKNOLOJİLERİ VE YAZILIM", hoca: "Samet Baştarcan" },
+                5: { ders: "İNGİLİZCE", hoca: "Damla Öğüt" },
+                6: { ders: "FEN BİLİMLERİ", hoca: "Çağrı Çokkan" },
+                7: { ders: "TÜRKÇE", hoca: "Pınar Sofuoğlu" },
+                8: { ders: "TÜRKÇE", hoca: "Pınar Sofuoğlu" },
+                9: { ders: "GÖRSEL SANATLAR", hoca: "Sedef Demir" }
+            },
+            "Cuma": {
+                1: { ders: "MATEMATİK", hoca: "Batıkan Öztunalı" },
+                2: { ders: "TÜRKÇE", hoca: "Pınar Sofuoğlu" },
+                3: { ders: "TÜRKÇE", hoca: "Pınar Sofuoğlu" },
+                4: { ders: "SOSYAL BİLGİLER", hoca: "Sevda İnkaya" },
+                5: { ders: "DİN KÜLTÜRÜ VE AHLAK BİLGİSİ", hoca: "Ali Alperen Kelleci" },
+                6: { ders: "EĞİTİCİ FAALİYET/ İNGİLİZCE", hoca: "Damla Öğüt" },
+                7: { ders: "EĞİTİCİ FAALİYET/ İNGİLİZCE", hoca: "Damla Öğüt" },
+                8: { ders: "EĞİTİCİ FAALİYET/ FEN BİLİMLERİ", hoca: "Çağrı Çokkan" }
+            }
+        },
         "6B": {
             "Pazartesi": {
                 1: { ders: "BEDEN EĞİTİMİ VE SPOR", hoca: "Canan Can" },
@@ -1580,7 +2040,7 @@
             },
             "Çarşamba": {
                 1: { ders: "İNGİLİZCE", hoca: "Damla Öğüt" },
-                2: { ders: "MÜZİK", hoca: "Nesli T./Samet B." },
+                2: { ders: "MÜZİK", hoca: "Nesli Tekin/Samet Bulut" },
                 3: { ders: "FEN BİLİMLERİ", hoca: "Çağrı Çokkan" },
                 4: { ders: "SOSYAL BİLGİLER", hoca: "Sevda İnkaya" },
                 5: { ders: "TÜRKÇE", hoca: "Pınar Sofuoğlu" },
@@ -1611,340 +2071,60 @@
             }
         },
         "6C": {
-            "Pazartesi": {
-                1: { ders: "TÜRKÇE", hoca: "Pınar Sofuoğlu" },
-                2: { ders: "TÜRKÇE", hoca: "Pınar Sofuoğlu" },
-                3: { ders: "REHBERLİK VE YÖNLENDİRME", hoca: "Meryem Dağlı" },
-                4: { ders: "ZEKA OYUNLARI", hoca: "Meryem Dağlı" },
-                5: { ders: "FEN BİLİMLERİ", hoca: "Ece Karapınar" },
-                6: { ders: "DİN KÜLTÜRÜ VE AHLAK BİLGİSİ", hoca: "Muhammet Keskin" },
-                7: { ders: "EĞİTİCİ FAALİYET/ İNGİLİZCE", hoca: "Aylin Simge Kaplanoğlu" },
-                8: { ders: "EĞİTİCİ FAALİYET/ İNGİLİZCE", hoca: "Aylin Simge Kaplanoğlu" }
-            },
-            "Salı": {
-                1: { ders: "EĞİTİCİ FAALİYET/ İNGİLİZCE", hoca: "Enis Hüdaverdi" },
-                2: { ders: "MATEMATİK", hoca: "Meryem Dağlı" },
-                3: { ders: "MATEMATİK", hoca: "Meryem Dağlı" },
-                4: { ders: "TÜRKÇE", hoca: "Pınar Sofuoğlu" },
-                5: { ders: "TÜRKÇE", hoca: "Pınar Sofuoğlu" },
-                6: { ders: "FEN BİLİMLERİ", hoca: "Ece Karapınar" },
-                7: { ders: "BEDEN EĞİTİMİ VE SPOR", hoca: "Görkem Sertcan" },
-                8: { ders: "BEDEN EĞİTİMİ VE SPOR", hoca: "Görkem Sertcan" },
-                9: { ders: "SOSYAL BİLGİLER", hoca: "Sevda İnkaya" }
-            },
-            "Çarşamba": {
-                1: { ders: "TÜRKÇE", hoca: "Pınar Sofuoğlu" },
-                2: { ders: "MATEMATİK", hoca: "Meryem Dağlı" },
-                3: { ders: "MÜZİK", hoca: "Nesli T./Samet B." },
-                4: { ders: "FEN BİLİMLERİ", hoca: "Ece Karapınar" },
-                5: { ders: "İNGİLİZCE", hoca: "Aylin Simge Kaplanoğlu" },
-                6: { ders: "BİLİŞİM TEKNOLOJİLERİ VE YAZILIM", hoca: "Samet Baştarcan" },
-                7: { ders: "EĞİTİCİ FAALİYET (KULÜP)", hoca: "-" },
-                8: { ders: "EĞİTİCİ FAALİYET (KULÜP)", hoca: "-" }
-            },
-            "Perşembe": {
-                1: { ders: "BİLİŞİM TEKNOLOJİLERİ VE YAZILIM", hoca: "Samet Baştarcan" },
-                2: { ders: "DİN KÜLTÜRÜ VE AHLAK BİLGİSİ", hoca: "Muhammet Keskin" },
-                3: { ders: "GÖRSEL SANATLAR", hoca: "Sedef Demir" },
-                4: { ders: "TÜRKÇE", hoca: "Pınar Sofuoğlu" },
-                5: { ders: "FEN BİLİMLERİ", hoca: "Ece Karapınar" },
-                6: { ders: "MATEMATİK", hoca: "Meryem Dağlı" },
-                7: { ders: "MATEMATİK", hoca: "Meryem Dağlı" },
-                8: { ders: "İNGİLİZCE", hoca: "Aylin Simge Kaplanoğlu" },
-                9: { ders: "SOSYAL BİLGİLER", hoca: "Sevda İnkaya" }
-            },
-            "Cuma": {
-                1: { ders: "2. YABANCI DİL", hoca: "Ayşe/Betül/Canan" },
-                2: { ders: "2. YABANCI DİL", hoca: "Ayşe/Betül/Canan" },
-                3: { ders: "SOSYAL BİLGİLER", hoca: "Sevda İnkaya" },
-                4: { ders: "EĞİTİCİ FAALİYET/ FEN BİLİMLERİ", hoca: "Ece Karapınar" },
-                5: { ders: "İNGİLİZCE", hoca: "Aylin Simge Kaplanoğlu" },
-                6: { ders: "EĞİTİCİ FAALİYET/ İNGİLİZCE", hoca: "Enis Hüdaverdi" },
-                7: { ders: "KÜLTÜR VE MEDENİYETİMİZE YÖN VERENLER", hoca: "Pınar Sofuoğlu" },
-                8: { ders: "KÜLTÜR VE MEDENİYETİMİZE YÖN VERENLER", hoca: "Pınar Sofuoğlu" }
-            }
+            "Pazartesi": { 1: { ders: "TÜRKÇE", hoca: "Pınar Sofuoğlu" }, 2: { ders: "TÜRKÇE", hoca: "Pınar Sofuoğlu" }, 3: { ders: "REHBERLİK VE YÖNLENDİRME", hoca: "Meryem Dağlı" }, 4: { ders: "ZEKA OYUNLARI", hoca: "Meryem Dağlı" }, 5: { ders: "FEN BİLİMLERİ", hoca: "Ece Karapınar" }, 6: { ders: "DİN KÜLTÜRÜ", hoca: "Muhammet Keskin" }, 7: { ders: "EĞİTİCİ FAALİYET/ İNGİLİZCE", hoca: "Aylin Simge Kaplanoğlu" }, 8: { ders: "EĞİTİCİ FAALİYET/ İNGİLİZCE", hoca: "Aylin Simge Kaplanoğlu" } },
+            "Salı": { 1: { ders: "EĞİTİCİ FAALİYET/ İNGİLİZCE", hoca: "Enis Hüdaverdi" }, 2: { ders: "MATEMATİK", hoca: "Meryem Dağlı" }, 3: { ders: "MATEMATİK", hoca: "Meryem Dağlı" }, 4: { ders: "TÜRKÇE", hoca: "Pınar Sofuoğlu" }, 5: { ders: "TÜRKÇE", hoca: "Pınar Sofuoğlu" }, 6: { ders: "FEN BİLİMLERİ", hoca: "Ece Karapınar" }, 7: { ders: "BEDEN EĞİTİMİ", hoca: "Görkem Sertcan" }, 8: { ders: "BEDEN EĞİTİMİ", hoca: "Görkem Sertcan" }, 9: { ders: "SOSYAL BİLGİLER", hoca: "Sevda İnkaya" } },
+            "Çarşamba": { 1: { ders: "TÜRKÇE", hoca: "Pınar Sofuoğlu" }, 2: { ders: "MATEMATİK", hoca: "Meryem Dağlı" }, 3: { ders: "MÜZİK", hoca: "Nesli T./Samet B." }, 4: { ders: "FEN BİLİMLERİ", hoca: "Ece Karapınar" }, 5: { ders: "İNGİLİZCE", hoca: "Aylin Simge" }, 6: { ders: "BİLİŞİM", hoca: "Samet Baştarcan" }, 7: { ders: "KULÜP", hoca: "-" }, 8: { ders: "KULÜP", hoca: "-" } },
+            "Perşembe": { 1: { ders: "BİLİŞİM", hoca: "Samet Baştarcan" }, 2: { ders: "DİN KÜLTÜRÜ", hoca: "Muhammet Keskin" }, 3: { ders: "GÖRSEL SANATLAR", hoca: "Sedef Demir" }, 4: { ders: "TÜRKÇE", hoca: "Pınar Sofuoğlu" }, 5: { ders: "FEN BİLİMLERİ", hoca: "Ece Karapınar" }, 6: { ders: "MATEMATİK", hoca: "Meryem Dağlı" }, 7: { ders: "MATEMATİK", hoca: "Meryem Dağlı" }, 8: { ders: "İNGİLİZCE", hoca: "Aylin Simge" }, 9: { ders: "SOSYAL BİLGİLER", hoca: "Sevda İnkaya" } },
+            "Cuma": { 1: { ders: "2. YABANCI DİL", hoca: "Ayşe/Betül/Canan" }, 2: { ders: "2. YABANCI DİL", hoca: "Ayşe/Betül/Canan" }, 3: { ders: "SOSYAL BİLGİLER", hoca: "Sevda İnkaya" }, 4: { ders: "EĞİTİCİ FEN", hoca: "Ece Karapınar" }, 5: { ders: "İNGİLİZCE", hoca: "Aylin Simge" }, 6: { ders: "EĞİTİCİ İNGİLİZCE", hoca: "Enis Hüdaverdi" }, 7: { ders: "KÜLTÜR VE MEDENİYET", hoca: "Pınar Sofuoğlu" }, 8: { ders: "KÜLTÜR VE MEDENİYET", hoca: "Pınar Sofuoğlu" } }
         },
         "6E": {
-            "Pazartesi": {
-                1: { ders: "SOSYAL BİLGİLER", hoca: "Sevda İnkaya" },
-                2: { ders: "TÜRKÇE", hoca: "Gizem Akdemir" },
-                3: { ders: "TÜRKÇE", hoca: "Gizem Akdemir" },
-                4: { ders: "ZEKA OYUNLARI", hoca: "Derya Atıcı" },
-                5: { ders: "GÖRSEL SANATLAR", hoca: "Sedef Demir" },
-                6: { ders: "İNGİLİZCE", hoca: "Aylin Simge Kaplanoğlu" },
-                7: { ders: "FEN BİLİMLERİ", hoca: "Ece Karapınar" },
-                8: { ders: "DİN KÜLTÜRÜ VE AHLAK BİLGİSİ", hoca: "Muhammet Keskin" }
-            },
-            "Salı": {
-                1: { ders: "İNGİLİZCE", hoca: "Aylin Simge Kaplanoğlu" },
-                2: { ders: "TÜRKÇE", hoca: "Gizem Akdemir" },
-                3: { ders: "TÜRKÇE", hoca: "Gizem Akdemir" },
-                4: { ders: "FEN BİLİMLERİ", hoca: "Ece Karapınar" },
-                5: { ders: "BİLİŞİM TEKNOLOJİLERİ VE YAZILIM", hoca: "Samet Baştarcan" },
-                6: { ders: "SOSYAL BİLGİLER", hoca: "Sevda İnkaya" },
-                7: { ders: "BEDEN EĞİTİMİ VE SPOR", hoca: "Canan Can" },
-                8: { ders: "BEDEN EĞİTİMİ VE SPOR", hoca: "Canan Can" },
-                9: { ders: "EĞİTİCİ FAALİYET/ İNGİLİZCE", hoca: "Enis Hüdaverdi" }
-            },
-            "Çarşamba": {
-                1: { ders: "MÜZİK", hoca: "Nesli T./Samet B." },
-                2: { ders: "TÜRKÇE", hoca: "Gizem Akdemir" },
-                3: { ders: "TÜRKÇE", hoca: "Gizem Akdemir" },
-                4: { ders: "MATEMATİK", hoca: "Derya Atıcı" },
-                5: { ders: "MATEMATİK", hoca: "Derya Atıcı" },
-                6: { ders: "FEN BİLİMLERİ", hoca: "Ece Karapınar" },
-                7: { ders: "EĞİTİCİ FAALİYET (KULÜP)", hoca: "-" },
-                8: { ders: "EĞİTİCİ FAALİYET (KULÜP)", hoca: "-" }
-            },
-            "Perşembe": {
-                1: { ders: "FEN BİLİMLERİ", hoca: "Ece Karapınar" },
-                2: { ders: "BİLİŞİM TEKNOLOJİLERİ VE YAZILIM", hoca: "Samet Baştarcan" },
-                3: { ders: "REHBERLİK VE YÖNLENDİRME", hoca: "Aylin Simge Kaplanoğlu" },
-                4: { ders: "KÜLTÜR VE MEDENİYETİMİZE YÖN VERENLER", hoca: "Gizem Akdemir" },
-                5: { ders: "KÜLTÜR VE MEDENİYETİMİZE YÖN VERENLER", hoca: "Gizem Akdemir" },
-                6: { ders: "EĞİTİCİ FAALİYET/ İNGİLİZCE", hoca: "Aylin Simge Kaplanoğlu" },
-                7: { ders: "EĞİTİCİ FAALİYET/ İNGİLİZCE", hoca: "Aylin Simge Kaplanoğlu" },
-                8: { ders: "MATEMATİK", hoca: "Derya Atıcı" },
-                9: { ders: "MATEMATİK", hoca: "Derya Atıcı" }
-            },
-            "Cuma": {
-                1: { ders: "EĞİTİCİ FAALİYET/ İNGİLİZCE", hoca: "Enis Hüdaverdi" },
-                2: { ders: "İNGİLİZCE", hoca: "Aylin Simge Kaplanoğlu" },
-                3: { ders: "MATEMATİK", hoca: "Derya Atıcı" },
-                4: { ders: "DİN KÜLTÜRÜ VE AHLAK BİLGİSİ", hoca: "Muhammet Keskin" },
-                5: { ders: "EĞİTİCİ FAALİYET/ FEN BİLİMLERİ", hoca: "Ece Karapınar" },
-                6: { ders: "SOSYAL BİLGİLER", hoca: "Sevda İnkaya" },
-                7: { ders: "2. YABANCI DİL", hoca: "Ayşe/Betül/Canan" },
-                8: { ders: "2. YABANCI DİL", hoca: "Ayşe/Betül/Canan" }
-            }
+            "Pazartesi": { 1: { ders: "SOSYAL BİLGİLER", hoca: "Sevda İnkaya" }, 2: { ders: "TÜRKÇE", hoca: "Gizem Akdemir" }, 3: { ders: "TÜRKÇE", hoca: "Gizem Akdemir" }, 4: { ders: "ZEKA OYUNLARI", hoca: "Derya Atıcı" }, 5: { ders: "GÖRSEL SANATLAR", hoca: "Sedef Demir" }, 6: { ders: "İNGİLİZCE", hoca: "Aylin Simge" }, 7: { ders: "FEN BİLİMLERİ", hoca: "Ece Karapınar" }, 8: { ders: "DİN KÜLTÜRÜ", hoca: "Muhammet Keskin" } },
+            "Salı": { 1: { ders: "İNGİLİZCE", hoca: "Aylin Simge" }, 2: { ders: "TÜRKÇE", hoca: "Gizem Akdemir" }, 3: { ders: "TÜRKÇE", hoca: "Gizem Akdemir" }, 4: { ders: "FEN BİLİMLERİ", hoca: "Ece Karapınar" }, 5: { ders: "BİLİŞİM", hoca: "Samet Baştarcan" }, 6: { ders: "SOSYAL BİLGİLER", hoca: "Sevda İnkaya" }, 7: { ders: "BEDEN EĞİTİMİ", hoca: "Canan Can" }, 8: { ders: "BEDEN EĞİTİMİ", hoca: "Canan Can" }, 9: { ders: "EĞİTİCİ İNGİLİZCE", hoca: "Enis Hüdaverdi" } },
+            "Çarşamba": { 1: { ders: "MÜZİK", hoca: "Nesli T./Samet B." }, 2: { ders: "TÜRKÇE", hoca: "Gizem Akdemir" }, 3: { ders: "TÜRKÇE", hoca: "Gizem Akdemir" }, 4: { ders: "MATEMATİK", hoca: "Derya Atıcı" }, 5: { ders: "MATEMATİK", hoca: "Derya Atıcı" }, 6: { ders: "FEN BİLİMLERİ", hoca: "Ece Karapınar" }, 7: { ders: "KULÜP", hoca: "-" }, 8: { ders: "KULÜP", hoca: "-" } },
+            "Perşembe": { 1: { ders: "FEN BİLİMLERİ", hoca: "Ece Karapınar" }, 2: { ders: "BİLİŞİM", hoca: "Samet Baştarcan" }, 3: { ders: "REHBERLİK", hoca: "Aylin Simge" }, 4: { ders: "KÜLTÜR VE MEDENİYET", hoca: "Gizem Akdemir" }, 5: { ders: "KÜLTÜR VE MEDENİYET", hoca: "Gizem Akdemir" }, 6: { ders: "EĞİTİCİ İNGİLİZCE", hoca: "Aylin Simge" }, 7: { ders: "EĞİTİCİ İNGİLİZCE", hoca: "Aylin Simge" }, 8: { ders: "MATEMATİK", hoca: "Derya Atıcı" }, 9: { ders: "MATEMATİK", hoca: "Derya Atıcı" } },
+            "Cuma": { 1: { ders: "EĞİTİCİ İNGİLİZCE", hoca: "Enis Hüdaverdi" }, 2: { ders: "İNGİLİZCE", hoca: "Aylin Simge" }, 3: { ders: "MATEMATİK", hoca: "Derya Atıcı" }, 4: { ders: "DİN KÜLTÜRÜ", hoca: "Muhammet Keskin" }, 5: { ders: "EĞİTİCİ FEN", hoca: "Ece Karapınar" }, 6: { ders: "SOSYAL BİLGİLER", hoca: "Sevda İnkaya" }, 7: { ders: "2. YABANCI DİL", hoca: "Ayşe/Betül/Canan" }, 8: { ders: "2. YABANCI DİL", hoca: "Ayşe/Betül/Canan" } }
         },
         "7A": {
-            "Pazartesi": {
-                1: { ders: "DİN KÜLTÜRÜ VE AHLAK BİLGİSİ", hoca: "Ali Alperen Kelleci" },
-                2: { ders: "TÜRKÇE", hoca: "Çağdaş Altınarık" },
-                3: { ders: "BEDEN EĞİTİMİ VE SPOR", hoca: "Safa Harmankaya" },
-                4: { ders: "BEDEN EĞİTİMİ VE SPOR", hoca: "Safa Harmankaya" },
-                5: { ders: "EĞİTİCİ FAALİYET/ MATEMATİK", hoca: "Pelin Eren" },
-                6: { ders: "GÖRSEL SANATLAR", hoca: "Sedef Demir" },
-                7: { ders: "EĞİTİCİ FAALİYET/İNGİLİZCE", hoca: "Evrim Eren" },
-                8: { ders: "SOSYAL BİLGİLER", hoca: "Eylem Sarıkaya" }
-            },
-            "Salı": {
-                1: { ders: "MATEMATİK", hoca: "Pelin Eren" },
-                2: { ders: "MATEMATİK", hoca: "Pelin Eren" },
-                3: { ders: "FEN BİLİMLERİ", hoca: "Yağmur Ceren Cantürk" },
-                4: { ders: "EĞİTİCİ FAALİYET/ FEN BİLİMLERİ", hoca: "Yağmur Ceren Cantürk" },
-                5: { ders: "TEKNOLOJİ VE TASARIM", hoca: "Sedef Demir" },
-                6: { ders: "TÜRKÇE", hoca: "Çağdaş Altınarık" },
-                7: { ders: "TÜRKÇE", hoca: "Çağdaş Altınarık" },
-                8: { ders: "İNGİLİZCE", hoca: "Evrim Eren" },
-                9: { ders: "İNGİLİZCE", hoca: "Evrim Eren" }
-            },
-            "Çarşamba": {
-                1: { ders: "MATEMATİK", hoca: "Pelin Eren" },
-                2: { ders: "İNGİLİZCE", hoca: "Evrim Eren" },
-                3: { ders: "TÜRKÇE", hoca: "Çağdaş Altınarık" },
-                4: { ders: "2. YABANCI DİL", hoca: "Ayşe/Betül/Canan" },
-                5: { ders: "2. YABANCI DİL", hoca: "Ayşe/Betül/Canan" },
-                6: { ders: "FEN BİLİMLERİ", hoca: "Yağmur Ceren Cantürk" },
-                7: { ders: "EĞİTİCİ FAALİYET (KULÜP)", hoca: "-" },
-                8: { ders: "EĞİTİCİ FAALİYET (KULÜP)", hoca: "-" }
-            },
-            "Perşembe": {
-                1: { ders: "MÜZİK", hoca: "Nesli T./Samet B." },
-                2: { ders: "TÜRKÇE", hoca: "Çağdaş Altınarık" },
-                3: { ders: "FEN BİLİMLERİ", hoca: "Yağmur Ceren Cantürk" },
-                4: { ders: "FEN BİLİMLERİ", hoca: "Yağmur Ceren Cantürk" },
-                5: { ders: "SOSYAL BİLGİLER", hoca: "Eylem Sarıkaya" },
-                6: { ders: "MATEMATİK", hoca: "Pelin Eren" },
-                7: { ders: "MATEMATİK", hoca: "Pelin Eren" },
-                8: { ders: "TEKNOLOJİ VE TASARIM", hoca: "Sedef Demir" },
-                9: { ders: "DİN KÜLTÜRÜ VE AHLAK BİLGİSİ", hoca: "Ali Alperen Kelleci" }
-            },
-            "Cuma": {
-                1: { ders: "REHBERLİK VE YÖNLENDİRME", hoca: "Pelin Eren" },
-                2: { ders: "ZEKA OYUNLARI", hoca: "Pelin Eren" },
-                3: { ders: "KÜLTÜR VE MEDENİYETİMİZE YÖN VERENLER", hoca: "Çağdaş Altınarık" },
-                4: { ders: "KÜLTÜR VE MEDENİYETİMİZE YÖN VERENLER", hoca: "Çağdaş Altınarık" },
-                5: { ders: "SOSYAL BİLGİLER", hoca: "Eylem Sarıkaya" },
-                6: { ders: "İNGİLİZCE", hoca: "Evrim Eren" },
-                7: { ders: "EĞİTİCİ FAALİYET/İNGİLİZCE", hoca: "Matthew Anemikaye" },
-                8: { ders: "EĞİTİCİ FAALİYET/İNGİLİZCE", hoca: "Matthew Anemikaye" }
-            }
+            "Pazartesi": { 1: { ders: "DİN KÜLTÜRÜ", hoca: "Ali Alperen" }, 2: { ders: "TÜRKÇE", hoca: "Çağdaş Altınarık" }, 3: { ders: "BEDEN EĞİTİMİ", hoca: "Safa Harmankaya" }, 4: { ders: "BEDEN EĞİTİMİ", hoca: "Safa Harmankaya" }, 5: { ders: "EĞİTİCİ MATEMATİK", hoca: "Pelin Eren" }, 6: { ders: "GÖRSEL SANATLAR", hoca: "Sedef Demir" }, 7: { ders: "EĞİTİCİ İNGİLİZCE", hoca: "Evrim Eren" }, 8: { ders: "SOSYAL BİLGİLER", hoca: "Eylem Sarıkaya" } },
+            "Salı": { 1: { ders: "MATEMATİK", hoca: "Pelin Eren" }, 2: { ders: "MATEMATİK", hoca: "Pelin Eren" }, 3: { ders: "FEN BİLİMLERİ", hoca: "Yağmur Ceren" }, 4: { ders: "EĞİTİCİ FEN", hoca: "Yağmur Ceren" }, 5: { ders: "TEKNOLOJİ VE TASARIM", hoca: "Sedef Demir" }, 6: { ders: "TÜRKÇE", hoca: "Çağdaş Altınarık" }, 7: { ders: "TÜRKÇE", hoca: "Çağdaş Altınarık" }, 8: { ders: "İNGİLİZCE", hoca: "Evrim Eren" }, 9: { ders: "İNGİLİZCE", hoca: "Evrim Eren" } },
+            "Çarşamba": { 1: { ders: "MATEMATİK", hoca: "Pelin Eren" }, 2: { ders: "İNGİLİZCE", hoca: "Evrim Eren" }, 3: { ders: "TÜRKÇE", hoca: "Çağdaş Altınarık" }, 4: { ders: "2. YABANCI DİL", hoca: "Ayşe/Betül/Canan" }, 5: { ders: "2. YABANCI DİL", hoca: "Ayşe/Betül/Canan" }, 6: { ders: "FEN BİLİMLERİ", hoca: "Yağmur Ceren" }, 7: { ders: "KULÜP", hoca: "-" }, 8: { ders: "KULÜP", hoca: "-" } },
+            "Perşembe": { 1: { ders: "MÜZİK", hoca: "Nesli T./Samet B." }, 2: { ders: "TÜRKÇE", hoca: "Çağdaş Altınarık" }, 3: { ders: "FEN BİLİMLERİ", hoca: "Yağmur Ceren" }, 4: { ders: "FEN BİLİMLERİ", hoca: "Yağmur Ceren" }, 5: { ders: "SOSYAL BİLGİLER", hoca: "Eylem Sarıkaya" }, 6: { ders: "MATEMATİK", hoca: "Pelin Eren" }, 7: { ders: "MATEMATİK", hoca: "Pelin Eren" }, 8: { ders: "TEKNOLOJİ VE TASARIM", hoca: "Sedef Demir" }, 9: { ders: "DİN KÜLTÜRÜ", hoca: "Ali Alperen" } },
+            "Cuma": { 1: { ders: "REHBERLİK", hoca: "Pelin Eren" }, 2: { ders: "ZEKA OYUNLARI", hoca: "Pelin Eren" }, 3: { ders: "KÜLTÜR VE MEDENİYET", hoca: "Çağdaş Altınarık" }, 4: { ders: "KÜLTÜR VE MEDENİYET", hoca: "Çağdaş Altınarık" }, 5: { ders: "SOSYAL BİLGİLER", hoca: "Eylem Sarıkaya" }, 6: { ders: "İNGİLİZCE", hoca: "Evrim Eren" }, 7: { ders: "EĞİTİCİ İNGİLİZCE", hoca: "Matthew Anemikaye" }, 8: { ders: "EĞİTİCİ İNGİLİZCE", hoca: "Matthew Anemikaye" } }
         },
         "7B": {
-            "Pazartesi": {
-                1: { ders: "TÜRKÇE", hoca: "Çağdaş Altınarık" },
-                2: { ders: "İNGİLİZCE", hoca: "Evrim Eren" },
-                3: { ders: "BEDEN EĞİTİMİ VE SPOR", hoca: "Görkem Sertcan" },
-                4: { ders: "BEDEN EĞİTİMİ VE SPOR", hoca: "Görkem Sertcan" },
-                5: { ders: "FEN BİLİMLERİ", hoca: "Yağmur Ceren Cantürk" },
-                6: { ders: "TEKNOLOJİ VE TASARIM", hoca: "Merve Özcan" },
-                7: { ders: "EĞİTİCİ FAALİYET/MATEMATİK", hoca: "Pelin Eren" },
-                8: { ders: "REHBERLİK VE YÖNLENDİRME", hoca: "Çağdaş Altınarık" }
-            },
-            "Salı": {
-                1: { ders: "İNGİLİZCE", hoca: "Evrim Eren" },
-                2: { ders: "İNGİLİZCE", hoca: "Evrim Eren" },
-                3: { ders: "MATEMATİK", hoca: "Pelin Eren" },
-                4: { ders: "TÜRKÇE", hoca: "Çağdaş Altınarık" },
-                5: { ders: "DİN KÜLTÜRÜ VE AHLAK BİLGİSİ", hoca: "Ali Alperen Kelleci" },
-                6: { ders: "FEN BİLİMLERİ", hoca: "Yağmur Ceren Cantürk" },
-                7: { ders: "SOSYAL BİLGİLER", hoca: "Eylem Sarıkaya" },
-                8: { ders: "GÖRSEL SANATLAR", hoca: "Sedef Demir" },
-                9: { ders: "EĞİTİCİ FAALİYET/İNGİLİZCE", hoca: "Matthew Anemikaye" }
-            },
-            "Çarşamba": {
-                1: { ders: "TÜRKÇE", hoca: "Çağdaş Altınarık" },
-                2: { ders: "MATEMATİK", hoca: "Pelin Eren" },
-                3: { ders: "MATEMATİK", hoca: "Pelin Eren" },
-                4: { ders: "2. YABANCI DİL", hoca: "Ayşe/Betül/Canan" },
-                5: { ders: "2. YABANCI DİL", hoca: "Ayşe/Betül/Canan" },
-                6: { ders: "İNGİLİZCE", hoca: "Evrim Eren" },
-                7: { ders: "EĞİTİCİ FAALİYET (KULÜP)", hoca: "-" },
-                8: { ders: "EĞİTİCİ FAALİYET (KULÜP)", hoca: "-" }
-            },
-            "Perşembe": {
-                1: { ders: "SOSYAL BİLGİLER", hoca: "Eylem Sarıkaya" },
-                2: { ders: "MÜZİK", hoca: "Nesli T./Samet B." },
-                3: { ders: "KÜLTÜR VE MEDENİYETİMİZE YÖN VERENLER", hoca: "Çağdaş Altınarık" },
-                4: { ders: "KÜLTÜR VE MEDENİYETİMİZE YÖN VERENLER", hoca: "Çağdaş Altınarık" },
-                5: { ders: "ZEKA OYUNLARI", hoca: "Pelin Eren" },
-                6: { ders: "EĞİTİCİ FAALİYET/İNGİLİZCE", hoca: "Matthew Anemikaye" },
-                7: { ders: "FEN BİLİMLERİ", hoca: "Yağmur Ceren Cantürk" },
-                8: { ders: "FEN BİLİMLERİ", hoca: "Yağmur Ceren Cantürk" },
-                9: { ders: "TEKNOLOJİ VE TASARIM", hoca: "Merve Özcan" }
-            },
-            "Cuma": {
-                1: { ders: "TÜRKÇE", hoca: "Çağdaş Altınarık" },
-                2: { ders: "SOSYAL BİLGİLER", hoca: "Eylem Sarıkaya" },
-                3: { ders: "EĞİTİCİ FAALİYET/ FEN BİLİMLERİ", hoca: "Yağmur Ceren Cantürk" },
-                4: { ders: "DİN KÜLTÜRÜ VE AHLAK BİLGİSİ", hoca: "Ali Alperen Kelleci" },
-                5: { ders: "EĞİTİCİ FAALİYET/İNGİLİZCE", hoca: "Evrim Eren" },
-                6: { ders: "MATEMATİK", hoca: "Pelin Eren" },
-                7: { ders: "MATEMATİK", hoca: "Pelin Eren" },
-                8: { ders: "TÜRKÇE", hoca: "Çağdaş Altınarık" }
-            }
+            "Pazartesi": { 1: { ders: "TÜRKÇE", hoca: "Çağdaş Altınarık" }, 2: { ders: "İNGİLİZCE", hoca: "Evrim Eren" }, 3: { ders: "BEDEN EĞİTİMİ", hoca: "Görkem Sertcan" }, 4: { ders: "BEDEN EĞİTİMİ", hoca: "Görkem Sertcan" }, 5: { ders: "FEN BİLİMLERİ", hoca: "Yağmur Ceren" }, 6: { ders: "TEKNOLOJİ VE TASARIM", hoca: "Merve Özcan" }, 7: { ders: "EĞİTİCİ MATEMATİK", hoca: "Pelin Eren" }, 8: { ders: "REHBERLİK", hoca: "Çağdaş Altınarık" } },
+            "Salı": { 1: { ders: "İNGİLİZCE", hoca: "Evrim Eren" }, 2: { ders: "İNGİLİZCE", hoca: "Evrim Eren" }, 3: { ders: "MATEMATİK", hoca: "Pelin Eren" }, 4: { ders: "TÜRKÇE", hoca: "Çağdaş Altınarık" }, 5: { ders: "DİN KÜLTÜRÜ", hoca: "Ali Alperen" }, 6: { ders: "FEN BİLİMLERİ", hoca: "Yağmur Ceren" }, 7: { ders: "SOSYAL BİLGİLER", hoca: "Eylem Sarıkaya" }, 8: { ders: "GÖRSEL SANATLAR", hoca: "Sedef Demir" }, 9: { ders: "EĞİTİCİ İNGİLİZCE", hoca: "Matthew" } },
+            "Çarşamba": { 1: { ders: "TÜRKÇE", hoca: "Çağdaş Altınarık" }, 2: { ders: "MATEMATİK", hoca: "Pelin Eren" }, 3: { ders: "MATEMATİK", hoca: "Pelin Eren" }, 4: { ders: "2. YABANCI DİL", hoca: "Ayşe/Betül/Canan" }, 5: { ders: "2. YABANCI DİL", hoca: "Ayşe/Betül/Canan" }, 6: { ders: "İNGİLİZCE", hoca: "Evrim Eren" }, 7: { ders: "KULÜP", hoca: "-" }, 8: { ders: "KULÜP", hoca: "-" } },
+            "Perşembe": { 1: { ders: "SOSYAL BİLGİLER", hoca: "Eylem Sarıkaya" }, 2: { ders: "MÜZİK", hoca: "Nesli T./Samet B." }, 3: { ders: "KÜLTÜR VE MEDENİYET", hoca: "Çağdaş Altınarık" }, 4: { ders: "KÜLTÜR VE MEDENİYET", hoca: "Çağdaş Altınarık" }, 5: { ders: "ZEKA OYUNLARI", hoca: "Pelin Eren" }, 6: { ders: "EĞİTİCİ İNGİLİZCE", hoca: "Matthew" }, 7: { ders: "FEN BİLİMLERİ", hoca: "Yağmur Ceren" }, 8: { ders: "FEN BİLİMLERİ", hoca: "Yağmur Ceren" }, 9: { ders: "TEKNOLOJİ VE TASARIM", hoca: "Merve Özcan" } },
+            "Cuma": { 1: { ders: "TÜRKÇE", hoca: "Çağdaş Altınarık" }, 2: { ders: "SOSYAL BİLGİLER", hoca: "Eylem Sarıkaya" }, 3: { ders: "EĞİTİCİ FEN", hoca: "Yağmur Ceren" }, 4: { ders: "DİN KÜLTÜRÜ", hoca: "Ali Alperen" }, 5: { ders: "EĞİTİCİ İNGİLİZCE", hoca: "Evrim Eren" }, 6: { ders: "MATEMATİK", hoca: "Pelin Eren" }, 7: { ders: "MATEMATİK", hoca: "Pelin Eren" }, 8: { ders: "TÜRKÇE", hoca: "Çağdaş Altınarık" } }
         },
         "7C": {
-            "Pazartesi": {
-                1: { ders: "2. YABANCI DİL", hoca: "Ayşe/Betül/Canan" },
-                2: { ders: "2. YABANCI DİL", hoca: "Ayşe/Betül/Canan" },
-                3: { ders: "BEDEN EĞİTİMİ VE SPOR", hoca: "Sonay Kefeli" },
-                4: { ders: "BEDEN EĞİTİMİ VE SPOR", hoca: "Sonay Kefeli" },
-                5: { ders: "MATEMATİK", hoca: "Elif Kılıç" },
-                6: { ders: "EĞİTİCİ FAALİYET/İNGİLİZCE", hoca: "Matthew Anemikaye" },
-                7: { ders: "FEN BİLİMLERİ", hoca: "Yağmur Ceren Cantürk" },
-                8: { ders: "TÜRKÇE", hoca: "Duygu Altındağ" }
-            },
-            "Salı": {
-                1: { ders: "MATEMATİK", hoca: "Elif Kılıç" },
-                2: { ders: "MATEMATİK", hoca: "Elif Kılıç" },
-                3: { ders: "DİN KÜLTÜRÜ VE AHLAK BİLGİSİ", hoca: "Ali Alperen Kelleci" },
-                4: { ders: "İNGİLİZCE", hoca: "Evrim Eren" },
-                5: { ders: "SOSYAL BİLGİLER", hoca: "Eylem Sarıkaya" },
-                6: { ders: "TEKNOLOJİ VE TASARIM", hoca: "Sedef Demir" },
-                7: { ders: "TEKNOLOJİ VE TASARIM", hoca: "Sedef Demir" },
-                8: { ders: "TÜRKÇE", hoca: "Duygu Altındağ" },
-                9: { ders: "TÜRKÇE", hoca: "Duygu Altındağ" }
-            },
-            "Çarşamba": {
-                1: { ders: "TÜRKÇE", hoca: "Duygu Altındağ" },
-                2: { ders: "EĞİTİCİ FAALİYET/MATEMATİK", hoca: "Elif Kılıç" },
-                3: { ders: "FEN BİLİMLERİ", hoca: "Yağmur Ceren Cantürk" },
-                4: { ders: "FEN BİLİMLERİ", hoca: "Yağmur Ceren Cantürk" },
-                5: { ders: "EĞİTİCİ FAALİYET/İNGİLİZCE", hoca: "Evrim Eren" },
-                6: { ders: "GÖRSEL SANATLAR", hoca: "Sedef Demir" },
-                7: { ders: "EĞİTİCİ FAALİYET (KULÜP)", hoca: "-" },
-                8: { ders: "EĞİTİCİ FAALİYET (KULÜP)", hoca: "-" }
-            },
-            "Perşembe": {
-                1: { ders: "TÜRKÇE", hoca: "Duygu Altındağ" },
-                2: { ders: "FEN BİLİMLERİ", hoca: "Yağmur Ceren Cantürk" },
-                3: { ders: "MÜZİK", hoca: "Nesli T./Samet B." },
-                4: { ders: "SOSYAL BİLGİLER", hoca: "Eylem Sarıkaya" },
-                5: { ders: "İNGİLİZCE", hoca: "Evrim Eren" },
-                6: { ders: "MATEMATİK", hoca: "Elif Kılıç" },
-                7: { ders: "MATEMATİK", hoca: "Elif Kılıç" },
-                8: { ders: "DİN KÜLTÜRÜ VE AHLAK BİLGİSİ", hoca: "Ali Alperen Kelleci" },
-                9: { ders: "REHBERLİK", hoca: "Yağmur Ceren Cantürk" }
-            },
-            "Cuma": {
-                1: { ders: "ZEKA OYUNLARI", hoca: "Elif Kılıç" },
-                2: { ders: "EĞİTİCİ FAALİYET/ FEN BİLİMLERİ", hoca: "Yağmur Ceren Cantürk" },
-                3: { ders: "SOSYAL BİLGİLER", hoca: "Eylem Sarıkaya" },
-                4: { ders: "KÜLTÜR VE MEDENİYETİMİZE YÖN VERENLER", hoca: "Duygu Altındağ" },
-                5: { ders: "KÜLTÜR VE MEDENİYETİMİZE YÖN VERENLER", hoca: "Duygu Altındağ" },
-                6: { ders: "EĞİTİCİ FAALİYET/İNGİLİZCE", hoca: "Matthew Anemikaye" },
-                7: { ders: "İNGİLİZCE", hoca: "Evrim Eren" },
-                8: { ders: "İNGİLİZCE", hoca: "Evrim Eren" }
-            }
+            "Pazartesi": { 1: { ders: "2. YABANCI DİL", hoca: "Ayşe/Betül/Canan" }, 2: { ders: "2. YABANCI DİL", hoca: "Ayşe/Betül/Canan" }, 3: { ders: "BEDEN EĞİTİMİ", hoca: "Sonay Kefeli" }, 4: { ders: "BEDEN EĞİTİMİ", hoca: "Sonay Kefeli" }, 5: { ders: "MATEMATİK", hoca: "Elif Kılıç" }, 6: { ders: "EĞİTİCİ İNGİLİZCE", hoca: "Matthew" }, 7: { ders: "FEN BİLİMLERİ", hoca: "Yağmur Ceren" }, 8: { ders: "TÜRKÇE", hoca: "Duygu Altındağ" } },
+            "Salı": { 1: { ders: "MATEMATİK", hoca: "Elif Kılıç" }, 2: { ders: "MATEMATİK", hoca: "Elif Kılıç" }, 3: { ders: "DİN KÜLTÜRÜ", hoca: "Ali Alperen" }, 4: { ders: "İNGİLİZCE", hoca: "Evrim Eren" }, 5: { ders: "SOSYAL BİLGİLER", hoca: "Eylem Sarıkaya" }, 6: { ders: "TEKNOLOJİ VE TASARIM", hoca: "Sedef Demir" }, 7: { ders: "TEKNOLOJİ VE TASARIM", hoca: "Sedef Demir" }, 8: { ders: "TÜRKÇE", hoca: "Duygu Altındağ" }, 9: { ders: "TÜRKÇE", hoca: "Duygu Altındağ" } },
+            "Çarşamba": { 1: { ders: "TÜRKÇE", hoca: "Duygu Altındağ" }, 2: { ders: "EĞİTİCİ MATEMATİK", hoca: "Elif Kılıç" }, 3: { ders: "FEN BİLİMLERİ", hoca: "Yağmur Ceren" }, 4: { ders: "FEN BİLİMLERİ", hoca: "Yağmur Ceren" }, 5: { ders: "EĞİTİCİ İNGİLİZCE", hoca: "Evrim Eren" }, 6: { ders: "GÖRSEL SANATLAR", hoca: "Sedef Demir" }, 7: { ders: "KULÜP", hoca: "-" }, 8: { ders: "KULÜP", hoca: "-" } },
+            "Perşembe": { 1: { ders: "TÜRKÇE", hoca: "Duygu Altındağ" }, 2: { ders: "FEN BİLİMLERİ", hoca: "Yağmur Ceren" }, 3: { ders: "MÜZİK", hoca: "Nesli T./Samet B." }, 4: { ders: "SOSYAL BİLGİLER", hoca: "Eylem Sarıkaya" }, 5: { ders: "İNGİLİZCE", hoca: "Evrim Eren" }, 6: { ders: "MATEMATİK", hoca: "Elif Kılıç" }, 7: { ders: "MATEMATİK", hoca: "Elif Kılıç" }, 8: { ders: "DİN KÜLTÜRÜ", hoca: "Ali Alperen" }, 9: { ders: "REHBERLİK", hoca: "Yağmur Ceren" } },
+            "Cuma": { 1: { ders: "ZEKA OYUNLARI", hoca: "Elif Kılıç" }, 2: { ders: "EĞİTİCİ FEN", hoca: "Yağmur Ceren" }, 3: { ders: "SOSYAL BİLGİLER", hoca: "Eylem Sarıkaya" }, 4: { ders: "KÜLTÜR VE MEDENİYET", hoca: "Duygu Altındağ" }, 5: { ders: "KÜLTÜR VE MEDENİYET", hoca: "Duygu Altındağ" }, 6: { ders: "EĞİTİCİ İNGİLİZCE", hoca: "Matthew" }, 7: { ders: "İNGİLİZCE", hoca: "Evrim Eren" }, 8: { ders: "İNGİLİZCE", hoca: "Evrim Eren" } }
         },
         "7E": {
-            "Pazartesi": {
-                1: { ders: "EĞİTİCİ FAALİYET/İNGİLİZCE", hoca: "Matthew Anemikaye" },
-                2: { ders: "EĞİTİCİ FAALİYET/İNGİLİZCE", hoca: "Damla Öğüt" },
-                3: { ders: "2. YABANCI DİL", hoca: "Ayşe/Betül/Canan" },
-                4: { ders: "2. YABANCI DİL", hoca: "Ayşe/Betül/Canan" },
-                5: { ders: "MATEMATİK", hoca: "Meryem Dağlı" },
-                6: { ders: "DİN KÜLTÜRÜ VE AHLAK BİLGİSİ", hoca: "Ali Alperen Kelleci" },
-                7: { ders: "TÜRKÇE", hoca: "Duygu Altındağ" },
-                8: { ders: "FEN BİLİMLERİ", hoca: "Bilge Soylu" }
-            },
-            "Salı": {
-                1: { ders: "İNGİLİZCE", hoca: "Damla Öğüt" },
-                2: { ders: "İNGİLİZCE", hoca: "Damla Öğüt" },
-                3: { ders: "TÜRKÇE", hoca: "Duygu Altındağ" },
-                4: { ders: "MATEMATİK", hoca: "Meryem Dağlı" },
-                5: { ders: "MATEMATİK", hoca: "Meryem Dağlı" },
-                6: { ders: "DİN KÜLTÜRÜ VE AHLAK BİLGİSİ", hoca: "Ali Alperen Kelleci" },
-                7: { ders: "EĞİTİCİ FAALİYET/İNGİLİZCE", hoca: "Matthew Anemikaye" },
-                8: { ders: "SOSYAL BİLGİLER", hoca: "Eylem Sarıkaya" },
-                9: { ders: "EĞİTİCİ FAALİYET/ FEN BİLİMLERİ", hoca: "Bilge Soylu" }
-            },
-            "Çarşamba": {
-                1: { ders: "FEN BİLİMLERİ", hoca: "Bilge Soylu" },
-                2: { ders: "SOSYAL BİLGİLER", hoca: "Eylem Sarıkaya" },
-                3: { ders: "MATEMATİK", hoca: "Meryem Dağlı" },
-                4: { ders: "MATEMATİK", hoca: "Meryem Dağlı" },
-                5: { ders: "TÜRKÇE", hoca: "Duygu Altındağ" },
-                6: { ders: "TEKNOLOJİ VE TASARIM", hoca: "Merve Özcan" },
-                7: { ders: "EĞİTİCİ FAALİYET (KULÜP)", hoca: "-" },
-                8: { ders: "EĞİTİCİ FAALİYET (KULÜP)", hoca: "-" }
-            },
-            "Perşembe": {
-                1: { ders: "FEN BİLİMLERİ", hoca: "Bilge Soylu" },
-                2: { ders: "SOSYAL BİLGİLER", hoca: "Eylem Sarıkaya" },
-                3: { ders: "TÜRKÇE", hoca: "Duygu Altındağ" },
-                4: { ders: "TÜRKÇE", hoca: "Duygu Altındağ" },
-                5: { ders: "MÜZİK", hoca: "Nesli T./Samet B." },
-                6: { ders: "REHBERLİK", hoca: "Ali Alperen Kelleci" },
-                7: { ders: "İNGİLİZCE", hoca: "Damla Öğüt" },
-                8: { ders: "ZEKA OYUNLARI", hoca: "Meryem Dağlı" },
-                9: { ders: "EĞİTİCİ FAALİYET/MATEMATİK", hoca: "Meryem Dağlı" }
-            },
-            "Cuma": {
-                1: { ders: "FEN BİLİMLERİ", hoca: "Bilge Soylu" },
-                2: { ders: "KÜLTÜR VE MEDENİYETİMİZE YÖN VERENLER", hoca: "Duygu Altındağ" },
-                3: { ders: "KÜLTÜR VE MEDENİYETİMİZE YÖN VERENLER", hoca: "Duygu Altındağ" },
-                4: { ders: "TEKNOLOJİ VE TASARIM", hoca: "Merve Özcan" },
-                5: { ders: "İNGİLİZCE", hoca: "Damla Öğüt" },
-                6: { ders: "GÖRSEL SANATLAR", hoca: "Sedef Demir" },
-                7: { ders: "BEDEN EĞİTİMİ VE SPOR", hoca: "Safa Harmankaya" },
-                8: { ders: "BEDEN EĞİTİMİ VE SPOR", hoca: "Safa Harmankaya" }
-            }
+            "Pazartesi": { 1: { ders: "EĞİTİCİ İNGİLİZCE", hoca: "Matthew" }, 2: { ders: "EĞİTİCİ İNGİLİZCE", hoca: "Damla Öğüt" }, 3: { ders: "2. YABANCI DİL", hoca: "Ayşe/Betül/Canan" }, 4: { ders: "2. YABANCI DİL", hoca: "Ayşe/Betül/Canan" }, 5: { ders: "MATEMATİK", hoca: "Meryem Dağlı" }, 6: { ders: "DİN KÜLTÜRÜ", hoca: "Ali Alperen" }, 7: { ders: "TÜRKÇE", hoca: "Duygu Altındağ" }, 8: { ders: "FEN BİLİMLERİ", hoca: "Bilge Soylu" } },
+            "Salı": { 1: { ders: "İNGİLİZCE", hoca: "Damla Öğüt" }, 2: { ders: "İNGİLİZCE", hoca: "Damla Öğüt" }, 3: { ders: "TÜRKÇE", hoca: "Duygu Altındağ" }, 4: { ders: "MATEMATİK", hoca: "Meryem Dağlı" }, 5: { ders: "MATEMATİK", hoca: "Meryem Dağlı" }, 6: { ders: "DİN KÜLTÜRÜ", hoca: "Ali Alperen" }, 7: { ders: "EĞİTİCİ İNGİLİZCE", hoca: "Matthew" }, 8: { ders: "SOSYAL BİLGİLER", hoca: "Eylem Sarıkaya" }, 9: { ders: "EĞİTİCİ FEN", hoca: "Bilge Soylu" } },
+            "Çarşamba": { 1: { ders: "FEN BİLİMLERİ", hoca: "Bilge Soylu" }, 2: { ders: "SOSYAL BİLGİLER", hoca: "Eylem Sarıkaya" }, 3: { ders: "MATEMATİK", hoca: "Meryem Dağlı" }, 4: { ders: "MATEMATİK", hoca: "Meryem Dağlı" }, 5: { ders: "TÜRKÇE", hoca: "Duygu Altındağ" }, 6: { ders: "TEKNOLOJİ VE TASARIM", hoca: "Merve Özcan" }, 7: { ders: "KULÜP", hoca: "-" }, 8: { ders: "KULÜP", hoca: "-" } },
+            "Perşembe": { 1: { ders: "FEN BİLİMLERİ", hoca: "Bilge Soylu" }, 2: { ders: "SOSYAL BİLGİLER", hoca: "Eylem Sarıkaya" }, 3: { ders: "TÜRKÇE", hoca: "Duygu Altındağ" }, 4: { ders: "TÜRKÇE", hoca: "Duygu Altındağ" }, 5: { ders: "MÜZİK", hoca: "Nesli T./Samet B." }, 6: { ders: "REHBERLİK", hoca: "Ali Alperen" }, 7: { ders: "İNGİLİZCE", hoca: "Damla Öğüt" }, 8: { ders: "ZEKA OYUNLARI", hoca: "Meryem Dağlı" }, 9: { ders: "EĞİTİCİ MATEMATİK", hoca: "Meryem Dağlı" } },
+            "Cuma": { 1: { ders: "FEN BİLİMLERİ", hoca: "Bilge Soylu" }, 2: { ders: "KÜLTÜR VE MEDENİYET", hoca: "Duygu Altındağ" }, 3: { ders: "KÜLTÜR VE MEDENİYET", hoca: "Duygu Altındağ" }, 4: { ders: "TEKNOLOJİ VE TASARIM", hoca: "Merve Özcan" }, 5: { ders: "İNGİLİZCE", hoca: "Damla Öğüt" }, 6: { ders: "GÖRSEL SANATLAR", hoca: "Sedef Demir" }, 7: { ders: "BEDEN EĞİTİMİ", hoca: "Safa Harmankaya" }, 8: { ders: "BEDEN EĞİTİMİ", hoca: "Safa Harmankaya" } }
         }
     };
 
     /* =======================================================
-       6. AYARLAR VE ÇAĞRILABİLİRLİK MANTIĞI
-          - Zeka Oyunları ve Eğitici Faaliyetler varsayılan muaf/uygun değildir.
-          - İlk kelime veya anahtar kelime eşleşmesi (normalizeTr).
+       7. AYARLAR VE ÇAĞRILABİLİRLİK MANTIĞI
        ======================================================= */
     let appSettings = {
         eligibleLessons: ["BEDEN", "MÜZİK", "GÖRSEL", "BİLİŞİM", "TEKNOLOJİ"],
         blockedLessons: ["EĞİTİCİ", "FAALİYET", "KULÜP", "ZEKA"],
-        eligibleTeachers: ["ENİS", "PEREZ", "MATTHEW"]
+        eligibleTeachers: ["ENİS", "PEREZ", "MATTHEW"],
+        // Bireysel Etüt Ayarları
+        etutLessons: ["BEDEN", "MÜZİK", "BİLİŞİM", "TEKNOLOJİ", "GÖRSEL"],
+        etutTeachers: ["ENİS"],
+        etutClasses: ["5D", "5E", "6A", "6B"]
     };
 
     function setCloudStatus(state, msg) {
@@ -1991,6 +2171,9 @@
                   if (data.activeRoomSchedule) {
                       activeRoomSchedule = data.activeRoomSchedule;
                   }
+                  if (data.activeBatikanSchedule) {
+                      activeBatikanSchedule = data.activeBatikanSchedule;
+                  }
                   setCloudStatus("connected", "Bulut Eşitlendi (Canlı)");
                   refreshAllViews();
               } else {
@@ -2006,6 +2189,7 @@
         try {
             localStorage.setItem("thunderbots_settings", JSON.stringify(appSettings));
             localStorage.setItem("thunderbots_room_schedule", JSON.stringify(activeRoomSchedule));
+            localStorage.setItem("batikan_schedule", JSON.stringify(activeBatikanSchedule));
         } catch(e) {}
 
         if (db) {
@@ -2013,6 +2197,7 @@
             db.collection("thunderbots_planlama").doc("ayarlar_ve_tablo").set({
                 appSettings: appSettings,
                 activeRoomSchedule: activeRoomSchedule,
+                activeBatikanSchedule: activeBatikanSchedule,
                 updatedAt: firebase.firestore.FieldValue.serverTimestamp()
             }, { merge: true })
             .then(() => {
@@ -2036,9 +2221,10 @@
                 updateSettingsFormUI();
             }
             const roomSaved = localStorage.getItem("thunderbots_room_schedule");
-            if (roomSaved) {
-                activeRoomSchedule = JSON.parse(roomSaved);
-            }
+            if (roomSaved) activeRoomSchedule = JSON.parse(roomSaved);
+
+            const batikanSaved = localStorage.getItem("batikan_schedule");
+            if (batikanSaved) activeBatikanSchedule = JSON.parse(batikanSaved);
         } catch(e) {}
     }
 
@@ -2046,16 +2232,20 @@
         document.getElementById('settingEligibleLessons').value = appSettings.eligibleLessons.join(", ");
         document.getElementById('settingBlockedLessons').value = (appSettings.blockedLessons || ["EĞİTİCİ", "FAALİYET", "KULÜP", "ZEKA"]).join(", ");
         document.getElementById('settingEligibleTeachers').value = appSettings.eligibleTeachers.join(", ");
+
+        document.getElementById('settingEtutLessons').value = (appSettings.etutLessons || ["BEDEN", "MÜZİK", "BİLİŞİM", "TEKNOLOJİ", "GÖRSEL"]).join(", ");
+        document.getElementById('settingEtutTeachers').value = (appSettings.etutTeachers || ["ENİS"]).join(", ");
+        document.getElementById('settingEtutClasses').value = (appSettings.etutClasses || ["5D", "5E", "6A", "6B"]).join(", ");
     }
 
     function autoSyncSettings() {
-        const lStr = document.getElementById('settingEligibleLessons').value;
-        const bStr = document.getElementById('settingBlockedLessons').value;
-        const tStr = document.getElementById('settingEligibleTeachers').value;
+        appSettings.eligibleLessons = document.getElementById('settingEligibleLessons').value.split(",").map(x => x.trim().toLocaleUpperCase('tr-TR')).filter(Boolean);
+        appSettings.blockedLessons = document.getElementById('settingBlockedLessons').value.split(",").map(x => x.trim().toLocaleUpperCase('tr-TR')).filter(Boolean);
+        appSettings.eligibleTeachers = document.getElementById('settingEligibleTeachers').value.split(",").map(x => x.trim().toLocaleUpperCase('tr-TR')).filter(Boolean);
 
-        appSettings.eligibleLessons = lStr.split(",").map(x => x.trim().toLocaleUpperCase('tr-TR')).filter(Boolean);
-        appSettings.blockedLessons = bStr.split(",").map(x => x.trim().toLocaleUpperCase('tr-TR')).filter(Boolean);
-        appSettings.eligibleTeachers = tStr.split(",").map(x => x.trim().toLocaleUpperCase('tr-TR')).filter(Boolean);
+        appSettings.etutLessons = document.getElementById('settingEtutLessons').value.split(",").map(x => x.trim().toLocaleUpperCase('tr-TR')).filter(Boolean);
+        appSettings.etutTeachers = document.getElementById('settingEtutTeachers').value.split(",").map(x => x.trim().toLocaleUpperCase('tr-TR')).filter(Boolean);
+        appSettings.etutClasses = document.getElementById('settingEtutClasses').value.split(",").map(x => x.trim().toLocaleUpperCase('tr-TR')).filter(Boolean);
 
         syncToCloud(true);
         refreshAllViews();
@@ -2066,25 +2256,23 @@
         closeSettingsModal();
     }
 
-    function restoreDefaultSchedule() {
+    function restoreDefaultSchedules() {
         activeRoomSchedule = JSON.parse(JSON.stringify(initialDefaultRoomSchedule));
+        activeBatikanSchedule = JSON.parse(JSON.stringify(initialBatikanSchedule));
         renderModalEditorGrid();
+        renderBatikanEditorGrid();
         syncToCloud(true);
         refreshAllViews();
-        showToast("Boş saatler çizelgesi varsayılana sıfırlandı.");
+        showToast("Tüm çizelgeler varsayılan ayarlara sıfırlandı.");
     }
 
-    /* KESİN ÇAĞRILABİLİRLİK DEĞERLENDİRMESİ (TÜRKÇE KARAKTER VE İÇERİR DESTEKLİ) */
+    /* KESİN ÇAĞRILABİLİRLİK DEĞERLENDİRMESİ (ROBOTİK) */
     function isLessonAvailable(l) {
         if (!l || !l.ders) return { ok: false, reason: "Ders yok" };
         const dNorm = normalizeTr(l.ders);
         const hNorm = normalizeTr(l.hoca || "");
 
-        // 1. Yasaklı / Muaf dersler kontrolü (Eğitici faaliyet, Zeka oyunları, Kulüp vb.)
-        const blockedList = (appSettings.blockedLessons || ["EĞİTİCİ", "FAALİYET", "KULÜP", "ZEKA"])
-            .map(x => normalizeTr(x))
-            .filter(Boolean);
-
+        const blockedList = (appSettings.blockedLessons || ["EĞİTİCİ", "FAALİYET", "KULÜP", "ZEKA"]).map(x => normalizeTr(x)).filter(Boolean);
         for (let k of blockedList) {
             if (dNorm.includes(k)) {
                 if (k.includes("zeka")) return { ok: false, reason: "Zeka Oyunları (Muaf)" };
@@ -2094,97 +2282,68 @@
             }
         }
 
-        // 2. Uygun / Çağrılabilir dersler kontrolü (Beden, Müzik, Görsel, Bilişim, Teknoloji vb.)
-        const eligibleList = (appSettings.eligibleLessons || ["BEDEN", "MÜZİK", "GÖRSEL", "BİLİŞİM", "TEKNOLOJİ"])
-            .map(x => normalizeTr(x))
-            .filter(Boolean);
-
+        const eligibleList = (appSettings.eligibleLessons || ["BEDEN", "MÜZİK", "GÖRSEL", "BİLİŞİM", "TEKNOLOJİ"]).map(x => normalizeTr(x)).filter(Boolean);
         for (let k of eligibleList) {
-            if (dNorm.includes(k)) {
-                return { ok: true, reason: `✅ ${l.ders} · Alınabilir` };
-            }
+            if (dNorm.includes(k)) return { ok: true, reason: `✅ ${l.ders} · Alınabilir` };
         }
 
-        // 3. Çağrılabilir öğretmenler kontrolü
-        const teachersList = (appSettings.eligibleTeachers || ["ENİS", "PEREZ", "MATTHEW"])
-            .map(x => normalizeTr(x))
-            .filter(Boolean);
-
+        const teachersList = (appSettings.eligibleTeachers || ["ENİS", "PEREZ", "MATTHEW"]).map(x => normalizeTr(x)).filter(Boolean);
         for (let k of teachersList) {
-            if (hNorm.includes(k)) {
-                return { ok: true, reason: `✅ ${l.hoca} · Alınabilir` };
-            }
+            if (hNorm.includes(k)) return { ok: true, reason: `✅ ${l.hoca} · Alınabilir` };
         }
 
         return { ok: false, reason: "Sınıfta Olmalı" };
     }
 
-    /* KESİN ÇAĞRILABİLİRLİK DEĞERLENDİRMESİ (ODA & ÖĞRETMEN MÜSAİTLİĞİ ZORUNLULUĞU)
-       Kural: BBRB veya RB olmadığı sürece (oda ve öğretmen boş olmadığı sürece)
-       öğrencinin dersi uygun olsa bile öğrenci çağrılamaz ve uygun gösterilmez. */
     function evaluateCallingStatus(l, day, period) {
         if (!l || !l.ders) {
-            return {
-                ok: false,
-                isRoomReady: false,
-                lessonOk: false,
-                reason: "Ders yok",
-                badgeClass: "pill-status-busy",
-                icon: "🔴"
-            };
+            return { ok: false, isRoomReady: false, lessonOk: false, reason: "Ders yok", badgeClass: "pill-status-busy", icon: "🔴" };
         }
-
         const roomStatus = (activeRoomSchedule[day] && activeRoomSchedule[day][period]) || "";
         const isRoomReady = (roomStatus === "BBRB" || roomStatus === "RB");
         const lessonStatus = isLessonAvailable(l);
 
         if (!isRoomReady) {
-            // Oda veya Öğretmen müsait değil (BBRB veya RB değil)
             if (lessonStatus.ok) {
-                return {
-                    ok: false,
-                    isRoomReady: false,
-                    lessonOk: true,
-                    reason: `⛔ Oda/Öğr. Dolu (Ders Uygun)`,
-                    detail: `Ders (${l.ders}) uygun ancak bu saatte öğretmen veya robotik atölyesi müsait değil (BBRB veya RB değil).`,
-                    badgeClass: "pill-status-room-busy",
-                    icon: "⚪"
-                };
+                return { ok: false, isRoomReady: false, lessonOk: true, reason: `⛔ Oda/Öğr. Dolu (Ders Uygun)`, detail: `Ders uygun ancak öğretmen veya robotik atölyesi müsait değil.`, badgeClass: "pill-status-room-busy", icon: "⚪" };
             } else {
-                return {
-                    ok: false,
-                    isRoomReady: false,
-                    lessonOk: false,
-                    reason: lessonStatus.reason,
-                    detail: lessonStatus.reason,
-                    badgeClass: "pill-status-busy",
-                    icon: "🔴"
-                };
+                return { ok: false, isRoomReady: false, lessonOk: false, reason: lessonStatus.reason, detail: lessonStatus.reason, badgeClass: "pill-status-busy", icon: "🔴" };
             }
         }
 
-        // Oda / Öğretmen müsait (BBRB veya RB)
         if (lessonStatus.ok) {
-            return {
-                ok: true,
-                isRoomReady: true,
-                lessonOk: true,
-                reason: lessonStatus.reason,
-                detail: lessonStatus.reason,
-                badgeClass: "pill-status-avail",
-                icon: "🟢"
-            };
+            return { ok: true, isRoomReady: true, lessonOk: true, reason: lessonStatus.reason, detail: lessonStatus.reason, badgeClass: "pill-status-avail", icon: "🟢" };
         } else {
-            return {
-                ok: false,
-                isRoomReady: true,
-                lessonOk: false,
-                reason: lessonStatus.reason,
-                detail: lessonStatus.reason,
-                badgeClass: "pill-status-busy",
-                icon: "🔴"
-            };
+            return { ok: false, isRoomReady: true, lessonOk: false, reason: lessonStatus.reason, detail: lessonStatus.reason, badgeClass: "pill-status-busy", icon: "🔴" };
         }
+    }
+
+    /* BİREYSEL ETÜT UYGUNLUK KONTROLÜ */
+    function checkEtutClassAvailability(cls, day, period) {
+        if (!progs[cls] || !progs[cls][day] || !progs[cls][day][period]) {
+            return { ok: false, ders: "-", hoca: "-", reason: "Program yok" };
+        }
+        const item = progs[cls][day][period];
+        const dNorm = normalizeTr(item.ders || "");
+        const hNorm = normalizeTr(item.hoca || "");
+
+        // 1. Öğretmen Kontrolü (örn. Enis Hoca)
+        const tList = (appSettings.etutTeachers || ["ENİS"]).map(x => normalizeTr(x)).filter(Boolean);
+        for (let t of tList) {
+            if (hNorm.includes(t)) {
+                return { ok: true, ders: item.ders, hoca: item.hoca, reason: `✅ ${item.hoca} · Alınabilir` };
+            }
+        }
+
+        // 2. Ders Kontrolü (Beden, Müzik, Bilişim, Teknoloji, Görsel)
+        const lList = (appSettings.etutLessons || ["BEDEN", "MÜZİK", "BİLİŞİM", "TEKNOLOJİ", "GÖRSEL"]).map(x => normalizeTr(x)).filter(Boolean);
+        for (let l of lList) {
+            if (dNorm.includes(l)) {
+                return { ok: true, ders: item.ders, hoca: item.hoca, reason: `✅ ${item.ders} · Alınabilir` };
+            }
+        }
+
+        return { ok: false, ders: item.ders, hoca: item.hoca, reason: "Ana Ders (Sınıfta Olmalı)" };
     }
 
     function refreshAllViews() {
@@ -2194,14 +2353,20 @@
         }
         renderMatrix();
         renderH();
+
+        // Bireysel Etüt görünümlerini yenile
+        updateBatikanBar();
+        renderEtutPeriodButtons();
+        renderEtutMatrix();
+        if (currentEtutPeriod) showEtutPeriod(currentEtutPeriod, null);
     }
 
     /* =======================================================
-       7. TAB 1: ANLIK DURUM VE FİLTRELEME
+       8. TAB 1: ROBOTİK ANLIK DURUM
        ======================================================= */
     let currentSelectedDay = "Pazartesi";
     let currentSelectedPeriod = null;
-    let currentPeriodFilter = "all"; // 'all', 'bbrb', 'all-empty'
+    let currentPeriodFilter = "all";
 
     function setPeriodFilter(filterType, btn) {
         currentPeriodFilter = filterType;
@@ -2265,17 +2430,10 @@
 
             if (status === "BBRB") {
                 statusHTML = `<span class="room-status-badge status-bbrb">🟢 BBRB: İkisi de Boş</span>`;
-                counterHTML = `<span class="badge-avail-counter ${availCount === 0 ? 'low' : ''}">
-                    ${availCount} / 8 Öğrenci Uygun ${isHigh ? '⭐' : ''}
-                </span>`;
+                counterHTML = `<span class="badge-avail-counter ${availCount === 0 ? 'low' : ''}">${availCount} / 8 Öğrenci Uygun ${isHigh ? '⭐' : ''}</span>`;
             } else if (status === "RB") {
                 statusHTML = `<span class="room-status-badge status-rb">🟣 RB: Robotik Boş</span>`;
-                counterHTML = `<span class="badge-avail-counter ${availCount === 0 ? 'low' : ''}">
-                    ${availCount} / 8 Öğrenci Uygun ${isHigh ? '⭐' : ''}
-                </span>`;
-            } else if (status === "KAPALI") {
-                statusHTML = `<span class="room-status-badge status-closed">⚫ Kapalı</span>`;
-                counterHTML = `<span class="badge-avail-counter low">0 / 8 (Kapalı)</span>`;
+                counterHTML = `<span class="badge-avail-counter ${availCount === 0 ? 'low' : ''}">${availCount} / 8 Öğrenci Uygun ${isHigh ? '⭐' : ''}</span>`;
             } else {
                 statusHTML = `<span style="font-size:10px; color:var(--text-muted); padding:2px 6px; background:#f1f5f9; border-radius:6px; border:1px solid #cbd5e1;">Ders / Dolu Saat</span>`;
                 counterHTML = `<span class="badge-avail-counter low">Uygun Değil</span>`;
@@ -2353,9 +2511,9 @@
             roomTag = `<span class="room-status-badge status-rb" style="font-size:0.8rem; padding:4px 10px;">🟣 RB: Robotik Odası Boş</span>`;
             copyStatusTag = "[🟣 RB: Robotik Boş]";
         } else {
-            roomTag = `<span class="room-status-badge status-closed" style="font-size:0.8rem; padding:4px 10px;">⛔ Oda / Öğretmen Dolu (BBRB/RB Değil)</span>`;
+            roomTag = `<span class="room-status-badge status-closed" style="font-size:0.8rem; padding:4px 10px;">⛔ Oda / Öğretmen Dolu</span>`;
             copyStatusTag = "[Ders / Oda Dolu]";
-            warningNote = `<div style="margin-top:12px; font-size:12.5px; color:#b91c1c; background:linear-gradient(135deg, #fff5f5 0%, #fef2f2 100%); border:1px solid #fecaca; padding:10px 14px; border-radius:10px; line-height:1.45; box-shadow:inset 0 1px 0 #ffffff;">
+            warningNote = `<div style="margin-top:12px; font-size:12.5px; color:#b91c1c; background:linear-gradient(135deg, #fff5f5 0%, #fef2f2 100%); border:1px solid #fecaca; padding:10px 14px; border-radius:10px; line-height:1.45;">
                 ⚠️ <strong>Oda veya Öğretmen Müsait Değil:</strong> Bu saatte öğretmen veya robotik atölyesi boş olmadığı için (BBRB veya RB değildir), dersi uygun olan öğrenciler de çağrılamaz.
             </div>`;
         }
@@ -2364,7 +2522,7 @@
             <div style="display:flex; align-items:center; flex-wrap:wrap; gap:8px;">
                 <span>📍 <strong>${g} ${dNo}. Ders ${timeStr}:</strong></span>
                 ${roomTag}
-                <span class="pill-badge" style="background:${isRoomReady ? 'var(--bbrb-bg)' : 'linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%)'}; border-color:${isRoomReady ? 'var(--bbrb-border)' : '#fecaca'}; color:${isRoomReady ? 'var(--bbrb-text)' : '#991b1b'}; font-weight:800; box-shadow:${isRoomReady ? 'var(--bbrb-shadow)' : 'inset 0 1px 0 #ffffff'};">
+                <span class="pill-badge" style="background:${isRoomReady ? 'var(--bbrb-bg)' : 'linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%)'}; border-color:${isRoomReady ? 'var(--bbrb-border)' : '#fecaca'}; color:${isRoomReady ? 'var(--bbrb-text)' : '#991b1b'}; font-weight:800;">
                     ${availTotal} / 8 Öğrenci Çağrılabilir
                 </span>
             </div>
@@ -2383,20 +2541,13 @@
 
     function copyCallingList() {
         if (!window.currentCallingListText) return;
-        const roomStatus = (activeRoomSchedule[currentSelectedDay] && activeRoomSchedule[currentSelectedDay][currentSelectedPeriod]) || "";
-        const isRoomReady = (roomStatus === "BBRB" || roomStatus === "RB");
-
         navigator.clipboard.writeText(window.currentCallingListText).then(() => {
-            if (!isRoomReady) {
-                showToast("⚠️ Bu saatte oda/öğretmen müsait olmadığından uygun değildir.");
-            } else {
-                showToast("Çağrı listesi panoya kopyalandı!");
-            }
+            showToast("Çağrı listesi panoya kopyalandı!");
         });
     }
 
     /* =======================================================
-       8. TAB 2: GÜNLÜK TAKIM MATRİSİ (ISI HARİTASI)
+       9. TAB 2: ROBOTİK MATRİSİ (ISI HARİTASI)
        ======================================================= */
     let currentMatrixDay = "Pazartesi";
 
@@ -2449,11 +2600,8 @@
                 if (st.ok) columnAvailCount[d]++;
 
                 let cellClass = "busy";
-                if (st.ok) {
-                    cellClass = "avail";
-                } else if (st.lessonOk && !st.isRoomReady) {
-                    cellClass = "room-busy";
-                }
+                if (st.ok) cellClass = "avail";
+                else if (st.lessonOk && !st.isRoomReady) cellClass = "room-busy";
 
                 tbodyHTML += `
                     <td>
@@ -2467,7 +2615,6 @@
             tbodyHTML += `</tr>`;
         });
 
-        // Summary row
         tbodyHTML += `<tr class="matrix-total-row">`;
         tbodyHTML += `<td style="text-align:left; padding-left:14px; font-weight:800; color:var(--text-main);">Toplam Uygun</td>`;
         displayPeriods.forEach(d => {
@@ -2484,22 +2631,15 @@
                     </td>
                 `;
             } else {
-                tbodyHTML += `
-                    <td style="color:var(--text-muted); opacity:0.6; font-size:11px;">
-                        -
-                        <div style="font-size:9px;">Oda Dolu</div>
-                    </td>
-                `;
+                tbodyHTML += `<td style="color:var(--text-muted); opacity:0.6; font-size:11px;">- <div style="font-size:9px;">Oda Dolu</div></td>`;
             }
         });
-        tbodyHTML += `</tr>`;
-        tbodyHTML += `</tbody>`;
-
+        tbodyHTML += `</tr></tbody>`;
         table.innerHTML = theadHTML + tbodyHTML;
     }
 
     /* =======================================================
-       9. TAB 3: ÖĞRENCİ BİREYSEL PROGRAMI
+       10. TAB 3: ÖĞRENCİ BİREYSEL PROGRAMI (ROBOTİK)
        ======================================================= */
     let hG = "Pazartesi", hO = "batu";
 
@@ -2551,13 +2691,9 @@
             else roomTag = `<span style="font-size:9px; color:var(--text-muted); margin-left:6px; background:#f1f5f9; padding:2px 5px; border-radius:4px; border:1px solid #e2e8f0;">Dolu</span>`;
 
             let pillHTML = "";
-            if (st.ok) {
-                pillHTML = `<span class="card-status-pill pill-status-avail">🟢 Çağrılabilir</span>`;
-            } else if (st.lessonOk && !isRoomReady) {
-                pillHTML = `<span class="card-status-pill pill-status-room-busy">⚠️ Oda/Öğr. Dolu</span>`;
-            } else {
-                pillHTML = `<span class="card-status-pill pill-status-busy">🔴 Sınıfta</span>`;
-            }
+            if (st.ok) pillHTML = `<span class="card-status-pill pill-status-avail">🟢 Çağrılabilir</span>`;
+            else if (st.lessonOk && !isRoomReady) pillHTML = `<span class="card-status-pill pill-status-room-busy">⚠️ Oda/Öğr. Dolu</span>`;
+            else pillHTML = `<span class="card-status-pill pill-status-busy">🔴 Sınıfta</span>`;
 
             const row = document.createElement("div");
             row.className = `schedule-row ${st.ok ? 'is-call' : ''}`;
@@ -2570,9 +2706,7 @@
                     <strong>${l.ders} ${roomTag}</strong>
                     <span>👤 ${l.hoca}</span>
                 </div>
-                <div>
-                    ${pillHTML}
-                </div>
+                <div>${pillHTML}</div>
             `;
             res.appendChild(row);
         });
@@ -2581,17 +2715,329 @@
     }
 
     /* =======================================================
-       10. SETTINGS MODAL: İNTERAKTİF BOŞ SAATLER ÇİZELGESİ EDİTÖRÜ
+       11. TAB 4: BİREYSEL ETÜT (EN SAĞDAKİ SEKME)
+       ======================================================= */
+    let currentEtutDay = "Pazartesi";
+    let currentEtutPeriod = null;
+
+    function selectEtutDay(g, btn) {
+        currentEtutDay = g;
+        document.querySelectorAll('#etutDayContainer .plate-box').forEach(x => x.classList.remove('active'));
+        if (btn) btn.classList.add('active');
+        updateBatikanBar();
+        renderEtutPeriodButtons();
+        renderEtutMatrix();
+        document.getElementById('etutResultsArea').style.display = 'none';
+        currentEtutPeriod = null;
+    }
+
+    function updateBatikanBar() {
+        const info = document.getElementById('batikanBarInfo');
+        const mini = document.getElementById('batikanSlotsMini');
+        mini.innerHTML = "";
+
+        for (let p = 1; p <= 8; p++) {
+            const slot = getBatikanSlotInfo(currentEtutDay, p);
+
+            const span = document.createElement("span");
+            let cls = "busy";
+            let txt = `${p}.D: ${slot.rawText}`;
+            if (slot.status === "halfday") {
+                cls = "halfday";
+                txt = `${p}.D: 🕒 Yarım Gün (${slot.rawText})`;
+            } else if (slot.status === "free") {
+                cls = "free";
+                txt = `${p}.D: BOŞ (${slot.rawText})`;
+            }
+            span.className = `mini-slot-pill ${cls}`;
+            span.innerText = txt;
+            mini.appendChild(span);
+        }
+
+        info.innerHTML = `<span>📌 <strong>${currentEtutDay} Boş Dersler</strong></span>`;
+    }
+
+    function renderEtutPeriodButtons() {
+        const pc = document.getElementById('etutPeriodContainer');
+        pc.innerHTML = "";
+        const onlyFree = document.getElementById('etutOnlyFreeCheck').checked;
+        const timeDict = (currentEtutDay === "Cuma") ? lessonTimes.Cuma : lessonTimes.Haftaici;
+
+        let shown = 0;
+        for (let p = 1; p <= 8; p++) {
+            const slot = getBatikanSlotInfo(currentEtutDay, p);
+            if (onlyFree && !slot.isFree) continue;
+
+            shown++;
+            let matchCount = 0;
+            (appSettings.etutClasses || ["5D", "5E", "6A", "6B"]).forEach(c => {
+                if (checkEtutClassAvailability(c, currentEtutDay, p).ok) matchCount++;
+            });
+
+            const box = document.createElement("div");
+            let boxClass = "plate-box";
+            if (slot.status === "halfday") boxClass += " is-halfday-slot";
+            else if (slot.status === "free") boxClass += " is-free-slot";
+            else boxClass += " is-busy-slot";
+
+            if (currentEtutPeriod === p) boxClass += " active";
+            box.className = boxClass;
+
+            let teacherTag = slot.badgeHtml;
+            let matchTag = "";
+
+            if (slot.status === "halfday") {
+                matchTag = `<span class="badge-avail-counter" style="background:#eff6ff; color:#1e40af; border-color:#bfdbfe;">${matchCount} / ${appSettings.etutClasses.length} Sınıf (Okulda Kalırsanız)</span>`;
+            } else if (slot.status === "free") {
+                matchTag = `<span class="badge-avail-counter ${matchCount > 0 ? 'etut-gold' : 'low'}">${matchCount} / ${appSettings.etutClasses.length} Sınıf Uygun</span>`;
+            } else {
+                matchTag = `<span class="badge-avail-counter low">Dersiniz Var</span>`;
+            }
+
+            box.innerHTML = `
+                <span class="box-primary-text">${p}. Ders</span>
+                <span class="box-sub-text">${timeDict[p] || ''}</span>
+                ${teacherTag}
+                ${matchTag}
+            `;
+            box.onclick = () => showEtutPeriod(p, box);
+            pc.appendChild(box);
+        }
+
+        if (shown === 0) {
+            pc.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:18px; background:#fff; border-radius:14px; border:1px solid #e2e8f0; color:#64748b;">Bu günde ilk 8 derste boş dersiniz bulunamadı. "Sadece Boş Saatlerimi Göster" işaretini kaldırarak tüm dersleri görebilirsiniz.</div>`;
+        }
+    }
+
+    function showEtutPeriod(period, boxElem) {
+        currentEtutPeriod = period;
+        document.querySelectorAll('#etutPeriodContainer .plate-box').forEach(x => x.classList.remove('active'));
+        if (boxElem) boxElem.classList.add('active');
+
+        const slot = getBatikanSlotInfo(currentEtutDay, period);
+        const timeDict = (currentEtutDay === "Cuma") ? lessonTimes.Cuma : lessonTimes.Haftaici;
+        const timeStr = timeDict[period] ? `(${timeDict[period]})` : "";
+
+        const summary = document.getElementById('etutSummaryText');
+        const cards = document.getElementById('etutClassCards');
+        cards.innerHTML = "";
+
+        let callList = [];
+        let okCount = 0;
+
+        (appSettings.etutClasses || ["5D", "5E", "6A", "6B"]).forEach(cls => {
+            const st = checkEtutClassAvailability(cls, currentEtutDay, period);
+            const canPull = slot.isFree && st.ok;
+
+            if (canPull) {
+                okCount++;
+                callList.push(`✅ ${cls} Sınıfı: [${st.ders}] · Öğretmen: ${st.hoca}`);
+            }
+
+            let cardCls = "student-glass-card";
+            let pillCls = "card-status-pill";
+            let pillText = st.reason;
+
+            if (canPull) {
+                if (slot.status === "halfday") {
+                    cardCls += " is-halfday-match";
+                    pillText = "🕒 Alınabilir (Okulda Kalırsanız)";
+                } else {
+                    cardCls += " is-etut-match";
+                    pillCls += " pill-status-etut";
+                }
+            } else if (st.ok) {
+                cardCls += " is-available";
+                pillCls += " pill-status-avail";
+                pillText = "⚠️ Batıkan Hoca Dolu";
+            } else {
+                cardCls += " is-busy";
+                pillCls += " pill-status-busy";
+            }
+
+            const card = document.createElement("div");
+            card.className = cardCls;
+            card.innerHTML = `
+                <div class="card-top-row">
+                    <div>
+                        <div class="card-student-name">${cls} Sınıfı</div>
+                        <div class="card-student-sub">Hedef Etüt Şubesi</div>
+                    </div>
+                    <span class="class-glass-badge">${cls}</span>
+                </div>
+                <div class="card-divider"></div>
+                <div class="card-lesson-block">
+                    <span class="card-lesson-name">
+                        <span>${st.ok ? '🟢' : '🔴'}</span> ${st.ders}
+                    </span>
+                    <span class="card-teacher-name">👤 ${st.hoca}</span>
+                </div>
+                <div class="${pillCls}" ${slot.status === "halfday" && canPull ? 'style="background:linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); color:#1d4ed8; border:1px solid #93c5fd;"' : ''}>
+                    ${pillText}
+                </div>
+            `;
+            cards.appendChild(card);
+        });
+
+        let teacherStatusPill = "";
+        let noticeBox = "";
+
+        if (slot.status === "halfday") {
+            teacherStatusPill = `<span class="pill-badge" style="background:linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); border-color:#93c5fd; color:#1d4ed8; font-weight:800;">🕒 Yarım Gün (Okulda Kalınırsa Yapılabilir)</span>`;
+            noticeBox = `<div style="margin-top:10px; font-size:12px; color:#1e40af; background:linear-gradient(135deg, #eff6ff 0%, #f0f7ff 100%); border:1px solid #bfdbfe; padding:8px 14px; border-radius:10px; line-height:1.4;">
+                ℹ️ <strong>Yarım Gün Saati:</strong> Normal şartlarda çıkış saatinizdir. Ancak okulda kaldığınız günlerde bu saatlerde etüt yapabilirsiniz.
+            </div>`;
+        } else if (slot.status === "free") {
+            teacherStatusPill = `<span class="pill-badge status-bbrb" style="color:#047857;">🟢 Batıkan Hoca MÜSAİT</span>`;
+        } else {
+            teacherStatusPill = `<span class="pill-badge" style="background:#fee2e2; border-color:#fca5a5; color:#991b1b;">🔴 Batıkan Hoca Derste</span>`;
+        }
+
+        summary.innerHTML = `
+            <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+                <span>🎯 <strong>${currentEtutDay} ${period}. Ders ${timeStr}:</strong></span>
+                ${teacherStatusPill}
+                <span class="pill-badge status-etut">
+                    ${okCount} / ${appSettings.etutClasses.length} Sınıftan Etüt Yapılabilir
+                </span>
+            </div>
+            ${noticeBox}
+        `;
+
+        const copyStatusTag = (slot.status === "halfday") ? "[🕒 Yarım Gün / Okulda Kalınırsa]" : "[🟢 Müsait Boş Saat]";
+
+        window.currentEtutCopyText = `🎯 BİREYSEL MATEMATİK ETÜDÜ - ${currentEtutDay} ${period}. Ders ${timeStr} ${copyStatusTag}\n` +
+            (slot.isFree ? 
+                (callList.length > 0 ? "Alınabilecek Şubeler ve Dersler:\n" + callList.join("\n") : "Bu saatte 4 sınıftan da etüt için uygun ders bulunmuyor.") :
+                "⚠️ Bu saatte Batıkan Hoca'nın başka bir görevi/dersi bulunmaktadır.");
+
+        document.getElementById('etutResultsArea').style.display = 'block';
+    }
+
+    function copyEtutCallingList() {
+        if (!window.currentEtutCopyText) return;
+        navigator.clipboard.writeText(window.currentEtutCopyText).then(() => {
+            showToast("Bireysel etüt planı panoya kopyalandı!");
+        });
+    }
+
+    function renderEtutMatrix() {
+        const table = document.getElementById('etutMatrixTable');
+        const g = currentEtutDay;
+        const timeDict = (g === "Cuma") ? lessonTimes.Cuma : lessonTimes.Haftaici;
+
+        let thead = `<thead><tr>
+            <th style="text-align:left; padding-left:14px; min-width:110px;">Ders Saati</th>
+            <th style="min-width:140px;">Batıkan Öztunalı</th>`;
+        (appSettings.etutClasses || ["5D", "5E", "6A", "6B"]).forEach(c => {
+            thead += `<th style="min-width:130px;">${c} Sınıfı</th>`;
+        });
+        thead += `</tr></thead><tbody>`;
+
+        let rows = "";
+        for (let p = 1; p <= 8; p++) {
+            const slot = getBatikanSlotInfo(g, p);
+
+            let batikanBadge = "";
+            if (slot.status === "halfday") {
+                batikanBadge = `<span class="room-status-badge" style="background:linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); color:#1d4ed8; border:1px solid #93c5fd; font-size:10.5px; padding:3px 7px;">🕒 Yarım Gün (x)</span>`;
+            } else if (slot.status === "free") {
+                batikanBadge = `<span class="room-status-badge status-bbrb" style="font-size:11px; padding:4px 8px;">🟢 BOŞ (${slot.rawText})</span>`;
+            } else {
+                batikanBadge = `<span class="room-status-badge status-closed" style="font-size:11px; padding:4px 8px;">${slot.rawText}</span>`;
+            }
+
+            rows += `<tr>
+                <td style="text-align:left; padding-left:14px; font-weight:800;">
+                    ${p}. Ders <small style="display:block; color:var(--text-muted); font-weight:500;">${timeDict[p] || ''}</small>
+                </td>
+                <td>${batikanBadge}</td>`;
+
+            (appSettings.etutClasses || ["5D", "5E", "6A", "6B"]).forEach(cls => {
+                const st = checkEtutClassAvailability(cls, g, p);
+                const isMatch = slot.isFree && st.ok;
+
+                let clsName = "busy";
+                let tooltip = `${st.ders} (${st.hoca})`;
+
+                if (isMatch) {
+                    if (slot.status === "halfday") {
+                        clsName = "halfday-avail";
+                        tooltip += " - Yarım gün (okulda kalırsanız yapılabilir)";
+                    } else {
+                        clsName = "etut-avail";
+                    }
+                } else if (st.ok) {
+                    clsName = "avail";
+                }
+
+                rows += `<td>
+                    <div class="matrix-cell-plate ${clsName}" title="${tooltip}">
+                        ${st.ders.substring(0, 13)}${st.ders.length > 13 ? '...' : ''}
+                        <span class="cell-teacher">${(st.hoca || '').split(' ')[0]}</span>
+                    </div>
+                </td>`;
+            });
+
+            rows += `</tr>`;
+        }
+
+        table.innerHTML = thead + rows + `</tbody>`;
+    }
+
+    /* =======================================================
+       12. MODAL TABLOLARI: BATIKAN HOCA & ROBOTİK
        ======================================================= */
     const daysList = ["Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma"];
 
+    function renderBatikanEditorGrid() {
+        const table = document.getElementById('batikanEditorGrid');
+        let html = `<thead><tr><th>GÜN</th>`;
+        for (let d = 1; d <= 8; d++) html += `<th>${d}. Ders</th>`;
+        html += `</tr></thead><tbody>`;
+
+        daysList.forEach(day => {
+            html += `<tr><td style="font-weight:700; text-align:left; padding-left:8px;">${day}</td>`;
+            for (let d = 1; d <= 8; d++) {
+                const val = (activeBatikanSchedule[day] && activeBatikanSchedule[day][d]) || "BOŞ";
+                const slot = getBatikanSlotInfo(day, d);
+
+                let btnStyle = "background:#ffffff; color:#1e293b;";
+                if (slot.status === "halfday") {
+                    btnStyle = "background:linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); color:#1d4ed8; border:1px solid #93c5fd; font-weight:800;";
+                } else if (slot.status === "free") {
+                    btnStyle = "background:#ecfdf5; color:#047857; border:1px solid #86efac; font-weight:800;";
+                }
+
+                html += `<td>
+                    <button type="button" class="editor-cell-btn" style="${btnStyle}" onclick="toggleBatikanSlot('${day}', ${d}, this)">
+                        ${val}
+                    </button>
+                </td>`;
+            }
+            html += `</tr>`;
+        });
+        html += `</tbody>`;
+        table.innerHTML = html;
+    }
+
+    function toggleBatikanSlot(day, p, btn) {
+        const cur = (activeBatikanSchedule[day] && activeBatikanSchedule[day][p]) || "BOŞ";
+        let next = "";
+        if (cur === "BOŞ" || cur === "5T" || cur === "6T") next = "x";
+        else if (cur === "x" || cur === "X") next = "DOLU";
+        else next = "BOŞ";
+
+        activeBatikanSchedule[day][p] = next;
+        syncToCloud(false);
+        renderBatikanEditorGrid();
+        refreshAllViews();
+    }
+
     function renderModalEditorGrid() {
         const table = document.getElementById('editorGridTable');
-        
         let html = `<thead><tr><th>GÜN</th>`;
-        for (let d = 1; d <= 9; d++) {
-            html += `<th>${d}</th>`;
-        }
+        for (let d = 1; d <= 9; d++) html += `<th>${d}</th>`;
         html += `</tr></thead><tbody>`;
 
         daysList.forEach(day => {
@@ -2601,24 +3047,20 @@
                     html += `<td><div class="editor-cell-btn state-club">Kulüp</div></td>`;
                     continue;
                 }
-
                 const val = (activeRoomSchedule[day] && activeRoomSchedule[day][d]) || "";
                 let cls = "state-empty";
                 let text = "-";
                 if (val === "BBRB") { cls = "state-bbrb"; text = "BBRB"; }
                 else if (val === "RB") { cls = "state-rb"; text = "RB"; }
 
-                html += `
-                    <td>
-                        <button type="button" class="editor-cell-btn ${cls}" onclick="cycleRoomCell('${day}', ${d}, this)">
-                            ${text}
-                        </button>
-                    </td>
-                `;
+                html += `<td>
+                    <button type="button" class="editor-cell-btn ${cls}" onclick="cycleRoomCell('${day}', ${d}, this)">
+                        ${text}
+                    </button>
+                </td>`;
             }
             html += `</tr>`;
         });
-
         html += `</tbody>`;
         table.innerHTML = html;
     }
@@ -2633,17 +3075,15 @@
         else if (cur === "BBRB") next = "";
 
         activeRoomSchedule[day][period] = next;
-
         btn.className = "editor-cell-btn " + (next === "BBRB" ? "state-bbrb" : (next === "RB" ? "state-rb" : "state-empty"));
         btn.innerText = next ? next : "-";
 
-        // Değişikliği anında buluta senkronize et
         syncToCloud(false);
         refreshAllViews();
     }
 
     /* =======================================================
-       11. GENEL GEÇİŞLER, MODAL & BİLDİRİM
+       13. GENEL GEÇİŞLER, MODAL & BAŞLATMA
        ======================================================= */
     function switchTab(t, b) {
         document.querySelectorAll('.nav-tab-btn').forEach(x => x.classList.remove('active'));
@@ -2653,11 +3093,17 @@
 
         if (t === 'matris') renderMatrix();
         if (t === 'haftalik') renderH();
+        if (t === 'etut') {
+            updateBatikanBar();
+            renderEtutPeriodButtons();
+            renderEtutMatrix();
+        }
     }
 
     function openSettingsModal() {
         updateSettingsFormUI();
         renderModalEditorGrid();
+        renderBatikanEditorGrid();
         document.getElementById('settingsModal').classList.add('open');
     }
     function closeSettingsModal() {
@@ -2676,14 +3122,9 @@
         if (e.target === m) closeSettingsModal();
     };
 
-    /* =======================================================
-       12. SAYFA YÜKLENDİĞİNDE BAŞLATMA
-       ======================================================= */
     window.onload = () => {
-        // Önce yerel yedeği yükle (hızlı açılış)
         loadLocalSettingsFallback();
 
-        // 1. Öğrenci butonlarını oluştur (Bireysel sekmesi için)
         const hc = document.getElementById('hStudentContainer');
         ogrs.forEach((o, idx) => {
             const b = document.createElement("div");
@@ -2696,13 +3137,13 @@
             hc.appendChild(b);
         });
 
-        // Tab 1 başlat
+        // Tab 1 başlat (Anlık Durum)
         selectDay("Pazartesi", document.querySelector('#dayContainer .plate-box'));
-
         // Tab 3 başlat
         renderH();
+        // Tab 4 (Bireysel Etüt) verilerini hazırla
+        selectEtutDay("Pazartesi", document.querySelector('#etutDayContainer .plate-box'));
 
-        // Firebase Bulut Dinleyicisini Başlat
         initFirebaseCloud();
     };
 </script>
